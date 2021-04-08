@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+:root{
+  --primary-color: #7a26b0;
+  --secundary-color: #fecb30;
+  --terciary-color: #d71f46;
+  
+  --primary-font: 'Dela Gothic One', cursive;
+}

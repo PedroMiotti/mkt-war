@@ -1,0 +1,31 @@
+.Avatar-Container{
+  width: 300px;
+  height: 180px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.Avatar-Image-Container{
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.Avatar-image{
+  width: auto;
+  height: 100%
+}
+
+
+.Avatar-Username{
+  font-family: var(--primary-font);
+  font-size: 26px;
+  color: #fff;
+}
