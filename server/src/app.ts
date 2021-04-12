@@ -11,7 +11,8 @@ import helmet = require('helmet');
 // Body Parser
 import bodyParser = require('body-parser');
 
-import User = require('./routes/user.js');
+import User = require('./routes/user');
+import Match = require('./routes/match');
 
 // CONFIG 
 // Helmet
@@ -26,10 +27,8 @@ app.use(cors({
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.get('/', (req: express.Request, res: express.Response) => {
-  res.send('Hello World!')
-})
-
+// Routes
 app.use('/api/v1/user', User);
+app.use('/api/v1/match', Match);
 
 export = app;

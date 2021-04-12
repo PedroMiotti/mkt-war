@@ -5,7 +5,8 @@
     "lib": ["es2017"],
     "sourceMap": true,
     "rootDir": "./src",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "strict": false
   },
   "exclude": [
     "node_modules"

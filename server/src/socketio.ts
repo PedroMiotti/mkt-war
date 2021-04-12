@@ -1,6 +1,9 @@
 // Socket IO
-// const socketio = require('socket.io');
 import ioServer = require('socket.io');
+
+import SocketEvents = require('./constants/SocketEvents');
+
+import MatchService = require('./services/match.service');
 
 
 export = function createConnection(http: any){
@@ -11,11 +14,17 @@ export = function createConnection(http: any){
 
   const io = ioServer(http, options);
 
-  io.on('connect', (socket: ioServer.Socket) => {
+  io.on(SocketEvents.CLIENT_CONNECT, (socket: ioServer.Socket) => {
 
     // Socket events goes here
-    console.log('connected' + socket.id);
+    console.log('connected ' + socket.id);
+
+    socket.on(SocketEvents.CLIENT_INVITE_PLAYER, ({ matchId, ownerId, opponent_id }) =>  MatchService.SendInvite(matchId, ownerId, opponent_id, io))
+    
+    socket.on(SocketEvents.CLIENT_CONFIRM_INVITE, ({matchId, userId}) => MatchService.JoinMatch(matchId, userId, io));
   });
+
+
 
   return io;
 

@@ -9,7 +9,8 @@ const cors = require("cors");
 const helmet = require("helmet");
 // Body Parser
 const bodyParser = require("body-parser");
-const User = require("./routes/user.js");
+const User = require("./routes/user");
+const Match = require("./routes/match");
 // CONFIG 
 // Helmet
 app.use(helmet());
@@ -22,9 +23,8 @@ app.use(cors({
 // BodyParser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+// Routes
 app.use('/api/v1/user', User);
+app.use('/api/v1/match', Match);
 module.exports = app;
 //# sourceMappingURL=app.js.map
