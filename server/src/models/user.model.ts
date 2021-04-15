@@ -22,13 +22,23 @@ interface IUserLogin {
 }
 
 class UserModel {
-  private id: number;
-  private name: string;
-  private username: string;
-  private password: string;
-  private trophies: number;
-  private avatar: number;
-  private coins: number;
+  public id: number;
+  public name: string;
+  public username: string;
+  public password: string;
+  public trophies: number;
+  public avatar: number;
+  public coins: number;
+
+
+  public static async UserConnected(userId: number, socketId: string): Promise<void>{
+
+    await Sql.conectar(async (sql: Sql) => {
+      await sql.query("INSERT INTO online_players (online_player_id, online_player_socketId) VALUES (?, ?)", [userId, socketId]);
+
+    })
+
+  }
 
   // --> Efetuar login
   public static async login(
@@ -91,6 +101,7 @@ class UserModel {
 
       if(row){
         user = new UserModel();
+        user.id = row.player_id;
         user.name = row.player_name;
         user.username = row.player_username;
         user.trophies = row.player_trophies;
@@ -113,11 +124,28 @@ class UserModel {
 
       res = await sql.query("SELECT online_player_socketid FROM online_players WHERE online_player_id = ?", [userId]);
 
-      user_socketId = res[0];
+      user_socketId = res[0].online_player_socketid;
       
     })
 
     return user_socketId;
+
+  }
+
+  public static async Logout(userId: number): Promise<string>{
+
+    let res: string;
+
+    await Sql.conectar(async (sql: Sql) => {
+
+      await sql.query("DELETE FROM online_players WHERE online_player_id = ?", [userId]);
+
+      res = sql.linhasAfetadas.toString();
+
+    });
+
+    return res;
+
 
   }
 

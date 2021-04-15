@@ -121,5 +121,34 @@ export const GetUserSocketIdById = async (userId: number): Promise<string | IErr
       
   return socketId;
 
+}
+
+
+export const UserConnected = async (userId: string, socketId: string):Promise<void> => {
+
+  await UserModel.UserConnected(parseInt(userId), socketId);
+
+}
+
+
+export const Logout = async (userId: number): Promise<string | IErrorResponse> => {
+
+  let result: string;
+
+  if(!userId)
+      return {
+        errorCode: 4,
+        data: "Usuário não encontrado !",
+      };
+
+   result = await UserModel.Logout(userId);
+
+   if(!result)
+      return {
+        errorCode: 4,
+        data: "Usuário não está online !",
+      };
+
+    return 'Usuario logout';
 
 }

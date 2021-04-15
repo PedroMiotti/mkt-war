@@ -3,6 +3,7 @@
 const ioServer = require("socket.io");
 const SocketEvents = require("./constants/SocketEvents");
 const MatchService = require("./services/match.service");
+const UserService = require("./services/user.service");
 module.exports = function createConnection(http) {
     const options = {
         cors: true,
@@ -10,10 +11,11 @@ module.exports = function createConnection(http) {
     };
     const io = ioServer(http, options);
     io.on(SocketEvents.CLIENT_CONNECT, (socket) => {
-        // Socket events goes here
-        console.log('connected ' + socket.id);
-        socket.on(SocketEvents.CLIENT_INVITE_PLAYER, ({ matchId, ownerId, opponent_id }) => MatchService.SendInvite(matchId, ownerId, opponent_id, io));
-        socket.on(SocketEvents.CLIENT_CONFIRM_INVITE, ({ matchId, userId }) => MatchService.JoinMatch(matchId, userId, io));
+        console.log("connected " + socket.id);
+        socket.on(SocketEvents.CLIENT_UPDATE_STATUS, ({ userId }) => UserService.UserConnected(userId, socket.id));
+        socket.on(SocketEvents.CLIENT_INVITE_PLAYER, ({ matchId, opponentId, ownerId }) => MatchService.SendInvite(matchId, opponentId, ownerId, io));
+        socket.on(SocketEvents.CLIENT_JOIN_MATCH, ({ matchId, userId }) => MatchService.JoinRoom(matchId, userId, socket, io));
+        socket.on(SocketEvents.CLIENT_DISCONNECT, () => console.log("Disconnected " + socket.id));
     });
     return io;
 };

@@ -6,7 +6,7 @@ import { SocketContext } from "../socket";
 import { instance as axios } from "../api";
 
 // Utils
-import { getUserIdByToken, IToken } from '../../utils/getUserIdByToken'
+import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
 import { getCookie, deleteCookie } from "../../utils/handleCookie";
 import history from "../../utils/history";
 
@@ -36,7 +36,6 @@ const UserState: React.FC = ({ children }) => {
 
   const baseUrl = "/api/v1/user";
 
-
   // Create User
   const createUser = async (values: {
     username: string;
@@ -65,13 +64,13 @@ const UserState: React.FC = ({ children }) => {
         .catch((e) => {
           dispatch({
             type: SET_ERROR,
-            payload: { message: e.response.data.message },
+            payload: { message: e.response.data },
           });
         });
     } catch (e) {
       dispatch({
         type: SET_ERROR,
-        payload: { message: e.response.data.message },
+        payload: { message: e.response.data },
       });
     }
   };
@@ -95,18 +94,20 @@ const UserState: React.FC = ({ children }) => {
             payload: { username, id: user_id.key.toString() },
           });
 
+          socket.emit("online:player", { userId: user_id.key.toString() });
+
           history.push("/home");
         })
         .catch((e) => {
           dispatch({
             type: SET_ERROR,
-            payload: { message: e.response.data.message },
+            payload: { message: e.response.data },
           });
         });
     } catch (e) {
       dispatch({
         type: SET_ERROR,
-        payload: { message: e.response.data.message },
+        payload: { message: e.response.data },
       });
     }
   };
@@ -121,26 +122,55 @@ const UserState: React.FC = ({ children }) => {
 
           dispatch({
             type: USER_PROFILE,
-            payload: { name, username, avatar, coins, trophies }
-          })
+            payload: { name, username, avatar, coins, trophies },
+          });
         })
         .catch((e) => {
           dispatch({
             type: SET_ERROR,
-            payload: { message: e.response.data.message },
+            payload: { message: e.response.data },
           });
         });
     } catch (e) {
       dispatch({
         type: SET_ERROR,
-        payload: { message: e.response.data.message },
+        payload: { message: e.response.data },
+      });
+    }
+  };
+
+  // Logout
+  const logout = async (userId: string) => {
+
+    try {
+      await axios
+        .delete(baseUrl + `/logout/${userId}`)
+        .then(() => {
+
+          deleteCookie("_token");
+
+          history.push("/login");
+
+          dispatch({
+            type: LOGOUT,
+          });
+        })
+
+        .catch((e) => {
+          dispatch({
+            type: SET_ERROR,
+            payload: { message: e.response.data },
+          });
+        });
+    } catch (e) {
+      dispatch({
+        type: SET_ERROR,
+        payload: { message: e.response.data },
       });
     }
   };
 
   const updateUser = () => {};
-
-  const logout = () => {};
 
   const deleteUser = () => {};
 

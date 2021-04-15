@@ -1,12 +1,11 @@
 
 
 // room context
-export const CREATE_ROOM: string = 'CREATE_ROOM';
-export const JOIN_ROOM: string = 'JOIN_ROOM';
-export const SET_CURRENT_USER: string = 'SET_CURRENT_USER';
-export const LEAVE_ROOM: string = 'LEAVE_ROOM';
-export const UPDATE_ROOM_USERS: string = 'UPDATE_ROOM_USERS';
+export const CREATE_MATCH: string = 'CREATE_MATCH';
+export const JOIN_MATCH: string = 'JOIN_MATCH';
+export const MATCH_READY: string = 'MATCH_READY';
 
+export const HANDLE_INVITE: string = 'HANDLE_INVITE';
 
 // User context
 export const CREATE_USER: string = 'CREATE_USER';

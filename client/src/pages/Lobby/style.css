@@ -1,0 +1,151 @@
+.lobby-container{
+  height: 100vh;
+  width: 100vw;
+
+  background-color: var(--primary-color);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.lobby-header{
+  height: 5vh;
+  width: 95%;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: 2px;
+  margin-top: 30px;
+
+}
+
+.BackButton-icon{
+  height: 40px;
+  width: 40px;
+
+}
+
+.lobby-players-section{
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+}
+
+.lobby-opponent-section,
+.lobby-owner-section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.lobby-opponent-info{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+
+  margin-right: 18px;
+}
+
+.lobby-owner-info{
+  margin-left: 18px;
+}
+
+.lobby-opponent-info,
+.lobby-owner-info{
+  font-family: var(--secundary-font); 
+  font-weight: 800;
+  font-size: 26px;
+  color: #fff;
+  width: 300px;
+}
+
+.lobby-trophy-section{
+  display: flex;
+  align-items: center;
+
+  padding: 5px;
+  width: 80px;
+  margin-top: 12px;
+
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.lobby-opponent-info h4,
+.lobby-owner-info h4{
+  font-weight: 400;
+}
+
+.lobby-opponent-info p,
+.lobby-owner-info p{
+  font-weight: 100;
+  font-size: 24px;
+  margin-left: 5px;
+  color: #000;
+}
+
+.Lobby-trophy-icon{
+  height: 20px;
+  width: 20px;
+  margin-left: 5px;
+}
+
+.Lobby-avatar-icon{
+  height: 100px;
+  width: 100px;
+
+}
+
+.lobby-divider{
+  display: grid;
+  align-items: center;
+}
+
+.lobby-divider-icon-container{
+  justify-self: center;
+  align-self: start;
+
+  height: 100px;
+  width: 100px;
+
+  background-color: #fff;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lobby-divider-line,
+.lobby-divider-icon-container{
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.lobby-divider-line{
+  height: 5px;
+  background-color: #fff;
+}
+
+
+@media only screen and (max-width: 420px) {
+  .lobby-opponent-info,
+  .lobby-owner-info{
+    font-size: 20px;
+    color: #fff;
+    width: auto;
+  }
+
+}
+

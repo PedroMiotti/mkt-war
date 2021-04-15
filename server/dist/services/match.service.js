@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SendInvite = exports.JoinMatch = exports.CreateMatch = void 0;
+exports.SendInvite = exports.JoinRoom = exports.JoinMatch = exports.CreateMatch = void 0;
 const MatchModel = require("../models/match.model");
 const UserModel = require("../models/user.model");
 const UserService = require("./user.service");
@@ -20,30 +20,56 @@ const CreateMatch = async (ownerId) => {
     return match_id;
 };
 exports.CreateMatch = CreateMatch;
-const JoinMatch = async (matchId, userId, socket) => {
-    let matchPlayers;
+const JoinMatch = async (userId, matchId) => {
+    await MatchModel.JoinMatch(matchId, userId);
+};
+exports.JoinMatch = JoinMatch;
+const JoinRoom = async (matchId, userId, socket, io) => {
     let ownerId;
+    let owner;
+    let opponent;
+    let matchPlayers = {
+        owner: {
+            id: 0,
+            name: "",
+            username: "",
+            trophies: 0,
+            avatar: 0,
+            coins: 0,
+        },
+        opponent: {
+            id: 0,
+            name: "",
+            username: "",
+            trophies: 0,
+            avatar: 0,
+            coins: 0,
+        },
+    };
     socket.join(matchId);
     let getMatchInfo = await MatchModel.GetMatchById(matchId);
     ownerId = getMatchInfo.owner_id;
-    let ownerInfo = await UserModel.profile(userId);
-    let opponentInfo = await UserModel.profile(userId);
+    let ownerInfo = await UserModel.profile(ownerId);
     matchPlayers.owner = ownerInfo;
-    matchPlayers.opponent = opponentInfo;
-    socket.to(matchId).emit(SocketEvents.SERVER_PLAYER_JOINED, matchPlayers);
+    if (getMatchInfo.opponent_id) {
+        let opponentInfo = await UserModel.profile(getMatchInfo.opponent_id);
+        matchPlayers.opponent = opponentInfo;
+    }
+    io.to(matchId).emit(SocketEvents.SERVER_PLAYER_JOINED, matchPlayers);
 };
-exports.JoinMatch = JoinMatch;
-const SendInvite = async (matchId, opponentId, ownerId, socket) => {
-    if (!opponentId)
-        return {
-            errorCode: 4,
-            data: "Selecione um oponente !",
-        };
-    console.log('send');
+exports.JoinRoom = JoinRoom;
+const SendInvite = async (matchId, opponentId, ownerId, io) => {
+    let ownerInvite = { id: 0, username: "", trophies: 0, avatar: 0 };
     let opponent_socketId = await UserService.GetUserSocketIdById(opponentId);
-    if (typeof opponent_socketId !== "string")
-        return opponent_socketId;
-    socket.to(opponent_socketId).emit(SocketEvents.SERVER_SEND_INVITE, { matchId, ownerId });
+    let ownerInfo = await UserModel.profile(ownerId);
+    ownerInvite.id = ownerInfo.id;
+    ownerInvite.username = ownerInfo.username;
+    ownerInvite.trophies = ownerInfo.trophies;
+    ownerInvite.avatar = ownerInfo.avatar;
+    io.to(opponent_socketId).emit(SocketEvents.SERVER_SEND_INVITE, {
+        matchId,
+        ownerInvite,
+    });
 };
 exports.SendInvite = SendInvite;
 //# sourceMappingURL=match.service.js.map

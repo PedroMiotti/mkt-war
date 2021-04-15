@@ -4,6 +4,11 @@ require("dotenv").config();
 // SQL
 const Sql = require("../infra/sql");
 class UserModel {
+    static async UserConnected(userId, socketId) {
+        await Sql.conectar(async (sql) => {
+            await sql.query("INSERT INTO online_players (online_player_id, online_player_socketId) VALUES (?, ?)", [userId, socketId]);
+        });
+    }
     // --> Efetuar login
     static async login(username, password) {
         let row;
@@ -43,6 +48,7 @@ class UserModel {
             let row = resp[0];
             if (row) {
                 user = new UserModel();
+                user.id = row.player_id;
                 user.name = row.player_name;
                 user.username = row.player_username;
                 user.trophies = row.player_trophies;
@@ -57,9 +63,17 @@ class UserModel {
         await Sql.conectar(async (sql) => {
             let res;
             res = await sql.query("SELECT online_player_socketid FROM online_players WHERE online_player_id = ?", [userId]);
-            user_socketId = res[0];
+            user_socketId = res[0].online_player_socketid;
         });
         return user_socketId;
+    }
+    static async Logout(userId) {
+        let res;
+        await Sql.conectar(async (sql) => {
+            await sql.query("DELETE FROM online_players WHERE online_player_id = ?", [userId]);
+            res = sql.linhasAfetadas.toString();
+        });
+        return res;
     }
 }
 module.exports = UserModel;

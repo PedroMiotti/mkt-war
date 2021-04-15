@@ -1,0 +1,82 @@
+.ant-modal-header {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.ant-modal-title {
+  font-family: var(--primary-font);
+  color: #fff;
+  text-align: center;
+}
+
+.ant-modal-body {
+  background-color: var(--primary-color-hover);
+  color: #fff;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  -webkit-box-shadow: inset 0px 15px 13px -17px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 0px 15px 13px -17px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0px 15px 13px -17px rgba(0, 0, 0, 0.75);
+}
+
+.matchInvite-challenger-info {
+  display: flex;
+  width: 90%;
+  background-color: var(--primary-color);
+  -webkit-box-shadow: 0px 15px 13px -17px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 15px 13px -17px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 15px 13px -17px rgba(0, 0, 0, 0.75);
+
+  padding: 5px;
+}
+
+.matchInvite-challenger-description {
+  font-family: var(--secundary-font);
+
+  margin-left: 10px;
+}
+
+.matchInvite-trophy-section{
+  display: flex;
+  align-items: center;
+}
+
+.matchInvite-trophy-section h2{
+  margin-left: 7px;
+  color: var(--secundary-color);
+
+}
+
+.matchInvite-buttons {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  margin-top: 30px;
+}
+
+.matchInvite-deny,
+.matchInvite-accept {
+  width: 150px;
+  height: 60px;
+
+  font-family: var(--primary-font);
+  color: #fff;
+
+  border: 0;
+  border-radius: 5px;
+}
+
+.matchInvite-accept {
+   background: #63be2f;
+
+
+}
+
+.matchInvite-deny {
+  background: #d32626;
+
+}

@@ -16,5 +16,11 @@ router.post('/create', async (req: express.Request, res: express.Response) => {
 
 });
 
+// --> Join Match
+router.put('/join/:userId/:matchId', async (req: express.Request, res: express.Response) => {
+
+  await MatchController.JoinMatch(req, res);
+
+});
 
 export = router;

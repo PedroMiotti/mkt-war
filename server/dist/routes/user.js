@@ -14,5 +14,9 @@ router.post("/login", async (req, res) => {
 router.get("/profile/:id", async (req, res) => {
     await UserController.UserProfile(req, res);
 });
+// Logout
+router.delete("/logout/:id", async (req, res) => {
+    await UserController.Logout(req, res);
+});
 module.exports = router;
 //# sourceMappingURL=user.js.map

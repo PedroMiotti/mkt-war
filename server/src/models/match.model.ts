@@ -5,10 +5,10 @@ import Sql = require('../infra/sql');
 
 class MatchModel{
 
-  private id: number;
+  public id: number;
   public owner_id: number;
-  private opponent_id: number;
-  private status: string;
+  public opponent_id: number;
+  public status: string;
 
 
   public static async CreateMatch(ownerId: number): Promise<number>{

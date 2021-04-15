@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import { SocketContext, socket } from "./context/socket";
 
 import UserState from "./context/user/user.state";
+import MatchState from './context/match/match.state'
 
 import Routes from "./router";
 import { Router } from "react-router-dom";
@@ -17,7 +18,9 @@ ReactDOM.render(
     <Router history={history}>
       <SocketContext.Provider value={socket}>
         <UserState>
-          <Routes />
+          <MatchState>
+            <Routes />
+          </MatchState>
         </UserState>
       </SocketContext.Provider>
     </Router>

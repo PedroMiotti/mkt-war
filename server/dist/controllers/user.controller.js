@@ -35,6 +35,13 @@ class UserController {
             return res.status(200).send(result);
         return res.status(400).send(result.data);
     }
+    static async Logout(req, res) {
+        let user_id = parseInt(req.params.id);
+        const result = await UserService.Logout(user_id);
+        if (typeof result === 'string')
+            return res.status(200).send(result);
+        return res.status(400).send(result.data);
+    }
 }
 module.exports = UserController;
 //# sourceMappingURL=user.controller.js.map

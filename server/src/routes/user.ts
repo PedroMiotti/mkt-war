@@ -23,8 +23,18 @@ router.post("/login", async (req: express.Request, res: express.Response) => {
 });
 
 // User information
-router.get("/profile/:id", async (req: express.Request, res: express.Response) => {
+router.get(
+  "/profile/:id",
+  async (req: express.Request, res: express.Response) => {
     await UserController.UserProfile(req, res);
+  }
+);
+
+// Logout
+router.delete(
+  "/logout/:id",
+  async (req: express.Request, res: express.Response) => {
+    await UserController.Logout(req, res);
   }
 );
 

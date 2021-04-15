@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetUserSocketIdById = exports.UserProfile = exports.CreateUser = exports.LoginUser = void 0;
+exports.Logout = exports.UserConnected = exports.GetUserSocketIdById = exports.UserProfile = exports.CreateUser = exports.LoginUser = void 0;
 const UserModel = require("../models/user.model");
 //JWT
 const jwt = require("jsonwebtoken");
@@ -86,4 +86,24 @@ const GetUserSocketIdById = async (userId) => {
     return socketId;
 };
 exports.GetUserSocketIdById = GetUserSocketIdById;
+const UserConnected = async (userId, socketId) => {
+    await UserModel.UserConnected(parseInt(userId), socketId);
+};
+exports.UserConnected = UserConnected;
+const Logout = async (userId) => {
+    let result;
+    if (!userId)
+        return {
+            errorCode: 4,
+            data: "Usuário não encontrado !",
+        };
+    result = await UserModel.Logout(userId);
+    if (!result)
+        return {
+            errorCode: 4,
+            data: "Usuário não está online !",
+        };
+    return 'Usuario logout';
+};
+exports.Logout = Logout;
 //# sourceMappingURL=user.service.js.map

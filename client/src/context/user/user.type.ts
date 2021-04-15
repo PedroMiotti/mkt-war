@@ -23,7 +23,7 @@ export interface State {
     createUser: (values: { username: string; name: string; password: string }) => void;
     login: (values: { username: string; password: string }) => void;
     updateUser: (values: { username: string; name: string; avatar: string; id: string; }) => void;
-    logout: () => void;
+    logout: (userId: string) => void;
     deleteUser: ( id: string ) => void;
     userProfile: (id: string ) => void;
 

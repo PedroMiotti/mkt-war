@@ -57,6 +57,22 @@ class UserController{
 
   }
 
+
+  public static async Logout(req: express.Request, res: express.Response){
+
+    let user_id: number = parseInt(req.params.id);
+
+    const result = await UserService.Logout(user_id);
+    
+    if(typeof result === 'string')
+      return res.status(200).send(result);
+
+    return res.status(400).send(result.data);
+    
+
+
+  }
+
 }
 
 

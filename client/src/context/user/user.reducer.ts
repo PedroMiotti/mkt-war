@@ -6,13 +6,13 @@ import {
   DELETE_USER,
   USER_PROFILE,
   SET_LOADING,
-  SET_ERROR
+  SET_ERROR,
 } from "../types";
 import { Action, State } from "./user.type";
 
 import { getCookie, deleteCookie } from "../../utils/handleCookie";
 
-let hasToken: string = getCookie('_token');
+let hasToken: string = getCookie("_token");
 
 export const initialState: State = {
   id: "",
@@ -56,7 +56,7 @@ export default function roomReducer(
         ...state,
         id: payload.id,
         username: payload.username,
-        errorMsg: '',
+        errorMsg: "",
       };
 
     case USER_PROFILE:
@@ -66,7 +66,7 @@ export default function roomReducer(
         username: payload.username,
         avatar: payload.avatar,
         coins: payload.coins,
-        trophies: payload.trophies
+        trophies: payload.trophies,
       };
 
     case UPDATE_USER:
@@ -75,10 +75,19 @@ export default function roomReducer(
         loading: true,
       };
 
-
     case LOGOUT:
       return {
         ...state,
+        id: "",
+        isLoggedIn:  false,
+        socketID: "",
+        name: "",
+        username: "",
+        trophies: "",
+        coins: "",
+        avatar: "",
+        errorMsg: "",
+        loading: false,
       };
 
     case DELETE_USER:
@@ -96,8 +105,7 @@ export default function roomReducer(
       return {
         ...state,
         loading: false,
-        errorMsg: payload.message
-
+        errorMsg: payload.message,
       };
 
     default:

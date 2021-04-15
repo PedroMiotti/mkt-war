@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -7,8 +10,10 @@
 
 :root{
   --primary-color: #7a26b0;
+  --primary-color-hover: #4e1870;
   --secundary-color: #fecb30;
   --terciary-color: #d71f46;
   
   --primary-font: 'Dela Gothic One', cursive;
+  --secundary-font: 'Roboto', sans-serif;
 }
