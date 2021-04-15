@@ -1,7 +1,6 @@
 export function getCookie(cookieName: string): string {
   let name = cookieName + "=";
   let cookieArr = document.cookie.split(";");
-
   for (let i = 0; i < cookieArr.length; i++) {
     let temp = cookieArr[i].trim();
     if (temp.indexOf(name) == 0)

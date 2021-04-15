@@ -1,5 +1,4 @@
 import { message } from "antd";
-import { SocketContext } from "../socket";
 import * as React from "react";
 
 import {
@@ -14,6 +13,10 @@ import MatchContext from "./match.context";
 import matchReducer, { initialState as initialValues } from "./match.reducer";
 import { IRoom, State } from "./match.type";
 
+
+import { SocketContext } from "../socket";
+import { useUserContext } from "../user/user.context";
+
 import history from "utils/history";
 
 import { instance as axios } from "../api";
@@ -24,6 +27,7 @@ const MatchState: React.FC = ({ children }) => {
   };
 
   const socket = React.useContext(SocketContext);
+  const { id } = useUserContext();
 
   const [state, dispatch] = React.useReducer(matchReducer, initialState);
 
@@ -42,13 +46,13 @@ const MatchState: React.FC = ({ children }) => {
     });
 
     socket.on("playerjoined:match", (data: any) => {
-      dispatch({
-        type: MATCH_READY,
-        payload: {
-          ownerInfo: data.owner,
-          opponentInfo: data.opponent
-        },
-      });
+        dispatch({
+          type: MATCH_READY,
+          payload: {
+            ownerInfo: data.owner,
+            opponentInfo: data.opponent
+          },
+        });
     });
 
     return () => {
@@ -56,6 +60,7 @@ const MatchState: React.FC = ({ children }) => {
       socket.off("playerjoined:match");
     };
   }, []);
+
 
   // create match
   const createMatch = async (ownerId: string, opponentId: string) => {
@@ -93,7 +98,7 @@ const MatchState: React.FC = ({ children }) => {
       await axios
         .put(baseUrl + `/join/${userId}/${matchId}`, { withCredentials: true })
         .then(() => {
-          socket.emit("join:match", { matchId, userId });
+          socket.emit("join:match", { matchId: parseInt(matchId), userId });
 
           dispatch({
             type: JOIN_MATCH,

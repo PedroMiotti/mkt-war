@@ -11,30 +11,22 @@ import TrophyIcon from "../../assets/icons/trophy.svg";
 import { useMatchContext } from "../../context/match/match.context";
 import { useUserContext } from "../../context/user/user.context";
 
-interface IMatchInviteProps {
-  ownerInfo: {
-    id: number;
-    username: string;
-    trophies: number;
-    avatar: number;
-  };
-  matchId: string;
-}
+const MatchInvite = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-const MatchInvite: React.FC<IMatchInviteProps> = ({ ownerInfo, matchId }) => {
-  const [isModalVisible, setIsModalVisible] = useState(true);
-
-  const { acceptBattleInvite } = useMatchContext();
+  const { acceptBattleInvite , receivedInvite, invite } = useMatchContext();
   const { id } = useUserContext();
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+  React.useEffect(() => {
+
+    if(receivedInvite)
+      setIsModalVisible(true);
+
+  }, [receivedInvite])
 
   const handleAccept = () => {
     setIsModalVisible(false);
-    acceptBattleInvite(id, matchId.toString(), ownerInfo.id.toString());
-    console.log('clicked');
+    acceptBattleInvite(id, invite.matchId.toString(), invite.ownerInfo.id.toString());
   };
 
   const handleCancel = () => {
@@ -48,7 +40,6 @@ const MatchInvite: React.FC<IMatchInviteProps> = ({ ownerInfo, matchId }) => {
         title="BATTLE   INVITE"
         centered
         visible={isModalVisible}
-        onCancel={handleCancel}
         closable={false}
       >
         <div className="matchInvite-challenger-info">
@@ -62,22 +53,22 @@ const MatchInvite: React.FC<IMatchInviteProps> = ({ ownerInfo, matchId }) => {
           </div>
 
           <div className="matchInvite-challenger-description">
-            <h2>{ownerInfo.username}</h2>
+            <h2>{invite.ownerInfo.username}</h2>
             <div className="matchInvite-trophy-section">
               <img
                 src={TrophyIcon}
                 className="Lobby-trophy-icon"
                 alt="user avatar icon"
               />
-              <h2>{ownerInfo.trophies}</h2>
+              <h2>{invite.ownerInfo.trophies}</h2>
             </div>
           </div>
 
         </div>
 
         <div className="matchInvite-buttons">
-          <button onClick={handleAccept} className="matchInvite-deny">RECUSAR</button>
-          <button className="matchInvite-accept">ACEITAR</button>
+          <button  className="matchInvite-deny">RECUSAR</button>
+          <button onClick={handleAccept} className="matchInvite-accept">ACEITAR</button>
         </div>
       </Modal>
     </>

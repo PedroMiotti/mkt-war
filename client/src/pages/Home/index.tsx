@@ -20,7 +20,7 @@ import AvatarIcon from "../../assets/icons/hacker.svg";
 
 const Home = () => {
   const { username, coins, trophies, userProfile, logout } = useUserContext();
-  const { createMatch, receivedInvite, invite } = useMatchContext();
+  const { createMatch} = useMatchContext();
 
   let userId: IToken = getUserIdByToken();
 
@@ -34,7 +34,7 @@ const Home = () => {
 
   return (
     <div className="MainPage-Containter">
-    {receivedInvite && <MatchInvite ownerInfo={invite.ownerInfo} matchId={invite.matchId}/>}
+     <MatchInvite />
       <div className="MainPage-header">
         <InfoBox text={coins} icon={CoinIcon} />
         <InfoBox text={trophies} icon={TrophyIcon} />

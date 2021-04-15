@@ -16,8 +16,6 @@ class UserController{
         maxAge: 365 * 24 * 60 * 60 * 1000,
         httpOnly: false,
         path: "/",
-        secure: true,
-        sameSite: "none",
       }).send(result);
     }
 
@@ -36,8 +34,6 @@ class UserController{
         maxAge: 365 * 24 * 60 * 60 * 1000,
         httpOnly: false,
         path: "/",
-        secure: true,
-        sameSite: "none",
       }).send(result);
 
       return res.status(400).send(result.data);

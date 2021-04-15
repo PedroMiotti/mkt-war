@@ -94,6 +94,7 @@ const UserState: React.FC = ({ children }) => {
             payload: { username, id: user_id.key.toString() },
           });
 
+
           socket.emit("online:player", { userId: user_id.key.toString() });
 
           history.push("/home");

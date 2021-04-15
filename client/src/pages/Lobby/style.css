@@ -138,6 +138,14 @@
   background-color: #fff;
 }
 
+.lobby-waiting{
+
+  color: #fff;
+  font-family: var(--primary-font);
+  text-align: center;
+
+}
+
 
 @media only screen and (max-width: 420px) {
   .lobby-opponent-info,
