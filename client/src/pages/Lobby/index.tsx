@@ -27,7 +27,7 @@ const Lobby = () => {
   });
 
   React.useEffect(() => {
-    if(opponentInfo.id !== 0){
+    if (opponentInfo.id !== 0) {
       setOpponentAccepted(true);
 
       setOpponentInformation({
@@ -36,9 +36,7 @@ const Lobby = () => {
         trophies: opponentInfo.trophies,
         avatar: opponentInfo.avatar,
       });
-
     }
-
   }, [opponentInfo]);
 
   const timerAnimationOptions = {
@@ -96,27 +94,29 @@ const Lobby = () => {
         <div className="lobby-divider">
           <hr className="lobby-divider-line" />
           <div className="lobby-divider-icon-container">
-          {!opponentAccepted &&
-            <Lottie
-              options={timerAnimationOptions}
-              style={{
-                height: 150,
-                marginLeft: 5,
-              }}
-            />
-          }
-          {opponentAccepted &&
-            <Lottie
-              options={SwordsAnimationOptions}
-              style={{
-                height: 110,
-                marginLeft: 5,
-              }}
-            />
-          }
+            {!opponentAccepted && (
+              <Lottie
+                options={timerAnimationOptions}
+                style={{
+                  height: 150,
+                  marginLeft: 5,
+                }}
+              />
+            )}
+            {opponentAccepted && (
+              <Lottie
+                options={SwordsAnimationOptions}
+                style={{
+                  height: 110,
+                  marginLeft: 5,
+                }}
+              />
+            )}
           </div>
         </div>
-        {!opponentAccepted && <h1 className="lobby-waiting">Esperando adversário...</h1>}
+        {!opponentAccepted && (
+          <h1 className="lobby-waiting">Esperando adversário...</h1>
+        )}
         {opponentAccepted && (
           <div className="lobby-opponent-section">
             <div className="lobby-opponent-info">

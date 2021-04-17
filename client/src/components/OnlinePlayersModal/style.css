@@ -1,0 +1,16 @@
+.onlineplayers-invitebutton{
+
+  background-color: #79D70F;
+  border: 0;
+  padding: 10px 0;
+  color: #fff;
+  font-family: var(--primary-font);
+  border-radius: 5px;
+}
+
+
+.onlineplayers-invitebutton:hover{
+
+  background-color: #4C8609;
+  cursor: pointer;
+}

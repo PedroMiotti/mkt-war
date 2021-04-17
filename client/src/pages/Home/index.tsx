@@ -13,6 +13,7 @@ import ComunityButton from "../../components/comunityButton";
 import AvatarContainer from "../../components/Containers/Avatar";
 import PlayButton from "../../components/PlayButton";
 import MatchInvite from "../../components/MatchInviteModal";
+import OnlinePlayersModal from '../../components/OnlinePlayersModal';
 // Assets
 import CoinIcon from "../../assets/icons/dollar.svg";
 import TrophyIcon from "../../assets/icons/trophy.svg";
@@ -34,6 +35,7 @@ const Home = () => {
 
   return (
     <div className="MainPage-Containter">
+      <OnlinePlayersModal />
      <MatchInvite />
       <div className="MainPage-header">
         <InfoBox text={coins} icon={CoinIcon} />
