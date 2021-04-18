@@ -1,6 +1,5 @@
 export interface IUser {
     id: string;
-    socketID: string;
     username: string;
     name: string;
     trophies: string;
@@ -17,6 +16,7 @@ export interface State {
     trophies: string;
     coins: string;
     avatar: string;
+    onlinePlayers: IUser[];
     errorMsg: string;
     loading: boolean;
 
@@ -26,9 +26,11 @@ export interface State {
     logout: (userId: string) => void;
     deleteUser: ( id: string ) => void;
     userProfile: (id: string ) => void;
-
     setLoading: () => void;
+    getOnlinePlayers: () => void;
+    setUserOnline: () => void;
 }
+
 
 export interface Action {
     payload?: any;

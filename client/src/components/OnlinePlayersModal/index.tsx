@@ -4,56 +4,43 @@ import "./style.css";
 import { Modal } from "antd";
 
 import ListView from "./components/ListView";
-import ListItem from "./components/ListItem";
 
-const data = [
-  {
-    key: 1,
-    id: 1,
-    username: "PedrinhoTsunami",
-    trophies: 10,
-    avatar: 1,
-  },
-  {
-    key: 2,
-    id: 2,
-    username: "LilAgo",
-    trophies: 2,
-    avatar: 1,
-  },
-  {
-    key: 3,
-    id: 3,
-    username: "CactusBral",
-    trophies: 66,
-    avatar: 1,
-  },
-];
+import { useMatchContext } from "../../context/match/match.context";
+import { useUserContext } from "../../context/user/user.context";
 
-const OnlinePlayersModal = () => {
-  const [isModalVisible, setIsModalVisible] = React.useState(true);
+// Utils
+import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
+
+interface IOnlinePlayerModalProps{
+  close: () => void;
+}
+
+const OnlinePlayersModal: React.FC<IOnlinePlayerModalProps> = ({close}) => {
+  const { createMatch } = useMatchContext();
+  const { onlinePlayers } = useUserContext();
+
+    const [ playerId, setPlayerId ] = React.useState('');
+
+  let userId: IToken = getUserIdByToken();
+
+  const challengePlayer = () => {
+    console.log(playerId);
+    createMatch(userId.key.toString(), playerId);
+    close();
+  }
+
+
   return (
     <>
       <Modal
         title="ONLINE PLAYERS"
         footer={null}
         closable={false}
-        visible={isModalVisible}
+        visible={true}
       >
-        <ListView
-          children={data.map((players) => (
-            <ListItem
-              key={players.id}
-              Pkey={players.key}
-              avatar={players.avatar}
-              username={players.username}
-              trophies={players.trophies}
-              id={players.id}
-            />
-          ))}
-        />
+        <ListView setPlayer={setPlayerId} playersList={onlinePlayers}/>
 
-        <button className="onlineplayers-invitebutton"> DESAFIAR </button>
+        <button onClick={challengePlayer} className="onlineplayers-invitebutton"> DESAFIAR </button>
       </Modal>
     </>
   );

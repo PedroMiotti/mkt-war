@@ -130,6 +130,14 @@ export const UserConnected = async (userId: string, socketId: string):Promise<vo
 
 }
 
+export const OnlinePlayers = async (): Promise<any[]> => {
+  let users: any[];
+
+  users = await UserModel.OnlinePlayers();
+
+  return users;
+}
+
 
 export const Logout = async (userId: number): Promise<string | IErrorResponse> => {
 

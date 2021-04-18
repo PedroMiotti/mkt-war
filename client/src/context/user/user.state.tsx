@@ -17,6 +17,7 @@ import {
   LOGOUT,
   DELETE_USER,
   USER_PROFILE,
+  ONLINE_PLAYERS,
   SET_LOADING,
   SET_ERROR,
 } from "../types";
@@ -94,9 +95,6 @@ const UserState: React.FC = ({ children }) => {
             payload: { username, id: user_id.key.toString() },
           });
 
-
-          socket.emit("online:player", { userId: user_id.key.toString() });
-
           history.push("/home");
         })
         .catch((e) => {
@@ -142,12 +140,10 @@ const UserState: React.FC = ({ children }) => {
 
   // Logout
   const logout = async (userId: string) => {
-
     try {
       await axios
         .delete(baseUrl + `/logout/${userId}`)
         .then(() => {
-
           deleteCookie("_token");
 
           history.push("/login");
@@ -171,11 +167,39 @@ const UserState: React.FC = ({ children }) => {
     }
   };
 
+  // Set user as online status
+  const setUserOnline = () => {
+    let user_id: IToken = getUserIdByToken();
+    socket.emit("online:player", { userId: user_id.key.toString() });
+  };
+
   const updateUser = () => {};
 
   const deleteUser = () => {};
 
   const setLoading = () => {};
+
+  const getOnlinePlayers = async () => {
+    try{
+      await axios.get(baseUrl + '/online')
+      .then((users) => {
+        console.log(users.data)
+          dispatch({
+            type: ONLINE_PLAYERS,
+            payload: { onlinePlayers: users.data }
+          });
+      })
+
+    }
+    catch(e){
+      dispatch({
+        type: SET_ERROR,
+        payload: { message: e.response.data },
+      });
+    }
+
+
+  };
 
   return (
     <UserContext.Provider
@@ -188,6 +212,7 @@ const UserState: React.FC = ({ children }) => {
         trophies: state.trophies,
         coins: state.coins,
         avatar: state.avatar,
+        onlinePlayers: state.onlinePlayers,
         loading: state.loading,
         errorMsg: state.errorMsg,
         createUser,
@@ -197,6 +222,8 @@ const UserState: React.FC = ({ children }) => {
         deleteUser,
         userProfile,
         setLoading,
+        getOnlinePlayers,
+        setUserOnline,
       }}
     >
       {children}

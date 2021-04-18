@@ -64,8 +64,14 @@ class UserController{
       return res.status(200).send(result);
 
     return res.status(400).send(result.data);
-    
+  }
 
+  public static async OnlinePlayers(req: express.Request, res: express.Response){
+    let users: any[];
+
+    users = await UserService.OnlinePlayers();
+
+    return res.status(200).send(users);
 
   }
 

@@ -15,6 +15,7 @@ export const USER_PROFILE: string = 'USER_PROFILE';
 export const LOGOUT: string = 'LOGOUT';
 export const DELETE_USER: string = 'DELETE_USER'; 
 
+export const ONLINE_PLAYERS: string = 'ONLINE_PLAYERS'; 
 
 // General
 export const SET_ERROR: string = 'SET_ERROR'; 

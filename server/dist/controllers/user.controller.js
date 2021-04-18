@@ -38,6 +38,11 @@ class UserController {
             return res.status(200).send(result);
         return res.status(400).send(result.data);
     }
+    static async OnlinePlayers(req, res) {
+        let users;
+        users = await UserService.OnlinePlayers();
+        return res.status(200).send(users);
+    }
 }
 module.exports = UserController;
 //# sourceMappingURL=user.controller.js.map

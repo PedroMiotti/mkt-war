@@ -34,8 +34,13 @@ class UserModel {
   public static async UserConnected(userId: number, socketId: string): Promise<void>{
 
     await Sql.conectar(async (sql: Sql) => {
-      await sql.query("INSERT INTO online_players (online_player_id, online_player_socketId) VALUES (?, ?)", [userId, socketId]);
+      let isUserConnected = await sql.scalar("SELECT online_player_id FROM online_players WHERE online_player_id = ?", [userId]);
 
+      if(isUserConnected)
+        await sql.query("UPDATE online_players SET online_player_socketId = ? WHERE online_player_id = ?", [socketId, userId]);
+
+      else
+        await sql.query("INSERT INTO online_players (online_player_id, online_player_socketId) VALUES (?, ?)", [userId, socketId]);
     })
 
   }
@@ -147,6 +152,18 @@ class UserModel {
     return res;
 
 
+  }
+
+  public static async OnlinePlayers(): Promise<any[]>{
+    let users: any[];
+
+    await Sql.conectar(async (sql: Sql) => {
+
+      users = await sql.query("SELECT player_id, player_username, player_name, player_trophies, player_avatar FROM player, online_players WHERE player.player_id = online_players.online_player_id");
+
+    })
+    
+    return users;
   }
 
   // // --> Excluir conta

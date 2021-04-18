@@ -55,9 +55,7 @@ const JoinRoom = async (matchId, userId, socket, io) => {
         let opponentInfo = await UserModel.profile(getMatchInfo.opponent_id);
         matchPlayers.opponent = opponentInfo;
     }
-    console.log(matchPlayers);
-    console.log(io.sockets.adapter.rooms);
-    io.sockets.in(matchId).emit(SocketEvents.SERVER_PLAYER_JOINED, matchPlayers);
+    io.to(matchId).emit(SocketEvents.SERVER_PLAYER_JOINED, matchPlayers);
 };
 exports.JoinRoom = JoinRoom;
 const SendInvite = async (matchId, opponentId, ownerId, io) => {

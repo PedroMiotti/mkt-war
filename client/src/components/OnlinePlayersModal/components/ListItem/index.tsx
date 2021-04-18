@@ -23,7 +23,7 @@ const ListItem: React.FC<IListItemProps> = ({
   id,
 }) => {
   return (
-      <button className="listitem-container">
+      <option className="listitem-container">
         <div className="listitem-key">{Pkey}</div>
 
         <div className="listitem-info">
@@ -46,7 +46,7 @@ const ListItem: React.FC<IListItemProps> = ({
             <h4>{trophies}</h4>
           </div>
         </div>
-      </button>
+      </option>
   );
 };
 

@@ -33,6 +33,7 @@ export = function createConnection(http: any) {
       MatchService.JoinRoom(matchId, userId, socket, io)
     );
 
+
     socket.on(SocketEvents.CLIENT_DISCONNECT, () =>
       console.log("Disconnected " + socket.id)
     );

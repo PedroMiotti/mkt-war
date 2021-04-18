@@ -5,6 +5,7 @@ import {
   LOGOUT,
   DELETE_USER,
   USER_PROFILE,
+  ONLINE_PLAYERS,
   SET_LOADING,
   SET_ERROR,
 } from "../types";
@@ -23,6 +24,7 @@ export const initialState: State = {
   trophies: "",
   coins: "",
   avatar: "",
+  onlinePlayers: [],
   errorMsg: "",
   loading: false,
 
@@ -33,6 +35,8 @@ export const initialState: State = {
   deleteUser: () => null,
   userProfile: () => null,
   setLoading: () => null,
+  getOnlinePlayers: () => null,
+  setUserOnline: () => null,
 };
 
 //reducer
@@ -93,6 +97,12 @@ export default function roomReducer(
     case DELETE_USER:
       return {
         ...state,
+      };
+
+    case ONLINE_PLAYERS:
+      return {
+        ...state,
+        onlinePlayers: payload.onlinePlayers,
       };
 
     case SET_LOADING:

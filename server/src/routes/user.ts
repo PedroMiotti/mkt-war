@@ -38,6 +38,11 @@ router.delete(
   }
 );
 
+// Online users
+router.get("/online", async (req: express.Request, res: express.Response) => {
+  await UserController.OnlinePlayers(req, res);
+});
+
 // // Delete User
 // router.delete("/:id", async (req: express.Request, res: express.Response) => {
 //   const user_id: number = parseInt(req.params.id);

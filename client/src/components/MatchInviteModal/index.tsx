@@ -3,6 +3,9 @@ import "./style.css";
 
 import { Modal, Avatar } from "antd";
 
+// Utils
+import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
+
 // Assets
 import AvatarIcon from "../../assets/icons/hacker.svg";
 import TrophyIcon from "../../assets/icons/trophy.svg";
@@ -15,7 +18,8 @@ const MatchInvite = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const { acceptBattleInvite , receivedInvite, invite } = useMatchContext();
-  const { id } = useUserContext();
+
+  let userId: IToken = getUserIdByToken();
 
   React.useEffect(() => {
 
@@ -26,7 +30,7 @@ const MatchInvite = () => {
 
   const handleAccept = () => {
     setIsModalVisible(false);
-    acceptBattleInvite(id, invite.matchId.toString(), invite.ownerInfo.id.toString());
+    acceptBattleInvite(userId.key.toString(), invite.matchId.toString(), invite.ownerInfo.id.toString());
   };
 
   const handleCancel = () => {
