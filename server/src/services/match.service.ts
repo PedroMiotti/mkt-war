@@ -113,6 +113,11 @@ export const SetUserReady = async (matchId: number, userId: number, io: any) => 
 
   io.to(matchId).emit(SocketEvents.SERVER_PLAYER_READY, { userId });
 
+  if(_match.owner_ready || _match.opponent_ready){
+    //start match
+
+  }
+
 
 }
 

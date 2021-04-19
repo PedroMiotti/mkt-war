@@ -1,0 +1,156 @@
+.quiz-container{
+  height: 95vh;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 15px 20px;
+
+}
+
+.quiz-header-container{
+  width: 100%;
+  margin-bottom: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quiz-timer-container{
+  height: 60px;
+  width: 60px;
+  background-color: #fff;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: var(--secundary-font);
+  font-weight: 800;
+
+  color: var(--primary-color-hover);
+
+  margin-bottom: 10px;
+}
+
+.quiz-players-container{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.quiz-players-container div{
+  display: flex;
+}
+
+.quiz-players-owner-info,
+.quiz-players-opponent-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  margin: 0 8px;
+
+  font-family: var(--primary-font);
+
+}
+
+.quiz-players-opponent {
+  flex-direction: row-reverse;
+}
+
+.quiz-players-owner-info p,
+.quiz-players-opponent-info p {
+  font-family: var(--secundary-font);
+}
+
+.quiz-players-opponent-info p {
+  align-self: flex-end;
+}
+
+.quiz-bottom-container{
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+
+.quiz-question-container{
+  color: #fff;
+  font-family: var(--secundary-font);
+  font-weight: bold;
+  font-size: 30px;
+
+  max-width: 1200px;
+
+  margin-bottom: 30px;
+
+  align-self: center;
+  text-align: center;
+
+}
+
+.quiz-answers-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+@media only screen and (max-width: 900px){
+
+  .quiz-players-container{
+    justify-content: space-between;
+  }
+
+}
+
+
+@media only screen and (max-width: 690px){
+
+  .quiz-players-opponent-info h3,
+  .quiz-players-owner-info h3{
+    margin: 0 2px 0 1px;
+    inline-size: 120px;
+    overflow-wrap: break-word;
+    font-size: 18px;
+  }
+
+  .quiz-question-container{
+    font-size: 24px;
+  }
+
+  .quiz-container{
+    padding: 10px 7px;
+  }
+
+}
+
+@media only screen and (max-width: 490px){
+
+  .quiz-question-container{
+    font-size: 18px;
+  }
+
+  .quiz-players-opponent-info,
+  .quiz-players-owner-info{
+    margin: 0 4px;
+  }
+
+  .quiz-players-opponent-info h3,
+  .quiz-players-owner-info h3{
+    margin: 0 0 ;
+    inline-size: 80px;
+    overflow-wrap: break-word;
+    font-size: 13px;
+  }
+}
+

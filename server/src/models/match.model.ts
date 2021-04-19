@@ -8,6 +8,8 @@ class MatchModel {
   public owner_id: number;
   public opponent_id: number;
   public status: string;
+  public owner_ready: boolean;
+  public opponent_ready: boolean;
 
   public static async CreateMatch(ownerId: number): Promise<number> {
     let res: number;

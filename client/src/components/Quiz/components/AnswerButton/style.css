@@ -1,0 +1,39 @@
+.answer-button-container{
+
+  width: 70%;
+  min-height: 80px;
+
+  background-color: var(--secundary-color);
+  margin-bottom: 10px;
+
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 5px 9px;
+
+  color: #000;
+  font-family: var(--secundary-font);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+.answer-button-container:hover{
+  cursor: pointer;
+
+  background-color: var(--secundary-color-hover);
+}
+
+@media only screen and (max-width: 900px){
+
+.answer-button-container{
+    width: 95%;
+    min-height: 60px;
+    font-size: 16px;
+  }
+
+}

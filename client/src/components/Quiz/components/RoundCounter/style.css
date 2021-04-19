@@ -1,0 +1,25 @@
+.round-counter-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100vh;
+
+  background-color: var(--primary-color);
+
+  color: #fff;
+
+  font-family: var(--secundary-font);
+  font-weight: bold;
+}
+
+
+.round-counter-container h1{
+  font-size: 45px;
+  margin-bottom: 18px;
+}
+
+.round-counter-container h3{
+  font-size: 25px;
+}
