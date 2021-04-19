@@ -17,20 +17,21 @@ import { useUserContext } from "../../context/user/user.context";
 const MatchInvite = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const { acceptBattleInvite , receivedInvite, invite } = useMatchContext();
+  const { acceptBattleInvite, receivedInvite, invite } = useMatchContext();
 
   let userId: IToken = getUserIdByToken();
 
   React.useEffect(() => {
-
-    if(receivedInvite)
-      setIsModalVisible(true);
-
-  }, [receivedInvite])
+    if (receivedInvite) setIsModalVisible(true);
+  }, [receivedInvite]);
 
   const handleAccept = () => {
     setIsModalVisible(false);
-    acceptBattleInvite(userId.key.toString(), invite.matchId.toString(), invite.ownerInfo.id.toString());
+    acceptBattleInvite(
+      userId.key.toString(),
+      invite.matchId.toString(),
+      invite.ownerInfo.id.toString()
+    );
   };
 
   const handleCancel = () => {
@@ -67,12 +68,13 @@ const MatchInvite = () => {
               <h2>{invite.ownerInfo.trophies}</h2>
             </div>
           </div>
-
         </div>
 
         <div className="matchInvite-buttons">
-          <button  className="matchInvite-deny">RECUSAR</button>
-          <button onClick={handleAccept} className="matchInvite-accept">ACEITAR</button>
+          <button className="matchInvite-deny">RECUSAR</button>
+          <button onClick={handleAccept} className="matchInvite-accept">
+            ACEITAR
+          </button>
         </div>
       </Modal>
     </>

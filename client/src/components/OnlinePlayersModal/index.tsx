@@ -11,24 +11,22 @@ import { useUserContext } from "../../context/user/user.context";
 // Utils
 import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
 
-interface IOnlinePlayerModalProps{
+interface IOnlinePlayerModalProps {
   close: () => void;
 }
 
-const OnlinePlayersModal: React.FC<IOnlinePlayerModalProps> = ({close}) => {
+const OnlinePlayersModal: React.FC<IOnlinePlayerModalProps> = ({ close }) => {
   const { createMatch } = useMatchContext();
   const { onlinePlayers } = useUserContext();
 
-    const [ playerId, setPlayerId ] = React.useState('');
+  const [playerId, setPlayerId] = React.useState("");
 
   let userId: IToken = getUserIdByToken();
 
   const challengePlayer = () => {
-    console.log(playerId);
     createMatch(userId.key.toString(), playerId);
     close();
-  }
-
+  };
 
   return (
     <>
@@ -38,9 +36,14 @@ const OnlinePlayersModal: React.FC<IOnlinePlayerModalProps> = ({close}) => {
         closable={false}
         visible={true}
       >
-        <ListView setPlayer={setPlayerId} playersList={onlinePlayers}/>
+        <ListView setPlayer={setPlayerId} playersList={onlinePlayers} />
 
-        <button onClick={challengePlayer} className="onlineplayers-invitebutton"> DESAFIAR </button>
+        <button
+          onClick={challengePlayer}
+          className="onlineplayers-invitebutton"
+        >
+          DESAFIAR
+        </button>
       </Modal>
     </>
   );

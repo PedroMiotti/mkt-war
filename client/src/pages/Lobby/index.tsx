@@ -15,10 +15,21 @@ import { Avatar } from "antd";
 
 import Lottie from "react-lottie";
 
+import { useParams } from "react-router-dom";
+
 const Lobby = () => {
-  const { ownerInfo, opponentInfo } = useMatchContext();
+  const {
+    ownerInfo,
+    opponentInfo,
+    setUserReady,
+    opponentReady,
+  } = useMatchContext();
+
+  const { matchId } = useParams<{ matchId: string }>();
 
   const [opponentAccepted, setOpponentAccepted] = React.useState(false);
+  const [userReady_, setUserReady_] = React.useState(false);
+  const [opponentReady_, setOpponentReady_] = React.useState(false);
   const [opponentInformation, setOpponentInformation] = React.useState({
     username: "",
     name: "",
@@ -26,6 +37,7 @@ const Lobby = () => {
     trophies: 0,
   });
 
+  // Setting opponent information
   React.useEffect(() => {
     if (opponentInfo.id !== 0) {
       setOpponentAccepted(true);
@@ -38,6 +50,18 @@ const Lobby = () => {
       });
     }
   }, [opponentInfo]);
+
+  // Check if opponent is ready
+  React.useEffect(() => {
+    if (opponentReady) {
+      setOpponentReady_(true);
+    }
+  }, [opponentReady]);
+
+  const setReady = () => {
+    setUserReady_(true);
+    setUserReady(matchId);
+  };
 
   const timerAnimationOptions = {
     loop: true,
@@ -68,7 +92,13 @@ const Lobby = () => {
       </div>
 
       <div className="lobby-players-section">
-        <div className="lobby-owner-section">
+        <div
+          className={
+            !userReady_
+              ? "lobby-owner-section"
+              : "lobby-owner-section player-ready"
+          }
+        >
           <div className="lobby-owner-avatar">
             <Avatar
               size={100}
@@ -88,6 +118,10 @@ const Lobby = () => {
               />
               <p>{ownerInfo.trophies}</p>
             </div>
+            <button onClick={setReady} disabled={userReady_}>
+              {" "}
+              ready{" "}
+            </button>
           </div>
         </div>
 
@@ -118,7 +152,13 @@ const Lobby = () => {
           <h1 className="lobby-waiting">Esperando adversário...</h1>
         )}
         {opponentAccepted && (
-          <div className="lobby-opponent-section">
+          <div
+            className={
+              !opponentReady
+                ? "lobby-opponent-section"
+                : "lobby-opponent-section player-ready"
+            }
+          >
             <div className="lobby-opponent-info">
               <h2>{opponentInformation.name}</h2>
               <h4>@{opponentInformation.username}</h4>

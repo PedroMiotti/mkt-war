@@ -20,10 +20,20 @@ import TrophyIcon from "../../assets/icons/trophy.svg";
 import AvatarIcon from "../../assets/icons/hacker.svg";
 
 const Home = () => {
-  const { username, coins, trophies, userProfile, logout, setUserOnline, getOnlinePlayers } = useUserContext();
+  const {
+    username,
+    coins,
+    trophies,
+    userProfile,
+    logout,
+    setUserOnline,
+    getOnlinePlayers,
+  } = useUserContext();
 
-  const [ onlinePlayersModalVisible,  setOnlinePlayersModalVisible ] = React.useState(false);
-
+  const [
+    onlinePlayersModalVisible,
+    setOnlinePlayersModalVisible,
+  ] = React.useState(false);
 
   let userId: IToken = getUserIdByToken();
 
@@ -35,13 +45,15 @@ const Home = () => {
   const playWithFriend = () => {
     setOnlinePlayersModalVisible(true);
     getOnlinePlayers();
-  }
+  };
 
   return (
     <div className="MainPage-Containter">
-      {onlinePlayersModalVisible && 
-        <OnlinePlayersModal close={() => setOnlinePlayersModalVisible(!onlinePlayersModalVisible)}/>
-      }
+      {onlinePlayersModalVisible && (
+        <OnlinePlayersModal
+          close={() => setOnlinePlayersModalVisible(!onlinePlayersModalVisible)}
+        />
+      )}
       <MatchInvite />
       <div className="MainPage-header">
         <InfoBox text={coins} icon={CoinIcon} />

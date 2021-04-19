@@ -3,6 +3,8 @@ import {
   JOIN_MATCH,
   SET_LOADING,
   MATCH_READY,
+  SET_OPPONENT_READY,
+  SET_READY,
   HANDLE_INVITE,
 } from "../types";
 import { Action, State } from "./match.type";
@@ -26,6 +28,8 @@ export const initialState: State = {
     coins: 0,
     avatar: 0,
   },
+  userReady: false,
+  opponentReady: false,
   receivedInvite: false,
   invite: {
     matchId: "",
@@ -41,6 +45,8 @@ export const initialState: State = {
 
   createMatch: () => null,
   acceptBattleInvite: () => null,
+
+  setUserReady: () => null,
 
   setLoading: () => null,
 };
@@ -68,6 +74,18 @@ export default function matchReducer(
         ...state,
         ownerInfo: payload.ownerInfo,
         opponentInfo: payload.opponentInfo,
+      };
+
+    case SET_READY:
+      return {
+        ...state,
+        userReady: true ,
+      };
+
+    case SET_OPPONENT_READY:
+      return {
+        ...state,
+        opponentReady: true ,
       };
 
     case HANDLE_INVITE:

@@ -30,19 +30,27 @@ class UserModel {
   public avatar: number;
   public coins: number;
 
-
-  public static async UserConnected(userId: number, socketId: string): Promise<void>{
-
+  public static async UserConnected(
+    userId: number,
+    socketId: string
+  ): Promise<void> {
     await Sql.conectar(async (sql: Sql) => {
-      let isUserConnected = await sql.scalar("SELECT online_player_id FROM online_players WHERE online_player_id = ?", [userId]);
+      let isUserConnected = await sql.scalar(
+        "SELECT online_player_id FROM online_players WHERE online_player_id = ?",
+        [userId]
+      );
 
-      if(isUserConnected)
-        await sql.query("UPDATE online_players SET online_player_socketId = ? WHERE online_player_id = ?", [socketId, userId]);
-
+      if (isUserConnected)
+        await sql.query(
+          "UPDATE online_players SET online_player_socketId = ? WHERE online_player_id = ?",
+          [socketId, userId]
+        );
       else
-        await sql.query("INSERT INTO online_players (online_player_id, online_player_socketId) VALUES (?, ?)", [userId, socketId]);
-    })
-
+        await sql.query(
+          "INSERT INTO online_players (online_player_id, online_player_socketId) VALUES (?, ?)",
+          [userId, socketId]
+        );
+    });
   }
 
   // --> Efetuar login
@@ -69,7 +77,7 @@ class UserModel {
   public static async createUser(
     username: string,
     name: string,
-    hashedPassword: string,
+    hashedPassword: string
   ): Promise<string | number> {
     let res: string | number = null;
 
@@ -104,7 +112,7 @@ class UserModel {
 
       let row = resp[0];
 
-      if(row){
+      if (row) {
         user = new UserModel();
         user.id = row.player_id;
         user.name = row.player_name;
@@ -113,56 +121,51 @@ class UserModel {
         user.avatar = row.player_avatar;
         user.coins = row.player_coins;
       }
-
     });
 
-
     return user ? user : null;
+  }
 
- }
-
-  public static async GetUserSocketIdById(userId: number):Promise<string> {
+  public static async GetUserSocketIdById(userId: number): Promise<string> {
     let user_socketId: string;
 
     await Sql.conectar(async (sql: Sql) => {
       let res: any[];
 
-      res = await sql.query("SELECT online_player_socketid FROM online_players WHERE online_player_id = ?", [userId]);
+      res = await sql.query(
+        "SELECT online_player_socketid FROM online_players WHERE online_player_id = ?",
+        [userId]
+      );
 
       user_socketId = res[0].online_player_socketid;
-      
-    })
+    });
 
     return user_socketId;
-
   }
 
-  public static async Logout(userId: number): Promise<string>{
-
+  public static async Logout(userId: number): Promise<string> {
     let res: string;
 
     await Sql.conectar(async (sql: Sql) => {
-
-      await sql.query("DELETE FROM online_players WHERE online_player_id = ?", [userId]);
+      await sql.query("DELETE FROM online_players WHERE online_player_id = ?", [
+        userId,
+      ]);
 
       res = sql.linhasAfetadas.toString();
-
     });
 
     return res;
-
-
   }
 
-  public static async OnlinePlayers(): Promise<any[]>{
+  public static async OnlinePlayers(): Promise<any[]> {
     let users: any[];
 
     await Sql.conectar(async (sql: Sql) => {
+      users = await sql.query(
+        "SELECT player_id, player_username, player_name, player_trophies, player_avatar FROM player, online_players WHERE player.player_id = online_players.online_player_id"
+      );
+    });
 
-      users = await sql.query("SELECT player_id, player_username, player_name, player_trophies, player_avatar FROM player, online_players WHERE player.player_id = online_players.online_player_id");
-
-    })
-    
     return users;
   }
 

@@ -48,6 +48,11 @@
 
 }
 
+.player-ready{
+  background-color: green;
+}
+
+
 .lobby-opponent-info{
   display: flex;
   flex-direction: column;

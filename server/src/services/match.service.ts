@@ -98,6 +98,24 @@ export const JoinRoom = async (
   io.to(matchId).emit(SocketEvents.SERVER_PLAYER_JOINED, matchPlayers);
 };
 
+export const SetUserReady = async (matchId: number, userId: number, io: any) => {
+
+  let _match: MatchModel = await MatchModel.GetMatchById(matchId);
+
+  let ownerId = _match.owner_id;
+
+  if(userId.toString() === ownerId.toString()){
+    await MatchModel.SetUserReady(userId, matchId, true);
+  }
+  else{
+    await MatchModel.SetUserReady(userId, matchId, false);
+  }
+
+  io.to(matchId).emit(SocketEvents.SERVER_PLAYER_READY, { userId });
+
+
+}
+
 export const SendInvite = async (
   matchId: number,
   opponentId: number,

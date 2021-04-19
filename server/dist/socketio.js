@@ -15,6 +15,7 @@ module.exports = function createConnection(http) {
         socket.on(SocketEvents.CLIENT_UPDATE_STATUS, ({ userId }) => UserService.UserConnected(userId, socket.id));
         socket.on(SocketEvents.CLIENT_INVITE_PLAYER, ({ matchId, opponentId, ownerId }) => MatchService.SendInvite(matchId, opponentId, ownerId, io));
         socket.on(SocketEvents.CLIENT_JOIN_MATCH, ({ matchId, userId }) => MatchService.JoinRoom(matchId, userId, socket, io));
+        socket.on(SocketEvents.CLIENT_USER_READY, ({ matchId, userId }) => MatchService.SetUserReady(matchId, userId, io));
         socket.on(SocketEvents.CLIENT_DISCONNECT, () => console.log("Disconnected " + socket.id));
     });
     return io;

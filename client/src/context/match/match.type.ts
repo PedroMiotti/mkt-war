@@ -24,6 +24,8 @@ export interface State {
   ownerId: string;
   ownerInfo: IPlayer;
   opponentInfo: IPlayer;
+  userReady: boolean;
+  opponentReady: boolean;
   receivedInvite: boolean;
   invite: {
     matchId: string;
@@ -43,6 +45,8 @@ export interface State {
     matchId: string,
     ownerId: string
   ) => void;
+
+  setUserReady: (matchId: string) => void;
 
   setLoading: (roomID: string) => void;
 }

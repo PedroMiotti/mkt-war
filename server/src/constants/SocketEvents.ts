@@ -8,8 +8,11 @@ export = {
   CLIENT_INVITE_PLAYER: 'invite:match',
   CLIENT_DENY_INVITE: 'deny:invite',
   CLIENT_ANSWER_QUESTION: 'answer:question',
+  CLIENT_USER_READY: 'userready:match',
   
+
   SERVER_SEND_INVITE: 'send:invite',
   SERVER_PLAYER_JOINED: 'playerjoined:match',
+  SERVER_PLAYER_READY: 'playerready:match',
   
 }

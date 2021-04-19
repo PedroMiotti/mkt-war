@@ -7,16 +7,19 @@ import {
   SET_LOADING,
   MATCH_READY,
   HANDLE_INVITE,
+  SET_OPPONENT_READY,
+  SET_READY,
 } from "../types";
 
 import MatchContext from "./match.context";
 import matchReducer, { initialState as initialValues } from "./match.reducer";
 import { IRoom, State } from "./match.type";
 
-
 import { SocketContext } from "../socket";
 import { useUserContext } from "../user/user.context";
 
+// Utils
+import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
 import history from "utils/history";
 
 import { instance as axios } from "../api";
@@ -34,33 +37,54 @@ const MatchState: React.FC = ({ children }) => {
   const baseUrl: string = "/api/v1/match";
 
   React.useEffect(() => {
+    socket.on("playerready:match", (data: any) => {
+      let userId: IToken = getUserIdByToken();
+      if (data.userId.toString() !== userId.key.toString()) {
+        dispatch({
+          type: SET_OPPONENT_READY,
+        });
+      }
+    });
+
     socket.on("send:invite", (data: any) => {
       dispatch({
         type: HANDLE_INVITE,
         payload: {
           matchId: data.matchId,
-          ownerInfo: data.ownerInvite
+          ownerInfo: data.ownerInvite,
         },
       });
-
     });
 
     socket.on("playerjoined:match", (data: any) => {
-        dispatch({
-          type: MATCH_READY,
-          payload: {
-            ownerInfo: data.owner,
-            opponentInfo: data.opponent
-          },
-        });
+      let ownerData;
+      let opponentData;
+
+      let userId: IToken = getUserIdByToken();
+
+      if (userId.key.toString() === data.owner.id.toString()) {
+        ownerData = data.owner;
+        opponentData = data.opponent;
+      } else {
+        ownerData = data.opponent;
+        opponentData = data.owner;
+      }
+
+      dispatch({
+        type: MATCH_READY,
+        payload: {
+          ownerInfo: ownerData,
+          opponentInfo: opponentData,
+        },
+      });
     });
 
     return () => {
       socket.off("send:invite");
       socket.off("playerjoined:match");
+      socket.off("playerready:match");
     };
   }, []);
-
 
   // create match
   const createMatch = async (ownerId: string, opponentId: string) => {
@@ -119,6 +143,19 @@ const MatchState: React.FC = ({ children }) => {
     });
   };
 
+  const setUserReady = (matchId: string) => {
+    let userId: IToken = getUserIdByToken();
+
+    socket.emit("userready:match", {
+      matchId: parseInt(matchId),
+      userId: userId.key.toString(),
+    });
+
+    dispatch({
+      type: SET_READY,
+    });
+  };
+
   return (
     <MatchContext.Provider
       value={{
@@ -126,6 +163,8 @@ const MatchState: React.FC = ({ children }) => {
         ownerId: state.ownerId,
         ownerInfo: state.ownerInfo,
         opponentInfo: state.opponentInfo,
+        userReady: state.userReady,
+        opponentReady: state.opponentReady,
         receivedInvite: state.receivedInvite,
         invite: state.invite,
         matchLoaded: state.matchLoaded,
@@ -133,6 +172,7 @@ const MatchState: React.FC = ({ children }) => {
         createMatch,
         acceptBattleInvite,
         setLoading,
+        setUserReady,
       }}
     >
       {children}

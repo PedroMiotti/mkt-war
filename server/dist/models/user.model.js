@@ -74,7 +74,9 @@ class UserModel {
     static async Logout(userId) {
         let res;
         await Sql.conectar(async (sql) => {
-            await sql.query("DELETE FROM online_players WHERE online_player_id = ?", [userId]);
+            await sql.query("DELETE FROM online_players WHERE online_player_id = ?", [
+                userId,
+            ]);
             res = sql.linhasAfetadas.toString();
         });
         return res;

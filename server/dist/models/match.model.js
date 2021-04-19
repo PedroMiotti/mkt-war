@@ -19,10 +19,22 @@ class MatchModel {
         let matchInfo;
         await Sql.conectar(async (sql) => {
             let res;
-            res = await sql.query("SELECT * FROM _match WHERE match_id = ?", [matchId]);
+            res = await sql.query("SELECT * FROM _match WHERE match_id = ?", [
+                matchId,
+            ]);
             matchInfo = res[0];
         });
         return matchInfo;
+    }
+    static async SetUserReady(userId, matchId, isOwner) {
+        await Sql.conectar(async (sql) => {
+            if (isOwner) {
+                await sql.query("UPDATE _match SET owner_ready = 1 WHERE match_id = ?", [matchId]);
+            }
+            else {
+                await sql.query("UPDATE _match SET opponent_ready = 1 WHERE match_id = ?", [matchId]);
+            }
+        });
     }
 }
 module.exports = MatchModel;

@@ -1,9 +1,11 @@
 
 
-// room context
+// match context
 export const CREATE_MATCH: string = 'CREATE_MATCH';
 export const JOIN_MATCH: string = 'JOIN_MATCH';
 export const MATCH_READY: string = 'MATCH_READY';
+export const SET_READY: string = 'SET_READY';
+export const SET_OPPONENT_READY: string = 'SET_OPPONENT_READY';
 
 export const HANDLE_INVITE: string = 'HANDLE_INVITE';
 

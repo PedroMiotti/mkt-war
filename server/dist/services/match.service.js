@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SendInvite = exports.JoinRoom = exports.JoinMatch = exports.CreateMatch = void 0;
+exports.SendInvite = exports.SetUserReady = exports.JoinRoom = exports.JoinMatch = exports.CreateMatch = void 0;
 const MatchModel = require("../models/match.model");
 const UserModel = require("../models/user.model");
 const UserService = require("./user.service");
@@ -58,6 +58,18 @@ const JoinRoom = async (matchId, userId, socket, io) => {
     io.to(matchId).emit(SocketEvents.SERVER_PLAYER_JOINED, matchPlayers);
 };
 exports.JoinRoom = JoinRoom;
+const SetUserReady = async (matchId, userId, io) => {
+    let _match = await MatchModel.GetMatchById(matchId);
+    let ownerId = _match.owner_id;
+    if (userId.toString() === ownerId.toString()) {
+        await MatchModel.SetUserReady(userId, matchId, true);
+    }
+    else {
+        await MatchModel.SetUserReady(userId, matchId, false);
+    }
+    io.to(matchId).emit(SocketEvents.SERVER_PLAYER_READY, { userId });
+};
+exports.SetUserReady = SetUserReady;
 const SendInvite = async (matchId, opponentId, ownerId, io) => {
     let ownerInvite = { id: 0, username: "", trophies: 0, avatar: 0 };
     let opponent_socketId = await UserService.GetUserSocketIdById(opponentId);
