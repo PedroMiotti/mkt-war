@@ -1,4 +1,4 @@
-export = {
+ const SocketEvents = {
   CLIENT_CONNECT: 'connect',
   CLIENT_DISCONNECT: 'disconnect',
   CLIENT_JOIN_MATCH: 'join:match',
@@ -25,3 +25,5 @@ export = {
   SERVER_MATCH_END: 'end:match',
   
 }
+
+export default SocketEvents;

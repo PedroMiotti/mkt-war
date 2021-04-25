@@ -6,6 +6,13 @@ export const JOIN_MATCH: string = 'JOIN_MATCH';
 export const MATCH_READY: string = 'MATCH_READY';
 export const SET_READY: string = 'SET_READY';
 export const SET_OPPONENT_READY: string = 'SET_OPPONENT_READY';
+export const SET_GAME: string = 'SET_GAME';
+export const SET_ROUND: string = 'SET_ROUND';
+export const START_MATCH: string = 'START_MATCH';
+export const START_QUESTION: string = 'START_QUESTION';
+export const ROUND_COUNTDOWN: string = 'ROUND_COUNTDOWN';
+export const ROUND_RESULT: string = 'ROUND_RESULT';
+
 
 export const HANDLE_INVITE: string = 'HANDLE_INVITE';
 

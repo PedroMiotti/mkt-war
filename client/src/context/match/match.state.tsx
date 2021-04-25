@@ -8,6 +8,12 @@ import {
   MATCH_READY,
   HANDLE_INVITE,
   SET_OPPONENT_READY,
+  SET_GAME,
+  START_MATCH,
+  START_QUESTION,
+  ROUND_COUNTDOWN,
+  ROUND_RESULT,
+  SET_ROUND,
   SET_READY,
 } from "../types";
 
@@ -21,6 +27,8 @@ import { useUserContext } from "../user/user.context";
 // Utils
 import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
 import history from "utils/history";
+
+import SocketEvents from "../../constants/SocketEvents";
 
 import { instance as axios } from "../api";
 
@@ -37,7 +45,84 @@ const MatchState: React.FC = ({ children }) => {
   const baseUrl: string = "/api/v1/match";
 
   React.useEffect(() => {
-    socket.on("playerready:match", (data: any) => {
+    // Start Match (show countdown to the start of the first round)
+    socket.on(SocketEvents.SERVER_PLAYER_LEFT, (data: any) => {
+      console.log(data);
+    });
+    
+    // Start Match (show countdown to the start of the first round)
+    socket.on(SocketEvents.SERVER_MATCH_END, (data: any) => {
+      console.log(data);
+    });
+
+    // Start Match (show countdown to the start of the first round)
+    socket.on(SocketEvents.SERVER_MATCH_START, () => {
+      dispatch({
+        type: START_MATCH,
+      });
+    });
+
+    // Start Round
+    socket.on(SocketEvents.SERVER_MATCH_START_ROUND, (data: any) => {
+      const { currentRound, totalRound } = data;
+
+      dispatch({
+        type: SET_GAME,
+        payload: { currentRound, totalRound },
+      });
+
+      history.push(`/game`);
+    });
+
+    // Start question
+    socket.on(SocketEvents.SERVER_MATCH_START_QUESTION, (data: any) => {
+
+      dispatch({
+        type: SET_ROUND,
+        payload: {
+          questionId: data.id,
+          questionText: data.title,
+          answers: [
+            { id: data.answer1.id, text: data.answer1.text },
+            { id: data.answer2.id, text: data.answer2.text },
+            { id: data.answer3.id, text: data.answer3.text },
+            { id: data.answer4.id, text: data.answer4.text },
+          ],
+          correctAnswer: data.correctAnswer
+        },
+      });
+
+      dispatch({
+        type: START_QUESTION,
+      });
+
+    });
+
+    // Round countdown
+    socket.on(SocketEvents.SERVER_MATCH_COUNTDOWN, (data: any) => {
+      dispatch({
+        type: ROUND_COUNTDOWN,
+        payload: {roundTime: data.seconds}
+      });
+
+    })
+
+    // Round end
+    socket.on(SocketEvents.SERVER_MATCH_END_ROUND, (data: any) => {
+      dispatch({
+        type: ROUND_RESULT,
+        payload: {
+          ownerSelected: data.owner.answer,
+          opponentSelected: data.opponent.answer,
+          ownerScore: data.owner.score,
+          opponentScore: data.opponent.score,
+        }
+      });
+
+    })
+
+    // Set opponent ready
+    socket.on(SocketEvents.SERVER_PLAYER_READY, (data: any) => {
       let userId: IToken = getUserIdByToken();
       if (data.userId.toString() !== userId.key.toString()) {
         dispatch({
@@ -46,7 +131,8 @@ const MatchState: React.FC = ({ children }) => {
       }
     });
 
-    socket.on("send:invite", (data: any) => {
+    // Receive game invite
+    socket.on(SocketEvents.SERVER_SEND_INVITE, (data: any) => {
       dispatch({
         type: HANDLE_INVITE,
         payload: {
@@ -56,7 +142,8 @@ const MatchState: React.FC = ({ children }) => {
       });
     });
 
-    socket.on("playerjoined:match", (data: any) => {
+    // Player joinend
+    socket.on(SocketEvents.SERVER_PLAYER_JOINED, (data: any) => {
       let ownerData;
       let opponentData;
 
@@ -72,7 +159,7 @@ const MatchState: React.FC = ({ children }) => {
 
       dispatch({
         type: MATCH_READY,
-        payload: {
+          payload: {
           ownerInfo: ownerData,
           opponentInfo: opponentData,
         },
@@ -80,9 +167,14 @@ const MatchState: React.FC = ({ children }) => {
     });
 
     return () => {
-      socket.off("send:invite");
-      socket.off("playerjoined:match");
-      socket.off("playerready:match");
+      socket.off(SocketEvents.SERVER_SEND_INVITE);
+      socket.off(SocketEvents.SERVER_PLAYER_JOINED);
+      socket.off(SocketEvents.SERVER_PLAYER_READY);
+
+      socket.off(SocketEvents.SERVER_MATCH_COUNTDOWN);
+      socket.off(SocketEvents.SERVER_MATCH_START_QUESTION);
+      socket.off(SocketEvents.SERVER_MATCH_START_ROUND);
+      socket.off(SocketEvents.SERVER_MATCH_START);
     };
   }, []);
 
@@ -92,13 +184,16 @@ const MatchState: React.FC = ({ children }) => {
       await axios
         .post(baseUrl + `/create`, { ownerId }, { withCredentials: true })
         .then((matchId) => {
-          socket.emit("invite:match", {
+          socket.emit(SocketEvents.CLIENT_INVITE_PLAYER, {
             matchId: matchId.data,
             opponentId,
             ownerId,
           });
 
-          socket.emit("join:match", { matchId: matchId.data, ownerId });
+          socket.emit(SocketEvents.CLIENT_JOIN_MATCH, {
+            matchId: matchId.data,
+            ownerId,
+          });
 
           dispatch({
             type: CREATE_MATCH,
@@ -122,7 +217,10 @@ const MatchState: React.FC = ({ children }) => {
       await axios
         .put(baseUrl + `/join/${userId}/${matchId}`, { withCredentials: true })
         .then(() => {
-          socket.emit("join:match", { matchId: parseInt(matchId), userId });
+          socket.emit(SocketEvents.CLIENT_JOIN_MATCH, {
+            matchId: parseInt(matchId),
+            userId,
+          });
 
           dispatch({
             type: JOIN_MATCH,
@@ -143,10 +241,11 @@ const MatchState: React.FC = ({ children }) => {
     });
   };
 
+  // Set user Ready
   const setUserReady = (matchId: string) => {
     let userId: IToken = getUserIdByToken();
 
-    socket.emit("userready:match", {
+    socket.emit(SocketEvents.CLIENT_USER_READY, {
       matchId: parseInt(matchId),
       userId: userId.key.toString(),
     });
@@ -154,6 +253,15 @@ const MatchState: React.FC = ({ children }) => {
     dispatch({
       type: SET_READY,
     });
+  };
+  
+  // Answer qustion
+  const answerQuestion = (matchId: number, questionId: string, answerId: number, correctAnswer: number) => {
+    let user_id: IToken = getUserIdByToken();
+
+    socket.emit(SocketEvents.CLIENT_ANSWER_QUESTION, {matchId: matchId, userId: user_id.key, questionId, answerId, correctAnswer});
+
+
   };
 
   return (
@@ -167,11 +275,15 @@ const MatchState: React.FC = ({ children }) => {
         opponentReady: state.opponentReady,
         receivedInvite: state.receivedInvite,
         invite: state.invite,
-        matchLoaded: state.matchLoaded,
+        game: state.game,
+        round: state.round,
+        roundResult: state.roundResult,
+        matchStarted: state.matchStarted,
         loading: state.loading,
         createMatch,
         acceptBattleInvite,
         setLoading,
+        answerQuestion,
         setUserReady,
       }}
     >

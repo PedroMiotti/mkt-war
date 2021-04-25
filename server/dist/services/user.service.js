@@ -52,7 +52,7 @@ const CreateUser = async (username, name, password) => {
         };
     let token;
     if (typeof newUser === "number")
-        token = genToken(parseInt(newUser));
+        token = genToken(newUser);
     return token;
 };
 exports.CreateUser = CreateUser;

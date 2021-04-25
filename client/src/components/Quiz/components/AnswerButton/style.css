@@ -3,8 +3,10 @@
   width: 70%;
   min-height: 80px;
 
-  background-color: var(--secundary-color);
+  /* background-color: var(--secundary-color); */
+  background-color: #fff;
   margin-bottom: 10px;
+  border: 0;
 
   border-radius: 20px;
 
@@ -21,6 +23,13 @@
   font-size: 20px;
 }
 
+.answer-correct{
+  background-color: green;
+}
+
+.answer-wrong{
+  background-color: red;
+}
 
 .answer-button-container:hover{
   cursor: pointer;

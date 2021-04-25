@@ -183,7 +183,6 @@ const UserState: React.FC = ({ children }) => {
     try{
       await axios.get(baseUrl + '/online')
       .then((users) => {
-        console.log(users.data)
           dispatch({
             type: ONLINE_PLAYERS,
             payload: { onlinePlayers: users.data }

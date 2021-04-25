@@ -21,6 +21,16 @@ interface IUserLogin {
   player_password: string;
 }
 
+interface IPlayerInfoOnMatchEnd {
+  total_games: number;
+  total_wins: number;
+  total_losses: number;
+  total_ties: number;
+  max_trophies: number;
+  trophies: number;
+  coins: number;
+}
+
 class UserModel {
   public id: number;
   public name: string;
@@ -29,6 +39,11 @@ class UserModel {
   public trophies: number;
   public avatar: number;
   public coins: number;
+
+  public static readonly COINS_MATCH_WINNED = 50;
+  public static readonly TROPHIES_MATCH_WINNED = 10;
+  public static readonly COINS_MATCH_LOST = 10;
+  public static readonly TROPHIES_MATCH_LOST = 4;
 
   public static async UserConnected(
     userId: number,
@@ -73,7 +88,6 @@ class UserModel {
   }
 
   // --> Criar usuario
-  // @param u = { username, name, password }
   public static async createUser(
     username: string,
     name: string,
@@ -89,6 +103,12 @@ class UserModel {
         );
 
         res = sql.lastInsertedId;
+
+        await sql.query(
+          "INSERT INTO player_stats (stats_player_id, stats_total_games, stats_max_trophies, stats_total_wins, stats_total_losses, stats_total_ties) VALUES( ?, ?, ?, ?, ?, ?)",
+          [res, 0, 0, 0, 0, 0]
+        );
+
       } catch (e) {
         if (e.code) {
           res = e.code;
@@ -143,6 +163,24 @@ class UserModel {
     return user_socketId;
   }
 
+  public static async GetUserIdBySocketId(socketId: string): Promise<string> {
+    let user_id: string;
+
+    await Sql.conectar(async (sql: Sql) => {
+      let res: any[];
+
+      res = await sql.query(
+        "SELECT online_player_id FROM online_players WHERE online_player_socketid = ?",
+        [socketId]
+      );
+
+      if (res[0])
+        user_id = res[0].online_player_id;
+    });
+
+    return user_id;
+  }
+
   public static async Logout(userId: number): Promise<string> {
     let res: string;
 
@@ -167,6 +205,55 @@ class UserModel {
     });
 
     return users;
+  }
+
+  public static async UpdatePlayerOnEndMatch(userId: number, trophies: number, coins: number, total_wins: number, 
+    total_losses: number, total_ties: number, max_trophies: number, total_games: number): Promise<void> {
+
+    await Sql.conectar(async (sql: Sql) => {
+      await sql.query(
+        "UPDATE player SET player_trophies = ?, player_coins = ? WHERE player_id = ?", [trophies, coins, userId]
+      );
+
+      await sql.query(
+        "UPDATE player_stats SET stats_total_games = ?, stats_max_trophies = ?, stats_total_wins = ?, stats_total_losses = ?, stats_total_ties = ? WHERE stats_player_id = ? ", [total_games, max_trophies, total_wins, total_losses, total_ties, userId]
+      );
+    });
+
+  }
+
+  public static async GetPlayerInfoOnEndMatch(userId: number): Promise<IPlayerInfoOnMatchEnd> {
+    let res: any[];
+    let playerInfoOnEndMatch: IPlayerInfoOnMatchEnd = {
+      total_games: 0,
+      total_wins: 0,
+      total_losses: 0,
+      total_ties: 0,
+      max_trophies: 0,
+      trophies: 0,
+      coins: 0,
+    };
+
+    await Sql.conectar(async (sql: Sql) => {
+      res = await sql.query(
+        "SELECT player_id, player_trophies, player_coins, stats_total_games, stats_max_trophies, stats_total_wins, stats_total_losses, stats_total_ties FROM player INNER JOIN player_stats ON player_stats.stats_player_id = player.player_id  WHERE player.player_id = ?; ", [userId]
+      );
+    });
+
+    if (res && res[0]) {
+      let row = res[0];
+
+      playerInfoOnEndMatch.total_games = row.stats_total_games;
+      playerInfoOnEndMatch.total_wins = row.stats_total_wins;
+      playerInfoOnEndMatch.total_losses = row.stats_total_losses;
+      playerInfoOnEndMatch.total_ties = row.stats_total_ties;
+      playerInfoOnEndMatch.max_trophies = row.stats_max_trophies;
+      playerInfoOnEndMatch.trophies = row.player_trophies;
+      playerInfoOnEndMatch.coins = row.player_coins;
+
+    }
+
+    return playerInfoOnEndMatch;
   }
 
   // // --> Excluir conta

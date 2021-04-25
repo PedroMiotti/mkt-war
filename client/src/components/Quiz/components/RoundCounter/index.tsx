@@ -5,10 +5,9 @@ import './style.css';
 interface IRoundCounterProps{
   currentRound: number;
   totalRounds: number;
-  hideScreen: boolean;
 }
 
-const RoundCounter: React.FC<IRoundCounterProps> = ({currentRound, totalRounds, hideScreen}) => {
+const RoundCounter: React.FC<IRoundCounterProps> = ({currentRound, totalRounds}) => {
   return(
     <div className="round-counter-container">
       <h1> Round {currentRound}</h1>

@@ -34,12 +34,17 @@ export = function createConnection(http: any) {
     );
 
     socket.on(SocketEvents.CLIENT_USER_READY, ({ matchId, userId }) =>
-      MatchService.SetUserReady(matchId, userId, io)
+      MatchService.SetUserReady(matchId, userId, io, socket)
+    );
+
+    socket.on(SocketEvents.CLIENT_ANSWER_QUESTION, ({ matchId, userId, questionId, answerId, correctAnswer }) =>
+      MatchService.AnswerQuestion(userId, matchId, questionId, answerId, correctAnswer)
     );
 
     socket.on(SocketEvents.CLIENT_DISCONNECT, () =>
-      console.log("Disconnected " + socket.id)
+      MatchService.DisconnectUserFromMatch(socket.id, io, socket)
     );
+
   });
 
   return io;

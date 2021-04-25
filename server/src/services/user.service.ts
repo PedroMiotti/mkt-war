@@ -77,7 +77,7 @@ export const CreateUser = async (username: string, name: string, password: strin
 
     let token: string;
     if(typeof newUser === "number")
-      token = genToken(parseInt(newUser));
+      token = genToken(newUser);
 
    return token;
 }

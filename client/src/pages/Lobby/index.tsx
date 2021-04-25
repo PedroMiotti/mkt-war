@@ -7,6 +7,7 @@ import AvatarIcon from "../../assets/icons/hacker.svg";
 import TrophyIcon from "../../assets/icons/trophy.svg";
 import TimerAnimation from "../../assets/animations/timer.json";
 import SwordsAnimation from "../../assets/animations/swords.json";
+import FirtRoundCountdownAnimation from '../../assets/animations/firstRoundCountdown.json';
 
 // Context
 import { useMatchContext } from "../../context/match/match.context";
@@ -23,6 +24,7 @@ const Lobby = () => {
     opponentInfo,
     setUserReady,
     opponentReady,
+    matchStarted,
   } = useMatchContext();
 
   const { matchId } = useParams<{ matchId: string }>();
@@ -76,6 +78,15 @@ const Lobby = () => {
     loop: true,
     autoplay: true,
     animationData: SwordsAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  const FirstRoundCountdownAnimationOptions = {
+    loop: false,
+    autoplay: true,
+    animationData: FirtRoundCountdownAnimation,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
@@ -137,9 +148,18 @@ const Lobby = () => {
                 }}
               />
             )}
-            {opponentAccepted && (
+            {opponentAccepted && !matchStarted &&(
               <Lottie
                 options={SwordsAnimationOptions}
+                style={{
+                  height: 110,
+                  marginLeft: 5,
+                }}
+              />
+            )}
+            {opponentAccepted && matchStarted &&(
+              <Lottie
+                options={FirstRoundCountdownAnimationOptions}
                 style={{
                   height: 110,
                   marginLeft: 5,
