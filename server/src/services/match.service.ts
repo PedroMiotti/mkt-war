@@ -296,8 +296,6 @@ export const EndMatch = async (matchId: number, io: any, socket: any) => {
   let opponentCoins: number = opponentInfo.coins;
 
   if (!match.owner_disconnected) {
-
-
     if (someoneScored) {
       ownerTotalGames = ownerInfo.total_games + 1;
 

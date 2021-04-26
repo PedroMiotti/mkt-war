@@ -126,8 +126,6 @@ const PlayNextRound = async (matchId, io, socket) => {
         io.to(matchId).emit(SocketEvents.SERVER_MATCH_COUNTDOWN, {
             seconds: counted,
         });
-        console.log(_match.owner_disconnected);
-        console.log(_match.opponent_disconnected);
         if (_match.owner_disconnected == 0 || _match.opponent_disconnected == 0) {
             userDisconnected = true;
             return;
@@ -152,7 +150,6 @@ const PlayNextRound = async (matchId, io, socket) => {
     });
     await Time.waitMS(MatchModel.TIME_BEFORE_NEW_ROUND);
     if (userDisconnected) {
-        console.log('end match');
         exports.EndMatch(matchId, io, socket);
         return;
     }
@@ -289,7 +286,6 @@ const DisconnectUserFromMatch = async (socketId, io, socket) => {
                 });
             }
             if (match.match_status.toString() === MatchStatus.PLAYING) {
-                console.log("player left - playing");
                 await MatchModel.PlayerLeftMatch(isMatchOwner, match.match_id);
             }
             socket.leave(match.match_id);
