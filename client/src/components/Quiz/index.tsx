@@ -49,7 +49,7 @@ const Quiz = () => {
             />
             <div className="quiz-players-owner-info">
               <h3>{ownerInfo.username}</h3>
-              <p>{roundResult.ownerScore? roundResult.ownerScore : '0'}</p>
+              <p>{roundResult.ownerScore ? roundResult.ownerScore : '0'}</p>
             </div>
           </div>
           <div className="quiz-players-opponent">
@@ -60,7 +60,7 @@ const Quiz = () => {
             />
             <div className="quiz-players-opponent-info">
               <h3>{opponentInfo.username}</h3>
-              <p>{roundResult.opponentScore? roundResult.opponentScore : '0'}</p>
+              <p>{roundResult.opponentScore ? roundResult.opponentScore : '0'}</p>
             </div>
           </div>
         </div>

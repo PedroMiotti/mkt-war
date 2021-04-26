@@ -1,0 +1,145 @@
+.result-container{
+    height: 100vh;
+    width: 100vw;
+
+    background-color: var(--primary-color);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.result-top-info {
+    margin-bottom: 30px;
+    
+    width: 100%;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    position: relative;
+}
+
+.result-top-info h1{
+    font-family: var(--primary-font);
+    color: var(--primary-color-hover);
+}
+
+.result-card-info{
+    width: 40%;
+    min-height: 150px;
+    padding: 30px;
+    background-color: #fff;
+
+    border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    font-family: var(--secundary-font);
+}
+
+
+.result-players{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 100%;
+}
+
+.result-players div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    flex: 1;
+    padding: 10px;
+
+}
+
+.result-players div h1{
+    color: var(--primary-color);
+    font-weight: 400;
+}
+
+.result-players div p{
+    color: #000;
+}
+
+.result-sair-container{
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.result-sair{
+    width: 250px;
+    height: 50px;
+
+    background-color: var(--primary-color-hover);
+
+    color: #fff;
+    font-weight: 600;
+
+    border: none;
+    border-radius: 6px;
+}
+
+.result-sair:hover{
+
+    background-color: var(--primary-color-light) ;
+
+    color: #fff;
+    cursor: pointer;
+}
+
+.result-icon{
+    height: 100px;
+    width: 100px;
+    margin: 0 10px 0 0 ;
+
+    position: absolute;
+    bottom: 50px;
+
+}
+
+
+@media only screen and (max-width: 900px){
+    .result-card-info{
+        width: 60%;
+    }
+
+    .result-top-info h1{
+        font-size: 25px;
+    }
+
+    .result-players div h1{
+        font-size: 25px;
+    
+    }
+}
+
+@media only screen and (max-width: 500px){
+
+    .result-card-info{
+        width: 80%;
+    }
+
+    .result-players div h1{
+        font-size: 21px;
+    
+    }
+
+    .result-sair{
+        width: 80%;
+    }
+}
+

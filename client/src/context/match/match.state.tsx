@@ -15,6 +15,7 @@ import {
   ROUND_RESULT,
   SET_ROUND,
   SET_READY,
+  MATCH_RESULT,
 } from "../types";
 
 import MatchContext from "./match.context";
@@ -38,21 +39,42 @@ const MatchState: React.FC = ({ children }) => {
   };
 
   const socket = React.useContext(SocketContext);
-  const { id } = useUserContext();
 
   const [state, dispatch] = React.useReducer(matchReducer, initialState);
 
   const baseUrl: string = "/api/v1/match";
 
   React.useEffect(() => {
-    // Start Match (show countdown to the start of the first round)
+    // Player left match
     socket.on(SocketEvents.SERVER_PLAYER_LEFT, (data: any) => {
-      console.log(data);
+      // Show player left modal
+      history.push(`/home`);
     });
     
-    // Start Match (show countdown to the start of the first round)
+    // Match end
     socket.on(SocketEvents.SERVER_MATCH_END, (data: any) => {
-      console.log(data);
+      let ownerData;
+      let opponentData;
+
+      let userId: IToken = getUserIdByToken();
+
+      if (userId.key.toString() === data.owner.id.toString()) {
+        ownerData = data.owner;
+        opponentData = data.opponent;
+      } else {
+        ownerData = data.opponent;
+        opponentData = data.owner;
+      }
+
+      dispatch({
+        type: MATCH_RESULT,
+        payload:{
+          owner: ownerData,
+          opponent: opponentData
+        }
+      });
+
+      history.push(`/result`);
     });
 
     // Start Match (show countdown to the start of the first round)
@@ -109,13 +131,32 @@ const MatchState: React.FC = ({ children }) => {
 
     // Round end
     socket.on(SocketEvents.SERVER_MATCH_END_ROUND, (data: any) => {
+      let ownerSelected;
+      let opponentSelected;
+      let ownerScore;
+      let opponentScore;
+
+      let userId: IToken = getUserIdByToken();
+
+      if (userId.key.toString() === data.owner.id.toString()) {
+        ownerSelected = data.owner.answer;
+        opponentSelected = data.opponent.answer;
+        ownerScore = data.owner.score;
+        opponentScore = data.opponent.score;
+      } else {
+        ownerSelected = data.opponent.answer;
+        opponentSelected = data.owner.answer;
+        ownerScore = data.opponent.score;
+        opponentScore = data.owner.score;
+      }
+
       dispatch({
         type: ROUND_RESULT,
         payload: {
-          ownerSelected: data.owner.answer,
-          opponentSelected: data.opponent.answer,
-          ownerScore: data.owner.score,
-          opponentScore: data.opponent.score,
+          ownerSelected,
+          opponentSelected,
+          ownerScore,
+          opponentScore,
         }
       });
 
@@ -175,6 +216,9 @@ const MatchState: React.FC = ({ children }) => {
       socket.off(SocketEvents.SERVER_MATCH_START_QUESTION);
       socket.off(SocketEvents.SERVER_MATCH_START_ROUND);
       socket.off(SocketEvents.SERVER_MATCH_START);
+      socket.off(SocketEvents.SERVER_MATCH_END);
+      socket.off(SocketEvents.SERVER_PLAYER_LEFT);
+      
     };
   }, []);
 
@@ -278,6 +322,7 @@ const MatchState: React.FC = ({ children }) => {
         game: state.game,
         round: state.round,
         roundResult: state.roundResult,
+        matchResult: state.matchResult,
         matchStarted: state.matchStarted,
         loading: state.loading,
         createMatch,

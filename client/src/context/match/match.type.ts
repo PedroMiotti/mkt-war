@@ -39,6 +39,22 @@ export interface IGame {
   showRoundScreen: boolean;
 }
 
+export interface MatchResult {
+  owner:{    
+    score: number;
+    winned: boolean;
+    coins: number;
+    trophies: number;
+  };
+  opponent: {
+    score: number;
+    winned: boolean;
+    coins: number;
+    trophies: number;
+  };
+
+}
+
 export interface IRoundResult {
   ownerSelected: number;
   opponentSelected: number;
@@ -67,6 +83,7 @@ export interface State {
   game: IGame;
   round: IRound;
   roundResult: IRoundResult;
+  matchResult: MatchResult;
   loading: boolean;
   createMatch: (ownerId: string, opponentId: string) => void;
   acceptBattleInvite: (

@@ -9,6 +9,7 @@ import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
 import LobbyPage from './pages/Lobby';
 import GamePage from './pages/Game';
+import ResultPage from './pages/Result'
 
 // Components
 import ProtectedRoute from './components/ProtectedRoute';
@@ -24,6 +25,7 @@ const Router = () => {
 
       <ProtectedRoute path='/lobby/:matchId' component={LobbyPage} />
       <ProtectedRoute path='/game' component={GamePage} />
+      <ProtectedRoute path='/result' component={ResultPage} />
 
     </Switch>
 

@@ -12,6 +12,7 @@ import {
   ROUND_COUNTDOWN,
   START_QUESTION,
   HANDLE_INVITE,
+  MATCH_RESULT,
 } from "../types";
 import { Action, State } from "./match.type";
 
@@ -64,6 +65,20 @@ export const initialState: State = {
     opponentSelected: 0,
     ownerScore: 0,
     opponentScore: 0,
+  },
+  matchResult: {
+    owner:{    
+      score: 0,
+      winned: false,
+      coins: 0,
+      trophies: 0,
+    },
+    opponent: {
+      score: 0,
+      winned: false,
+      coins: 0,
+      trophies: 0,
+    },
   },
   matchStarted: false,
   loading: false,
@@ -177,6 +192,15 @@ export default function matchReducer(
         round: {
           ...state.round,
           showCorrectAnswer: true,
+        },
+      };
+
+    case MATCH_RESULT:
+      return {
+        ...state,
+        matchResult: {
+          owner: payload.owner,
+          opponent: payload.opponent,
         },
       };
 
