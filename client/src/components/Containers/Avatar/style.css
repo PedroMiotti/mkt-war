@@ -1,10 +1,10 @@
 .Avatar-Container{
   width: 300px;
-  height: 180px;
+  height: 205px;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
 }
@@ -16,6 +16,8 @@
   overflow: hidden;
   border-radius: 50%;
   background-color: #fff;
+
+  border: 5px solid #fff;
 }
 
 .Avatar-image{

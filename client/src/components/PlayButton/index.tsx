@@ -1,23 +1,16 @@
 import React from 'react';
 import './style.css';
 
-// Assets
-import PlayIcon from '../../assets/icons/play-button.svg';
-
-interface IPlayButtonProps{
-  text: string
+interface IPlayButtonProps {
+  text: string;
+  clickAction: () => void;
 }
 
-const PlayButton: React.FC<IPlayButtonProps> = ({ text }) => {
+const PlayButton: React.FC<IPlayButtonProps> = ({ text, clickAction }) => {
   return (
-    <div className="PlayButton-Container">
-<div className="PlayButton-Icon-Container">
-      <img src={PlayIcon} className="PlayButton-Icon" alt="play icon" />
-</div>
+    <button className="PlayButton-Container" onClick={clickAction}>
       <h2>{text}</h2>
-
-
-    </div>
+    </button>
 
   )
 

@@ -14,7 +14,7 @@ const Avatar: React.FC<IAvatarProps> = ({ username, avatarSrc }) => {
         <img src={avatarSrc} className="Avatar-image" alt="user avatar" />
       </div>
 
-      <h1 className="Avatar-Username">{username}</h1>
+      <h1 className="Avatar-Username">{username.toUpperCase()}</h1>
     </div>
   );
 };

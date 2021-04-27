@@ -9,15 +9,18 @@ import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
 
 // Components
 import InfoBox from "../../components/Containers/InfoBox";
-import ComunityButton from "../../components/comunityButton";
 import AvatarContainer from "../../components/Containers/Avatar";
 import PlayButton from "../../components/PlayButton";
 import MatchInvite from "../../components/MatchInviteModal";
 import OnlinePlayersModal from "../../components/OnlinePlayersModal";
+
 // Assets
 import CoinIcon from "../../assets/icons/dollar.svg";
 import TrophyIcon from "../../assets/icons/trophy.svg";
-import AvatarIcon from "../../assets/icons/hacker.svg";
+import AvatarIcon from "../../assets/avatar/1.svg";
+import LogoutIcon from "../../assets/icons/logout.svg";
+import ComunityIcon from '../../assets/icons/teamwork.svg';
+import PodiumIcon from '../../assets/icons/podium.svg';
 
 const Home = () => {
   const {
@@ -55,21 +58,31 @@ const Home = () => {
         />
       )}
       <MatchInvite />
+
       <div className="MainPage-header">
-        <InfoBox text={coins} icon={CoinIcon} />
-        <InfoBox text={trophies} icon={TrophyIcon} />
-        <ComunityButton />
-        <button onClick={() => logout(userId.key.toString())}>logout</button>
+        <div className="MainPage-header-infobox">
+          <InfoBox text={coins} icon={CoinIcon} />
+          <InfoBox text={trophies} icon={TrophyIcon} />
+        </div>
+
+        <div className="mainPage-comunity-button-Container">
+          <img src={ComunityIcon} className="mainPage-ComunityButton-icon" alt="comunity button icon" />
+        </div>
+
+        <div className="mainPage-podium-button-Container">
+          <img src={PodiumIcon} className="mainPage-podiumButton-icon" alt="comunity button icon" />
+        </div>
+
+        <img src={LogoutIcon} onClick={() => logout(userId.key.toString())} className="mainPage-logout-button" alt="logout icon" />
       </div>
 
       <AvatarContainer avatarSrc={AvatarIcon} username={username} />
 
       <div className="MainPage-Buttons">
         <div className="MainPage-buttons-Friend">
-          <PlayButton text="Jogar com amigo" />
-          <button onClick={playWithFriend}>play friend</button>
+          <PlayButton text="Jogar com amigo" clickAction={() => playWithFriend()}/>
         </div>
-        <PlayButton text="Jogar aleatorio" />
+        <PlayButton text="Jogar aleatorio" clickAction={() => playWithFriend()}/>
       </div>
     </div>
   );

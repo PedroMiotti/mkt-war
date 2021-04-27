@@ -1,20 +1,28 @@
 .InfoBox-Container{
-  width: 90px;
+  min-width: 90px;
   height: 45px;
+  padding: 2px 5px;
+
   background-color: #fff;
 
+  font-size: 17px;
+  font-family: var(--secundary-font);
+  font-weight: 300;
+  color: rgb(66, 66, 66);
+ 
   display: flex;
   justify-content: center;
   align-items: center;
 
   border-radius: 14px;
-  -webkit-box-shadow: 7px 3px 15px -2px #000000; 
-  box-shadow: 7px 3px 15px -2px #000000;
+  -webkit-box-shadow: 7px 3px 15px -2px #414141; 
+  box-shadow: 7px 3px 15px -2px #414141;
+  
 }
 
 .InfoBox-icon{
-  height: 20px;
-  width: 20px;
+  height: 23px;
+  width: 23px;
   margin: 0 10px 0 0 ;
 
 }
