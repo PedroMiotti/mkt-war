@@ -11,8 +11,10 @@ import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
 import InfoBox from "../../components/Containers/InfoBox";
 import AvatarContainer from "../../components/Containers/Avatar";
 import PlayButton from "../../components/PlayButton";
-import MatchInvite from "../../components/MatchInviteModal";
+import MatchInviteModal from "../../components/MatchInviteModal";
 import OnlinePlayersModal from "../../components/OnlinePlayersModal";
+import ChooseAvatarDrawer from "../../components/ChooseAvatarDrawer";
+
 
 // Assets
 import CoinIcon from "../../assets/icons/dollar.svg";
@@ -33,10 +35,9 @@ const Home = () => {
     getOnlinePlayers,
   } = useUserContext();
 
-  const [
-    onlinePlayersModalVisible,
-    setOnlinePlayersModalVisible,
-  ] = React.useState(false);
+  const [onlinePlayersModalVisible, setOnlinePlayersModalVisible] = React.useState(false);
+  const [chooseAvatarsDrawerVisible, setChooseAvatarsDrawerVisible] = React.useState(false);
+
 
   let userId: IToken = getUserIdByToken();
 
@@ -57,11 +58,15 @@ const Home = () => {
           close={() => setOnlinePlayersModalVisible(!onlinePlayersModalVisible)}
         />
       )}
-      <MatchInvite />
+      <MatchInviteModal />
+
+      <ChooseAvatarDrawer openDrawer={chooseAvatarsDrawerVisible} closeDrawer={() => setChooseAvatarsDrawerVisible(false)}/>
 
       <div className="MainPage-header">
         <div className="MainPage-header-infobox">
-          <InfoBox text={coins} icon={CoinIcon} />
+          <div style={{marginRight: "20px"}}>
+            <InfoBox text={coins} icon={CoinIcon}  />
+          </div>
           <InfoBox text={trophies} icon={TrophyIcon} />
         </div>
 
@@ -76,7 +81,7 @@ const Home = () => {
         <img src={LogoutIcon} onClick={() => logout(userId.key.toString())} className="mainPage-logout-button" alt="logout icon" />
       </div>
 
-      <AvatarContainer avatarSrc={AvatarIcon} username={username} />
+      <AvatarContainer avatarSrc="avatar/1.svg" username={username} openDrawer={() => setChooseAvatarsDrawerVisible(true)}/>
 
       <div className="MainPage-Buttons">
         <div className="MainPage-buttons-Friend">
