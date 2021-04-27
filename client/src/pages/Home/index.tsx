@@ -40,6 +40,7 @@ const Home = () => {
 
   const [onlinePlayersModalVisible, setOnlinePlayersModalVisible] = React.useState(false);
   const [chooseAvatarsDrawerVisible, setChooseAvatarsDrawerVisible] = React.useState(false);
+
   const [ userAvatar, setUserAvatar] = React.useState(SelectAvatarSrc(avatar));
 
   let userId: IToken = getUserIdByToken();
@@ -65,14 +66,10 @@ const Home = () => {
 
   return (
     <div className="MainPage-Containter">
-      {onlinePlayersModalVisible && (
-        <OnlinePlayersModal
-          close={() => setOnlinePlayersModalVisible(!onlinePlayersModalVisible)}
-        />
-      )}
       
       <MatchInviteModal />
 
+      <OnlinePlayersModal openModal={onlinePlayersModalVisible} closeModal={() => setOnlinePlayersModalVisible(false)}/>
       <ChooseAvatarDrawer openDrawer={chooseAvatarsDrawerVisible} closeDrawer={() => setChooseAvatarsDrawerVisible(false)}/>
 
       <div className="MainPage-header">

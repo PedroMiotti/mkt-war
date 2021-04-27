@@ -38,7 +38,6 @@ const ChooseAvatarDrawer: React.FC<IChooseAvatarDrawer> = ({ openDrawer, closeDr
         closeDrawer();
     }
 
-
     const { width } = useWindowDimensions();
 
     return (

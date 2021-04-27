@@ -4,15 +4,20 @@ import "./style.css";
 import { Avatar } from "antd";
 
 // Assets
-import AvatarIcon from "../../../../assets/icons/hacker.svg";
-import TrophyIcon from "../../../../assets/icons/trophy.svg";
+import AvatarIcon from "assets/icons/hacker.svg";
+import TrophyIcon from "assets/icons/trophy.svg";
+
+//Utils
+import SelectAvatarSrc from 'utils/chooseAvatar';
 
 interface IListItemProps {
+  setPlayer: any;
   Pkey: number;
-  avatar: number;
+  avatar: string;
   username: string;
   trophies: number;
   id: number;
+  inviteButton: () => void;
 }
 
 const ListItem: React.FC<IListItemProps> = ({
@@ -21,32 +26,35 @@ const ListItem: React.FC<IListItemProps> = ({
   username,
   trophies,
   id,
+  setPlayer,
+  inviteButton
 }) => {
   return (
-      <option className="listitem-container">
+      <div className="listitem-container">
         <div className="listitem-key">{Pkey}</div>
 
         <div className="listitem-info">
           <div className="listitem-avatar-username">
             <Avatar
-              style={{ backgroundColor: "#fff", verticalAlign: "middle" }}
-              src={AvatarIcon}
-              shape="square"
+              style={{verticalAlign: "middle", border: "1px solid #fff" }}
+              src={SelectAvatarSrc(avatar)}
               size="large"
             />
-            <h4>{username}</h4>
+            <div>
+            <h4>{username.toUpperCase()}</h4>
+              <div className="listitem-trophies">
+                <img
+                  src={TrophyIcon}
+                  className="listitem-trophy-icon"
+                  alt="user avatar icon"
+                />
+                <p>{trophies}</p>
+            </div>
+            </div>
           </div>
-
-          <div className="listitem-trophies">
-            <img
-              src={TrophyIcon}
-              className="Lobby-trophy-icon"
-              alt="user avatar icon"
-            />
-            <h4>{trophies}</h4>
-          </div>
+          <button onClick={() => { setPlayer(id); inviteButton()}} className="listitem-invitebutton">Desafiar</button>
         </div>
-      </option>
+      </div>
   );
 };
 

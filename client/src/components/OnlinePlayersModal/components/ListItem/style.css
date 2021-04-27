@@ -1,7 +1,5 @@
 .listitem-container{
 
-  background-color: var(--primary-color);
-
   width: 100%;
   height: 47px;
   margin-bottom: 10px;
@@ -22,7 +20,6 @@
 
   font-family: var(--secundary-font);
   font-weight: bold;
-  background-color: var(--primary-color-hover);
   padding: 2px 5px;
   margin-left: 10px;
   margin-right: 10px;
@@ -59,24 +56,32 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-
 }
 
-.listitem-trophies h4{
+.listitem-trophy-icon{
+  width: 12px;
+  height: 12px;
+  margin: 0;
   margin-left: 5px;
+}
+
+.listitem-trophies p{
+  margin-left: 2px;
   font-family: var(--secundary-font);
   color: var(--secundary-color);
+  font-size: 14px;
 }
 
-.listitem-invitebutton button{
+.listitem-invitebutton {
   border: 0;
   background-color: #79d70f;
   color: #fff;
   font-family: var(--primary-font);
-  padding: 5px;
+  padding: 6px;
+  border-radius: 6px;
 
 }
-.listitem-invitebutton button:hover{
+.listitem-invitebutton:hover{
   background-color: #56990B;
   cursor: pointer;
 }

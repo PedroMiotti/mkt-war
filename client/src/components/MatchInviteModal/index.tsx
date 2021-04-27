@@ -14,6 +14,9 @@ import TrophyIcon from "../../assets/icons/trophy.svg";
 import { useMatchContext } from "../../context/match/match.context";
 import { useUserContext } from "../../context/user/user.context";
 
+//Utils
+import SelectAvatarSrc from 'utils/chooseAvatar';
+
 const MatchInvite = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -42,7 +45,7 @@ const MatchInvite = () => {
     <>
       <Modal
         footer={null}
-        title="BATTLE   INVITE"
+        title="Convite de batalha"
         centered
         visible={isModalVisible}
         closable={false}
@@ -50,15 +53,14 @@ const MatchInvite = () => {
         <div className="matchInvite-challenger-info">
           <div className="matchInvite-challenger-avatar">
             <Avatar
-              shape="square"
               size={64}
-              style={{ backgroundColor: "#fff", verticalAlign: "middle" }}
-              src={AvatarIcon}
+              style={{ verticalAlign: "middle", border: "2px solid #fff" }}
+              src={SelectAvatarSrc(invite.ownerInfo.avatar.toString())}
             />
           </div>
 
           <div className="matchInvite-challenger-description">
-            <h2>{invite.ownerInfo.username}</h2>
+            <h2>{invite.ownerInfo.username.toUpperCase()}</h2>
             <div className="matchInvite-trophy-section">
               <img
                 src={TrophyIcon}

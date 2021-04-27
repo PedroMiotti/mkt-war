@@ -12,38 +12,51 @@ import { useUserContext } from "../../context/user/user.context";
 import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
 
 interface IOnlinePlayerModalProps {
-  close: () => void;
+  openModal: boolean;
+  closeModal: () => void;
 }
 
-const OnlinePlayersModal: React.FC<IOnlinePlayerModalProps> = ({ close }) => {
+const OnlinePlayersModal: React.FC<IOnlinePlayerModalProps> = ({ openModal, closeModal }) => {
   const { createMatch } = useMatchContext();
   const { onlinePlayers } = useUserContext();
 
   const [playerId, setPlayerId] = React.useState("");
 
+  const [isvisible, setIsVisible] = React.useState(openModal);
+
   let userId: IToken = getUserIdByToken();
 
+  React.useEffect(() => {
+    if (openModal)
+      setIsVisible(true)
+    else
+      setIsVisible(false);
+
+  }, [openModal])
+
+  React.useEffect(() => {
+    if(playerId){
+      createMatch(userId.key.toString(), playerId);
+      closeModal();
+    }
+
+  }, [playerId])
+
   const challengePlayer = () => {
-    createMatch(userId.key.toString(), playerId);
-    close();
+    setPlayerId(playerId)
   };
+  
 
   return (
     <>
       <Modal
-        title="ONLINE PLAYERS"
+        title="Desafie um amigo "
         footer={null}
         closable={false}
-        visible={true}
+        visible={isvisible}
+        onCancel={closeModal}
       >
-        <ListView setPlayer={setPlayerId} playersList={onlinePlayers} />
-
-        <button
-          onClick={challengePlayer}
-          className="onlineplayers-invitebutton"
-        >
-          DESAFIAR
-        </button>
+        <ListView setPlayer={setPlayerId} playersList={onlinePlayers} inviteButton={challengePlayer} />
       </Modal>
     </>
   );

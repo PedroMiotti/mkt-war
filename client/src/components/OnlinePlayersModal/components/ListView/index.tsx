@@ -1,66 +1,49 @@
 import React from "react";
 import "./style.css";
 
-// import ListItem from "../ListItem";
+import ListItem from "../ListItem";
 
-// <ListItem
-//   key={players.id}
-//   Pkey={players.key}
-//   avatar={players.avatar}
-//   username={players.username}
-//   trophies={players.trophies}
-//   id={players.id}
-// />
-
-const data = [
-  {
-    key: 1,
-    id: 1,
-    username: "PedrinhoTsunami",
-    trophies: 10,
-    avatar: 1,
-  },
-  {
-    key: 2,
-    id: 2,
-    username: "LilAgo",
-    trophies: 2,
-    avatar: 1,
-  },
-  {
-    key: 3,
-    id: 3,
-    username: "CactusBral",
-    trophies: 66,
-    avatar: 1,
-  },
-];
 
 interface IListViewProps{
   setPlayer: any;
   playersList: any[];
+  inviteButton: () => void;
 }
 
 
-const ListView: React.FC<IListViewProps>= ({setPlayer, playersList}) => {
+const ListView: React.FC<IListViewProps>= ({setPlayer, playersList, inviteButton}) => {
+
+  const [playerId, setPlayerId] = React.useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const playerChoosen = e.target.value;
     setPlayer(playerChoosen);
   };
 
+  React.useEffect(() => {
+
+    setPlayer(playerId)
+
+  }, [playerId])
+  
+
   return (
     <div className="listview-container">
       <div className="listview-header"></div>
 
       <div className="listview-children">
-        <select onChange={handleChange}>
-          {playersList.map((players) => (
-            <option key={players.player_id} value={players.player_id}>
-              {players.player_username}
-            </option>
+          {playersList.map((players, i) => (
+              <ListItem
+                key={players.player_id}
+                Pkey={i +1}
+                avatar={players.player_avatar}
+                username={players.player_username}
+                trophies={players.player_trophies}
+                id={players.player_id}
+                inviteButton={inviteButton}
+                setPlayer={setPlayerId}
+              />
           ))}
-        </select>
       </div>
     </div>
   );
