@@ -74,22 +74,19 @@
 }
 
 .matchInvite-accept {
-   background: #63be2f;
-
-
+   background: var(--green);
 }
 
 .matchInvite-deny {
-  background: #d32626;
-
+  background: var(--red);
 }
 
 .matchInvite-accept:hover {
-  background: #59a82b;
+  background: var(--green-hover);
   cursor: pointer;
 }
 
 .matchInvite-deny:hover {
- background: #af2222;
+ background: var(--red-hover);
  cursor: pointer;
 }

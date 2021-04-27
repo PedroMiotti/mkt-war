@@ -2,7 +2,7 @@
   height: 100vh;
   width: 100vw;
 
-  background-color: var(--primary-color);
+  background: var(--default-background);
 
   display: flex;
   flex-direction: column;
@@ -48,10 +48,10 @@
 
 }
 
-.player-ready{
-  background-color: green;
+.lobby-owner-avatar,
+.lobby-opponent-avatar{
+  position: relative;
 }
-
 
 .lobby-opponent-info{
   display: flex;
@@ -106,11 +106,6 @@
   margin-left: 5px;
 }
 
-.Lobby-avatar-icon{
-  height: 100px;
-  width: 100px;
-
-}
 
 .lobby-divider{
   display: grid;
@@ -151,6 +146,49 @@
 
 }
 
+.lobby-ready-button{
+  border: 0;
+  background: var(--green);
+  color: #fff;
+
+  font-family: var(--primary-font);
+
+  padding: 10px;
+  border-radius: 5px;
+
+  margin: 10px 0 0 5px;
+}
+
+.lobby-ready-button:hover{
+  background: var(--green-hover);
+  cursor: pointer;
+}
+
+
+.lobby-check-owner-container{
+  position: absolute;
+  top: -15px;
+  left: -10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lobby-check-opponent-container{
+  position: absolute;
+  top: -10px;
+  right: -10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Lobby-check-icon{
+  width: 50px;
+  height: 50px;
+}
 
 @media only screen and (max-width: 420px) {
   .lobby-opponent-info,

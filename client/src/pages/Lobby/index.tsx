@@ -2,15 +2,18 @@ import React from "react";
 import "./style.css";
 
 //Assets
-import BackIcon from "../../assets/icons/back.svg";
-import AvatarIcon from "../../assets/icons/hacker.svg";
-import TrophyIcon from "../../assets/icons/trophy.svg";
-import TimerAnimation from "../../assets/animations/timer.json";
-import SwordsAnimation from "../../assets/animations/swords.json";
-import FirtRoundCountdownAnimation from '../../assets/animations/firstRoundCountdown.json';
+import BackIcon from "assets/icons/back.svg";
+import CheckIcon from "assets/icons/check.svg";
+import TrophyIcon from "assets/icons/trophy.svg";
+import TimerAnimation from "assets/animations/timer.json";
+import SwordsAnimation from "assets/animations/swords.json";
+import FirtRoundCountdownAnimation from 'assets/animations/firstRoundCountdown.json';
 
 // Context
-import { useMatchContext } from "../../context/match/match.context";
+import { useMatchContext } from "context/match/match.context";
+
+//Utils
+import SelectAvatarSrc from 'utils/chooseAvatar';
 
 import { Avatar } from "antd";
 
@@ -103,23 +106,23 @@ const Lobby = () => {
       </div>
 
       <div className="lobby-players-section">
-        <div
-          className={
-            !userReady_
-              ? "lobby-owner-section"
-              : "lobby-owner-section player-ready"
-          }
-        >
+        <div className="lobby-owner-section">
           <div className="lobby-owner-avatar">
             <Avatar
               size={100}
-              style={{ backgroundColor: "#fff", verticalAlign: "middle" }}
-              src={AvatarIcon}
+              style={{ verticalAlign: "middle", border: "2px solid #fff" }}
+              src={"/" + SelectAvatarSrc(ownerInfo.avatar.toString())}
             />
+
+            {userReady_ &&
+            <div className="lobby-check-owner-container">
+              <img src={CheckIcon} className="Lobby-check-icon" alt="user avatar" />
+            </div>
+          }
           </div>
 
           <div className="lobby-owner-info">
-            <h2>{ownerInfo.name}</h2>
+            <h2>{ownerInfo.name.toUpperCase()}</h2>
             <h4>@{ownerInfo.username}</h4>
             <div className="lobby-trophy-section">
               <img
@@ -129,11 +132,13 @@ const Lobby = () => {
               />
               <p>{ownerInfo.trophies}</p>
             </div>
-            <button onClick={setReady} disabled={userReady_}>
-              {" "}
-              ready{" "}
+            <button className="lobby-ready-button" onClick={setReady} disabled={userReady_}>
+              Pronto
             </button>
           </div>
+
+          
+
         </div>
 
         <div className="lobby-divider">
@@ -148,7 +153,7 @@ const Lobby = () => {
                 }}
               />
             )}
-            {opponentAccepted && !matchStarted &&(
+            {opponentAccepted && !matchStarted && (
               <Lottie
                 options={SwordsAnimationOptions}
                 style={{
@@ -157,12 +162,12 @@ const Lobby = () => {
                 }}
               />
             )}
-            {opponentAccepted && matchStarted &&(
+            {opponentAccepted && matchStarted && (
               <Lottie
                 options={FirstRoundCountdownAnimationOptions}
                 style={{
                   height: 110,
-                  marginLeft: 5,
+                  marginLeft: -1,
                 }}
               />
             )}
@@ -172,15 +177,9 @@ const Lobby = () => {
           <h1 className="lobby-waiting">Esperando adversário...</h1>
         )}
         {opponentAccepted && (
-          <div
-            className={
-              !opponentReady
-                ? "lobby-opponent-section"
-                : "lobby-opponent-section player-ready"
-            }
-          >
+          <div className="lobby-opponent-section">
             <div className="lobby-opponent-info">
-              <h2>{opponentInformation.name}</h2>
+              <h2>{opponentInformation.name.toUpperCase()}</h2>
               <h4>@{opponentInformation.username}</h4>
               <div className="lobby-trophy-section">
                 <img
@@ -194,10 +193,17 @@ const Lobby = () => {
             <div className="lobby-opponent-avatar">
               <Avatar
                 size={100}
-                style={{ backgroundColor: "#fff", verticalAlign: "middle" }}
-                src={AvatarIcon}
+                style={{ verticalAlign: "middle", border: "2px solid #fff" }}
+                src={"/" + SelectAvatarSrc(opponentInformation.avatar.toString())}
               />
+              {opponentReady_ &&
+                <div className="lobby-check-opponent-container">
+                  <img src={CheckIcon} className="Lobby-check-icon" alt="user avatar" />
+                </div>
+              }
             </div>
+
+
           </div>
         )}
       </div>
