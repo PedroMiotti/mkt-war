@@ -8,6 +8,7 @@ import {
   ONLINE_PLAYERS,
   SET_LOADING,
   SET_ERROR,
+  UPDATE_AVATAR
 } from "../types";
 import { Action, State } from "./user.type";
 
@@ -37,6 +38,7 @@ export const initialState: State = {
   setLoading: () => null,
   getOnlinePlayers: () => null,
   setUserOnline: () => null,
+  updateUserAvatar: () => null,
 };
 
 //reducer
@@ -71,6 +73,12 @@ export default function roomReducer(
         avatar: payload.avatar,
         coins: payload.coins,
         trophies: payload.trophies,
+      };
+
+      case UPDATE_AVATAR:
+      return {
+        ...state,
+        avatar: payload.avatarId,
       };
 
     case UPDATE_USER:

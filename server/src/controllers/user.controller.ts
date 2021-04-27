@@ -75,6 +75,18 @@ class UserController{
 
   }
 
+
+  public static async UpdateUserAvatar(req: express.Request, res: express.Response){
+    const avatar_id: number = parseInt(req.params.avatar)
+    const user_id: number = parseInt(req.params.id)
+    console.log(req.params.avatar)
+
+    await UserService.UpdateUserAvatar(avatar_id, user_id);
+
+    return res.status(200).send("Avatar updated");
+
+  }
+
 }
 
 

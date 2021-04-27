@@ -130,6 +130,12 @@ export const UserConnected = async (userId: string, socketId: string):Promise<vo
 
 }
 
+export const UpdateUserAvatar = async (avatarId: number, userId: number): Promise<void> => {
+
+  await UserModel.UpdateUserAvatar(avatarId, userId);
+
+}
+
 export const OnlinePlayers = async (): Promise<any[]> => {
   let users: any[];
 

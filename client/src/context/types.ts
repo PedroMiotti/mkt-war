@@ -24,6 +24,7 @@ export const UPDATE_USER: string = 'UPDATE_USER';
 export const USER_PROFILE: string = 'USER_PROFILE';
 export const LOGOUT: string = 'LOGOUT';
 export const DELETE_USER: string = 'DELETE_USER'; 
+export const UPDATE_AVATAR: string = 'UPDATE_AVATAR'; 
 
 export const ONLINE_PLAYERS: string = 'ONLINE_PLAYERS'; 
 

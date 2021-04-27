@@ -42,6 +42,11 @@ class UserModel {
         });
         return res;
     }
+    static async UpdateUserAvatar(avatarId, userId) {
+        await Sql.conectar(async (sql) => {
+            await sql.query("UPDATE player SET player_avatar = ? WHERE player_id = ?", [avatarId, userId]);
+        });
+    }
     // --> Info Usuario
     static async profile(id) {
         let user;

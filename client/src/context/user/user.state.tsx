@@ -20,6 +20,7 @@ import {
   ONLINE_PLAYERS,
   SET_LOADING,
   SET_ERROR,
+  UPDATE_AVATAR
 } from "../types";
 
 import UserContext from "./user.context";
@@ -173,6 +174,27 @@ const UserState: React.FC = ({ children }) => {
     socket.emit("online:player", { userId: user_id.key.toString() });
   };
 
+  const updateUserAvatar = async (avatarId: string) => {
+    try {
+      let user_id: IToken = getUserIdByToken();
+
+      await axios
+        .put(baseUrl + `/avatar/${user_id.key}/${avatarId}`)
+        .then(() => {
+          dispatch({
+            type: UPDATE_AVATAR,
+            payload: { avatarId },
+          });
+        })
+
+    } catch (e) {
+      dispatch({
+        type: SET_ERROR,
+        payload: { message: "Erro ao atualizar o avatar !" },
+      });
+    }
+  }
+
   const updateUser = () => {};
 
   const deleteUser = () => {};
@@ -223,6 +245,7 @@ const UserState: React.FC = ({ children }) => {
         setLoading,
         getOnlinePlayers,
         setUserOnline,
+        updateUserAvatar,
       }}
     >
       {children}

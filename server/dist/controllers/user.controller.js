@@ -43,6 +43,13 @@ class UserController {
         users = await UserService.OnlinePlayers();
         return res.status(200).send(users);
     }
+    static async UpdateUserAvatar(req, res) {
+        const avatar_id = parseInt(req.params.avatar);
+        const user_id = parseInt(req.params.id);
+        console.log(req.params.avatar);
+        await UserService.UpdateUserAvatar(avatar_id, user_id);
+        return res.status(200).send("Avatar updated");
+    }
 }
 module.exports = UserController;
 //# sourceMappingURL=user.controller.js.map

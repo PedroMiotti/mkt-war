@@ -15,6 +15,8 @@ import MatchInviteModal from "../../components/MatchInviteModal";
 import OnlinePlayersModal from "../../components/OnlinePlayersModal";
 import ChooseAvatarDrawer from "../../components/ChooseAvatarDrawer";
 
+//Utils
+import SelectAvatarSrc from 'utils/chooseAvatar';
 
 // Assets
 import CoinIcon from "../../assets/icons/dollar.svg";
@@ -29,6 +31,7 @@ const Home = () => {
     username,
     coins,
     trophies,
+    avatar,
     userProfile,
     logout,
     setUserOnline,
@@ -37,19 +40,28 @@ const Home = () => {
 
   const [onlinePlayersModalVisible, setOnlinePlayersModalVisible] = React.useState(false);
   const [chooseAvatarsDrawerVisible, setChooseAvatarsDrawerVisible] = React.useState(false);
-
+  const [ userAvatar, setUserAvatar] = React.useState(SelectAvatarSrc(avatar));
 
   let userId: IToken = getUserIdByToken();
 
   React.useEffect(() => {
     userProfile(userId.key.toString());
     setUserOnline();
+
   }, []);
+
+  React.useEffect(() => {
+    if(avatar)
+      setUserAvatar(SelectAvatarSrc(avatar))
+
+  }, [avatar]);
 
   const playWithFriend = () => {
     setOnlinePlayersModalVisible(true);
     getOnlinePlayers();
   };
+
+
 
   return (
     <div className="MainPage-Containter">
@@ -58,6 +70,7 @@ const Home = () => {
           close={() => setOnlinePlayersModalVisible(!onlinePlayersModalVisible)}
         />
       )}
+      
       <MatchInviteModal />
 
       <ChooseAvatarDrawer openDrawer={chooseAvatarsDrawerVisible} closeDrawer={() => setChooseAvatarsDrawerVisible(false)}/>
@@ -81,7 +94,7 @@ const Home = () => {
         <img src={LogoutIcon} onClick={() => logout(userId.key.toString())} className="mainPage-logout-button" alt="logout icon" />
       </div>
 
-      <AvatarContainer avatarSrc="avatar/1.svg" username={username} openDrawer={() => setChooseAvatarsDrawerVisible(true)}/>
+      <AvatarContainer avatarSrc={userAvatar} username={username} openDrawer={() => setChooseAvatarsDrawerVisible(true)}/>
 
       <div className="MainPage-Buttons">
         <div className="MainPage-buttons-Friend">

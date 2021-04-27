@@ -121,6 +121,15 @@ class UserModel {
     return res;
   }
 
+  public static async UpdateUserAvatar(avatarId: number, userId: number): Promise<void>{
+    await Sql.conectar(async (sql: Sql) => {
+      await sql.query(
+        "UPDATE player SET player_avatar = ? WHERE player_id = ?",
+        [avatarId, userId]
+      );
+    });
+  } 
+
   // --> Info Usuario
   public static async profile(id: number): Promise<UserModel | any> {
     let user: UserModel;
@@ -255,6 +264,8 @@ class UserModel {
 
     return playerInfoOnEndMatch;
   }
+
+  
 
   // // --> Excluir conta
   // public static async deleteProfile(

@@ -9,21 +9,34 @@ import avatars from 'assets/avatar.json';
 // Hooks
 import useWindowDimensions from "../../hooks/useWindowDimension";
 
+// Context 
+import { useUserContext } from "../../context/user/user.context";
+
 interface IChooseAvatarDrawer {
     openDrawer: boolean;
     closeDrawer: () => void;
 }
-  
 
-const ChooseAvatarDrawer: React.FC<IChooseAvatarDrawer> = ({openDrawer, closeDrawer}) => {
+
+const ChooseAvatarDrawer: React.FC<IChooseAvatarDrawer> = ({ openDrawer, closeDrawer }) => {
+    const {
+        updateUserAvatar
+      } = useUserContext();
 
     const [visible, setVisible] = React.useState(openDrawer);
 
     React.useEffect(() => {
-        if(openDrawer)
-            setVisible(!visible)
+        if (openDrawer)
+            setVisible(true)
+        else
+            setVisible(false);
 
     }, [openDrawer])
+
+    const updateAvatar = (avatarId: string) => {
+        updateUserAvatar(avatarId);
+        closeDrawer();
+    }
 
 
     const { width } = useWindowDimensions();
@@ -39,7 +52,7 @@ const ChooseAvatarDrawer: React.FC<IChooseAvatarDrawer> = ({openDrawer, closeDra
         >
             <div className="chooseavatar-container">
                 {avatars.avatars.map(avatar => (
-                    <img src={avatar.src} alt="avatar icons" />
+                    <img key={avatar.id} src={avatar.src} alt="avatar icons" onClick={() => updateAvatar(avatar.id.toString())} />
                 ))}
             </div>
 

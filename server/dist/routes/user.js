@@ -22,5 +22,9 @@ router.delete("/logout/:id", async (req, res) => {
 router.get("/online", async (req, res) => {
     await UserController.OnlinePlayers(req, res);
 });
+// Online users
+router.put("/avatar/:id/:avatar", async (req, res) => {
+    await UserController.UpdateUserAvatar(req, res);
+});
 module.exports = router;
 //# sourceMappingURL=user.js.map

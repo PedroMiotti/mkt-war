@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Logout = exports.OnlinePlayers = exports.UserConnected = exports.GetUserSocketIdById = exports.UserProfile = exports.CreateUser = exports.LoginUser = void 0;
+exports.Logout = exports.OnlinePlayers = exports.UpdateUserAvatar = exports.UserConnected = exports.GetUserSocketIdById = exports.UserProfile = exports.CreateUser = exports.LoginUser = void 0;
 const UserModel = require("../models/user.model");
 //JWT
 const jwt = require("jsonwebtoken");
@@ -90,6 +90,10 @@ const UserConnected = async (userId, socketId) => {
     await UserModel.UserConnected(parseInt(userId), socketId);
 };
 exports.UserConnected = UserConnected;
+const UpdateUserAvatar = async (avatarId, userId) => {
+    await UserModel.UpdateUserAvatar(avatarId, userId);
+};
+exports.UpdateUserAvatar = UpdateUserAvatar;
 const OnlinePlayers = async () => {
     let users;
     users = await UserModel.OnlinePlayers();

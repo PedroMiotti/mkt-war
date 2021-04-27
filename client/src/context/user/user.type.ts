@@ -29,6 +29,7 @@ export interface State {
     setLoading: () => void;
     getOnlinePlayers: () => void;
     setUserOnline: () => void;
+    updateUserAvatar: (avatarId: string) => void;
 }
 
 
