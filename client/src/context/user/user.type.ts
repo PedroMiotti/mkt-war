@@ -16,7 +16,7 @@ export interface State {
     trophies: string;
     coins: string;
     avatar: string;
-    onlinePlayers: IUser[];
+    onlinePlayers: any[];
     errorMsg: string;
     loading: boolean;
 

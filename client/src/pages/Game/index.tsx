@@ -2,12 +2,12 @@ import React from "react";
 import "./style.css";
 
 // Components
-import Quiz from "../../components/Quiz";
-import RoundCounter from "../../components/Quiz/components/RoundCounter";
+import Quiz from "components/Quiz";
+import RoundCounter from "components/Quiz/components/RoundCounter";
 
 
 // Context
-import { useMatchContext } from "../../context/match/match.context";
+import { useMatchContext } from "context/match/match.context";
 
 const Game = () => {
   const { game } = useMatchContext();

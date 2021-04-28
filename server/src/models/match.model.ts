@@ -25,7 +25,7 @@ class MatchModel {
   public opponent_disconnected: number;
 
   // Times in MS
-  public static readonly TOTAL_ROUNDS: number = 2;
+  public static readonly TOTAL_ROUNDS: number = 10;
   public static readonly ROUND_COUNTDOWN_TIME: number = 10;
   public static readonly TIME_BEFORE_START_MATCH: number = 1000;
   public static readonly TIME_BEFORE_START_FIRST_ROUND: number = 3500;

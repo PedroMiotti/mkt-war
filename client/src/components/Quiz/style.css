@@ -111,6 +111,10 @@
     justify-content: space-between;
   }
 
+  .quiz-players-opponent-info h3{
+    text-align: end;
+  }
+
 }
 
 
@@ -121,7 +125,7 @@
     margin: 0 2px 0 1px;
     inline-size: 120px;
     overflow-wrap: break-word;
-    font-size: 18px;
+    font-size: 19px;
   }
 
   .quiz-question-container{
@@ -130,6 +134,10 @@
 
   .quiz-container{
     padding: 10px 7px;
+  }
+
+  .quiz-players-opponent-info h3{
+    text-align: end;
   }
 
 }
@@ -150,7 +158,12 @@
     margin: 0 0 ;
     inline-size: 80px;
     overflow-wrap: break-word;
-    font-size: 13px;
+    font-size: 15px;
+    
+  }
+
+  .quiz-players-opponent-info h3{
+    text-align: end;
   }
 }
 

@@ -3,14 +3,17 @@ import "./style.css";
 
 import { Avatar } from "antd";
 
-// Assets
-import AvatarIcon from "../../assets/icons/hacker.svg";
-
 // Components
 import AnswerButton from "./components/AnswerButton";
 
 // Context
-import { useMatchContext } from "../../context/match/match.context";
+import { useMatchContext } from "context/match/match.context";
+
+// Hooks
+import useWindowDimensions from "../../hooks/useWindowDimension";
+
+//Utils
+import SelectAvatarSrc from 'utils/chooseAvatar';
 
 const Quiz = () => {
   const {
@@ -34,6 +37,8 @@ const Quiz = () => {
     );
   }, [ roundResult.ownerSelected, roundResult.opponentSelected]);
 
+  const { width } = useWindowDimensions();
+
 
   return (
     <div className="quiz-container">
@@ -43,9 +48,9 @@ const Quiz = () => {
         <div className="quiz-players-container">
           <div className="quiz-players-owner">
             <Avatar
-              size={64}
-              style={{ backgroundColor: "#fff", verticalAlign: "middle" }}
-              src={AvatarIcon}
+              size={width <= 800 ? 40 : 64}
+              style={{verticalAlign: "middle", border: "2px solid #fff" }}
+              src={"/" + SelectAvatarSrc(ownerInfo.avatar.toString())}
             />
             <div className="quiz-players-owner-info">
               <h3>{ownerInfo.username}</h3>
@@ -54,9 +59,9 @@ const Quiz = () => {
           </div>
           <div className="quiz-players-opponent">
             <Avatar
-              size={64}
-              style={{ backgroundColor: "#fff", verticalAlign: "middle" }}
-              src={AvatarIcon}
+              size={width <= 800 ? 40 : 64}
+              style={{verticalAlign: "middle", border: "2px solid #fff" }}
+              src={"/" + SelectAvatarSrc(opponentInfo.avatar.toString())}
             />
             <div className="quiz-players-opponent-info">
               <h3>{opponentInfo.username}</h3>
@@ -83,6 +88,8 @@ const Quiz = () => {
               opponentSelected={roundResult.opponentSelected}
               correctId={round.correctAnswer}
               roundEnd={round.showCorrectAnswer}
+              ownerAvatar={"/" + SelectAvatarSrc(ownerInfo.avatar.toString())}
+              opponentAvatar={"/" + SelectAvatarSrc(opponentInfo.avatar.toString())}
             />
           ))}
         </div>

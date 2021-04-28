@@ -56,7 +56,7 @@ const OnlinePlayersModal: React.FC<IOnlinePlayerModalProps> = ({ openModal, clos
         visible={isvisible}
         onCancel={closeModal}
       >
-        <ListView setPlayer={setPlayerId} playersList={onlinePlayers} inviteButton={challengePlayer} />
+        <ListView setPlayer={setPlayerId} playersList={onlinePlayers.filter((player) => player.player_id != userId.key.toString())} inviteButton={challengePlayer} />
       </Modal>
     </>
   );

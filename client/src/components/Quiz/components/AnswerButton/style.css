@@ -1,9 +1,16 @@
 .answer-button-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  width: 70%;
+  position: relative;
+}
+
+.answer-button{
+  max-width: 600px;
+  min-width: 600px;
   min-height: 80px;
 
-  /* background-color: var(--secundary-color); */
   background-color: #fff;
   margin-bottom: 10px;
   border: 0;
@@ -24,25 +31,49 @@
 }
 
 .answer-correct{
-  background-color: green;
+  background-color: var(--green);
 }
 
 .answer-wrong{
-  background-color: red;
+  background-color: var(--red);
 }
 
-.answer-button-container:hover{
+.answer-button:hover{
   cursor: pointer;
+  background-color: var(--secundary-color);
+}
 
-  background-color: var(--secundary-color-hover);
+.answer-button-selected{
+  background-color: var(--secundary-color);
+}
+
+.answer-owner-avatar{
+  position: absolute;
+  left: -13px;
+}
+
+.answer-opponent-avatar{
+  position: absolute;
+  right: -13px;
 }
 
 @media only screen and (max-width: 900px){
 
-.answer-button-container{
+  .answer-button{
     width: 95%;
     min-height: 60px;
     font-size: 16px;
+
+    max-width: 300px;
+    min-width: 300px;
+  }
+
+  .answer-owner-avatar{
+    left: 0;
+  }
+  
+  .answer-opponent-avatar{
+    right: 0;
   }
 
 }

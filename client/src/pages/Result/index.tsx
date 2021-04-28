@@ -12,6 +12,9 @@ import GoldTrophyIcon from '../../assets/icons/gold-cup.svg'
 import SilverTrophyIcon from '../../assets/icons/silver-cup.svg'
 import EmptyPodiumIcon from '../../assets/icons/empty-podium.svg'
 
+// Utils
+import history from "utils/history";
+
 
 // Hooks
 import useWindowDimensions from "../../hooks/useWindowDimension";
@@ -40,6 +43,11 @@ const ResultPage = () => {
             preserveAspectRatio: "xMidYMid slice",
         },
     };
+
+    const returnHome = () => {
+        history.push('/home')
+    }
+
 
     return (
         <div className="result-container">
@@ -92,7 +100,7 @@ const ResultPage = () => {
             </div>
 
             <div className="result-sair-container">
-                <button className="result-sair">Sair</button>
+                <button onClick={returnHome} className="result-sair">Sair</button>
             </div>
         </div>
     )
