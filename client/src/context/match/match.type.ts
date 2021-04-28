@@ -99,6 +99,8 @@ export interface State {
     correctAnswer: number
   ) => void;
   setLoading: (roomID: string) => void;
+  matchEnded: () => void;
+
 }
 
 export interface Action {

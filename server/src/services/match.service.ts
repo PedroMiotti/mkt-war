@@ -404,7 +404,7 @@ export const DisconnectUserFromMatch = async (
         if (isMatchOwner) {
           await MatchModel.DeleteMatch(match.match_id);
         } else {
-          await MatchModel.UpdateMatchOpponent(match.match_id);
+          await MatchModel.DeleteMatch(match.match_id);
         }
 
         io.to(match.match_id).emit(SocketEvents.SERVER_PLAYER_LEFT, {

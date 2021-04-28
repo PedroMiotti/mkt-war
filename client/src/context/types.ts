@@ -13,6 +13,7 @@ export const START_QUESTION: string = 'START_QUESTION';
 export const ROUND_COUNTDOWN: string = 'ROUND_COUNTDOWN';
 export const ROUND_RESULT: string = 'ROUND_RESULT';
 export const MATCH_RESULT: string = 'MATCH_RESULT';
+export const MATCH_END: string = 'MATCH_END';
 
 
 export const HANDLE_INVITE: string = 'HANDLE_INVITE';

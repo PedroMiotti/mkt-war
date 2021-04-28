@@ -13,6 +13,7 @@ import {
   START_QUESTION,
   HANDLE_INVITE,
   MATCH_RESULT,
+  MATCH_END
 } from "../types";
 import { Action, State } from "./match.type";
 
@@ -49,7 +50,7 @@ export const initialState: State = {
   },
   game: {
     currentRound: 1,
-    totalRound: 2,
+    totalRound: 5,
     showRoundScreen: false,
   },
   round: {
@@ -87,6 +88,7 @@ export const initialState: State = {
   setUserReady: () => null,
   answerQuestion: () => null,
   setLoading: () => null,
+  matchEnded: () => null,
 };
 
 //reducer
@@ -203,6 +205,75 @@ export default function matchReducer(
           opponent: payload.opponent,
         },
       };
+
+    case MATCH_END:
+      return {
+        ...state,
+        _id: "",
+        ownerId: "",
+        ownerInfo: {
+          id: 0,
+          username: "",
+          trophies: 0,
+          name: "",
+          coins: 0,
+          avatar: 0,
+        },
+        opponentInfo: {
+          id: 0,
+          username: "",
+          trophies: 0,
+          name: "",
+          coins: 0,
+          avatar: 0,
+        },
+        userReady: false,
+        opponentReady: false,
+        receivedInvite: false,
+        invite: {
+          matchId: "",
+          ownerInfo: {
+            id: 0,
+            username: "",
+            trophies: 0,
+            avatar: 0,
+          },
+        },
+        game: {
+          currentRound: 1,
+          totalRound: 5,
+          showRoundScreen: false,
+        },
+        round: {
+          questionId: "",
+          questionText: "",
+          showCorrectAnswer: false,
+          answers: [],
+          correctAnswer: 0,
+          roundTime: "",
+        },
+        roundResult: {
+          ownerSelected: 0,
+          opponentSelected: 0,
+          ownerScore: 0,
+          opponentScore: 0,
+        },
+        matchResult: {
+          owner:{    
+            score: 0,
+            winned: false,
+            coins: 0,
+            trophies: 0,
+          },
+          opponent: {
+            score: 0,
+            winned: false,
+            coins: 0,
+            trophies: 0,
+          },
+        },
+
+      }
 
     case SET_LOADING:
       return {

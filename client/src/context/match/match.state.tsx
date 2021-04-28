@@ -1,4 +1,3 @@
-import { message } from "antd";
 import * as React from "react";
 
 import {
@@ -16,6 +15,7 @@ import {
   SET_ROUND,
   SET_READY,
   MATCH_RESULT,
+  MATCH_END
 } from "../types";
 
 import MatchContext from "./match.context";
@@ -33,6 +33,10 @@ import SocketEvents from "../../constants/SocketEvents";
 
 import { instance as axios } from "../api";
 
+// Ant Design
+import { Button, notification, message } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+
 const MatchState: React.FC = ({ children }) => {
   const initialState: State = {
     ...initialValues,
@@ -47,8 +51,18 @@ const MatchState: React.FC = ({ children }) => {
   React.useEffect(() => {
     // Player left match
     socket.on(SocketEvents.SERVER_PLAYER_LEFT, (data: any) => {
-      // Show player left modal
-      history.push(`/home`);
+      
+      notification.open({
+        message : "Seu oponente saiu da partida !",
+        description : "Você está redirecionado para o lobby !",
+        onClose: (() => matchEnded()),
+        icon : <LoadingOutlined style={{ color: "#161616" }} />,
+        className : "antd-notification",      
+        placement : "bottomLeft",
+        bottom : 50,
+        duration : 4.5,
+      });
+      
     });
     
     // Match end
@@ -304,8 +318,15 @@ const MatchState: React.FC = ({ children }) => {
     let user_id: IToken = getUserIdByToken();
 
     socket.emit(SocketEvents.CLIENT_ANSWER_QUESTION, {matchId: matchId, userId: user_id.key, questionId, answerId, correctAnswer});
+  };
 
+  // End match and run cleanup
+  const matchEnded = () => {
+    dispatch({
+      type: MATCH_END,
+    });
 
+    history.push(`/home`);
   };
 
   return (
@@ -330,6 +351,7 @@ const MatchState: React.FC = ({ children }) => {
         setLoading,
         answerQuestion,
         setUserReady,
+        matchEnded,
       }}
     >
       {children}

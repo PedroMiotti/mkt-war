@@ -157,7 +157,7 @@ class MatchModel {
       let res: any[];
 
       res = await sql.query(
-        "SELECT * FROM _match WHERE owner_id = ? || opponent_id = ? AND match_status <> 5",
+        "SELECT * FROM _match WHERE owner_id = ? || opponent_id = ? AND match_status != 5",
         [userId, userId]
       );
 

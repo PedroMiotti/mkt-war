@@ -67,7 +67,7 @@ class MatchModel {
         let matchInfo;
         await Sql.conectar(async (sql) => {
             let res;
-            res = await sql.query("SELECT * FROM _match WHERE owner_id = ? || opponent_id = ? AND match_status <> 5", [userId, userId]);
+            res = await sql.query("SELECT * FROM _match WHERE owner_id = ? || opponent_id = ? AND match_status != 5", [userId, userId]);
             matchInfo = res[0];
         });
         return matchInfo;
