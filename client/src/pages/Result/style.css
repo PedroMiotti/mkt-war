@@ -1,8 +1,8 @@
-.result-container{
+ .result-container{
     height: 100vh;
     width: 100vw;
 
-    background-color: var(--primary-color);
+    background: var(--default-background);
 
     display: flex;
     flex-direction: column;
@@ -20,18 +20,20 @@
     justify-content: center;
 
     position: relative;
+
+    
 }
 
 .result-top-info h1{
     font-family: var(--primary-font);
-    color: var(--primary-color-hover);
+    color:#fff;
 }
 
 .result-card-info{
     width: 40%;
     min-height: 150px;
     padding: 30px;
-    background-color: #fff;
+    background-color: var(--primary-color-hover);
 
     border-radius: 30px;
 
@@ -41,6 +43,7 @@
     align-items: center;
 
     font-family: var(--secundary-font);
+    border: 2px solid #fff
 }
 
 
@@ -64,12 +67,13 @@
 }
 
 .result-players div h1{
-    color: var(--primary-color);
-    font-weight: 400;
+    color: #fff;
+    font-weight: 600;
 }
 
 .result-players div p{
-    color: #000;
+    color: #fff;
+    font-size: 19px;
 }
 
 .result-sair-container{

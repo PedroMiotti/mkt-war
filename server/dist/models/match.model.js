@@ -92,7 +92,7 @@ class MatchModel {
     }
 }
 // Times in MS
-MatchModel.TOTAL_ROUNDS = 10;
+MatchModel.TOTAL_ROUNDS = 2;
 MatchModel.ROUND_COUNTDOWN_TIME = 10;
 MatchModel.TIME_BEFORE_START_MATCH = 1000;
 MatchModel.TIME_BEFORE_START_FIRST_ROUND = 3500;

@@ -12,9 +12,8 @@ import GoldTrophyIcon from '../../assets/icons/gold-cup.svg'
 import SilverTrophyIcon from '../../assets/icons/silver-cup.svg'
 import EmptyPodiumIcon from '../../assets/icons/empty-podium.svg'
 
-// Utils
-import history from "utils/history";
-
+//Utils
+import SelectAvatarSrc from 'utils/chooseAvatar';
 
 // Hooks
 import useWindowDimensions from "../../hooks/useWindowDimension";
@@ -27,6 +26,7 @@ const ResultPage = () => {
         ownerInfo,
         opponentInfo,
         matchResult,
+        matchEnded
     } = useMatchContext();
 
     const { width } = useWindowDimensions();
@@ -43,11 +43,6 @@ const ResultPage = () => {
             preserveAspectRatio: "xMidYMid slice",
         },
     };
-
-    const returnHome = () => {
-        history.push('/home')
-    }
-
 
     return (
         <div className="result-container">
@@ -81,26 +76,26 @@ const ResultPage = () => {
                     <div className="result-player-owner">
                         <Avatar
                             size={width <= 900 ? 64 : 100}
-                            style={{ backgroundColor: "#fff", verticalAlign: "middle", marginBottom: "10px" }}
-                            src={AvatarIcon}
+                            style={{border: "4px solid #fff", verticalAlign: "middle", marginBottom: "10px" }}
+                            src={"/" + SelectAvatarSrc(ownerInfo.avatar.toString())}
                         />
-                        <h1>{ownerInfo ? ownerInfo.username : ''}</h1>
+                        <h1>{ownerInfo ? ownerInfo.username.toUpperCase() : ''}</h1>
                         <p>{matchResult ? matchResult.owner.score : 0}</p>
                     </div>
                     <div className="result-player-opponent">
                         <Avatar
                             size={width <= 900 ? 64 : 100}
-                            style={{ backgroundColor: "#fff", verticalAlign: "middle", marginBottom: "10px" }}
-                            src={AvatarIcon}
+                            style={{ border: "4px solid #fff", verticalAlign: "middle", marginBottom: "10px" }}
+                            src={"/" + SelectAvatarSrc(opponentInfo.avatar.toString())}
                         />
-                        <h1>{opponentInfo ? opponentInfo.username : ''}</h1>
+                        <h1>{opponentInfo ? opponentInfo.username.toUpperCase() : ''}</h1>
                         <p>{matchResult ? matchResult.opponent.score : 0}</p>
                     </div>
                 </div>
             </div>
 
             <div className="result-sair-container">
-                <button onClick={returnHome} className="result-sair">Sair</button>
+                <button onClick={matchEnded} className="result-sair">Sair</button>
             </div>
         </div>
     )
