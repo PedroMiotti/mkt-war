@@ -35,3 +35,41 @@
   border-radius: .25em;
   font-weight: 700;
 }
+
+.antd-notification-error {
+  font-family: var(--secundary-font);
+  color: #262626;
+  background-color: var(--red);
+  border-radius: .25em;
+  font-weight: 700;
+}
+
+/* Default button  */
+.mktwar-default-button-container{
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mktwar-default-button{
+  width: 250px;
+  height: 50px;
+
+  background-color: var(--primary-color-hover);
+
+  color: #fff;
+  font-weight: 600;
+
+  border: none;
+  border-radius: 6px;
+}
+
+.mktwar-default-button:hover{
+
+  background-color: var(--primary-color-light) ;
+
+  color: #fff;
+  cursor: pointer;
+}

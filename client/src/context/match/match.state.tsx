@@ -34,7 +34,7 @@ import SocketEvents from "../../constants/SocketEvents";
 import { instance as axios } from "../api";
 
 // Ant Design
-import { Button, notification, message } from 'antd';
+import { notification, message } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 const MatchState: React.FC = ({ children }) => {

@@ -6,13 +6,20 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import { useUserContext } from "../../context/user/user.context";
 
+import history from '../../utils/history';
+
+
 const Login = () => {
 
-  const { login, errorMsg } = useUserContext();
+  const { login } = useUserContext();
 
   const onFinish = (values: any) => {
     login(values);
   };
+
+  const goRegister= () => {
+    history.push('/login');
+  }
 
   return (
     <div className="Login-Container">
@@ -41,18 +48,20 @@ const Login = () => {
           </Form.Item>
 
           <Form.Item >
-            <Button size="large" type="primary" htmlType="submit" className="Login-form-button">
+            {/* <Button size="large" type="primary" htmlType="submit" className="Login-form-button">
               Login
-            </Button>
+            </Button> */}
+            <div className="mktwar-default-button-container" >
+                <button className="mktwar-default-button">Login</button>
+            </div>
           </Form.Item>
         </Form>
       </div>
 
-      <div className="Login-Footer">
-        <p>
-          {" "}
+      <div className="Login-Footer" >
+        <button onClick={goRegister}>
           Não tem uma conta ? <a>Criar Conta</a>
-        </p>
+        </button>
       </div>
     </div>
   );

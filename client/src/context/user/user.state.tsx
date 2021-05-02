@@ -1,6 +1,8 @@
 import * as React from "react";
 
-import { message } from "antd";
+// Ant Design
+import { notification, message } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import { SocketContext } from "../socket";
 import { instance as axios } from "../api";
@@ -103,12 +105,25 @@ const UserState: React.FC = ({ children }) => {
             type: SET_ERROR,
             payload: { message: e.response.data },
           });
+
+          // WTF - displaying the one in the match state 
+          notification.error({
+            message : e.response.data,
+            description : "Tente novamente !",
+            icon : <LoadingOutlined style={{ color: "#161616" }} />,
+            className : "antd-notification-error",      
+            placement : "bottomLeft",
+            bottom : 50,
+            duration : 4.5,
+          });
+          
         });
     } catch (e) {
       dispatch({
         type: SET_ERROR,
         payload: { message: e.response.data },
       });
+
     }
   };
 

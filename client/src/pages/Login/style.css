@@ -36,3 +36,8 @@
   font-family: var(--primary-font);
 
 }
+
+.ant-input-affix-wrapper {
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
