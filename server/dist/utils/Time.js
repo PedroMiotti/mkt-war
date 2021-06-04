@@ -1,15 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.countdownFrom = exports.waitMS = void 0;
-const waitMS = (ms) => {
+exports.waitMS = (ms) => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve();
         }, ms);
     });
 };
-exports.waitMS = waitMS;
-const countdownFrom = (from, onCount) => {
+exports.countdownFrom = (from, onCount) => {
     return new Promise(async (resolve) => {
         var counted = from;
         var keepCounting = true;
@@ -23,5 +21,4 @@ const countdownFrom = (from, onCount) => {
         resolve();
     });
 };
-exports.countdownFrom = countdownFrom;
 //# sourceMappingURL=Time.js.map

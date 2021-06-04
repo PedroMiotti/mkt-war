@@ -20,10 +20,9 @@ import {
 
 import MatchContext from "./match.context";
 import matchReducer, { initialState as initialValues } from "./match.reducer";
-import { IRoom, State } from "./match.type";
+import { State } from "./match.type";
 
 import { SocketContext } from "../socket";
-import { useUserContext } from "../user/user.context";
 
 // Utils
 import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
@@ -34,7 +33,7 @@ import SocketEvents from "../../constants/SocketEvents";
 import { instance as axios } from "../api";
 
 // Ant Design
-import { notification, message } from 'antd';
+import { notification } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 const MatchState: React.FC = ({ children }) => {
@@ -252,13 +251,14 @@ const MatchState: React.FC = ({ children }) => {
             matchId: matchId.data,
             ownerId,
           });
-
+          
+          history.push(`/lobby/${matchId.data}`);
+          
           dispatch({
             type: CREATE_MATCH,
             payload: { _id: matchId.data, ownerId, opponentId: 0 },
           });
 
-          history.push(`/lobby/${matchId.data}`);
         });
     } catch (error) {
       console.log(error);
@@ -326,7 +326,7 @@ const MatchState: React.FC = ({ children }) => {
       type: MATCH_END,
     });
 
-    history.push(`/home`);
+    history.push(`/`);
   };
 
   return (

@@ -95,11 +95,14 @@ class UserModel {
   ): Promise<string | number> {
     let res: string | number = null;
 
+    let randomAvatar: number = Math.floor(Math.random() * (8 - 1 + 1) + 1);
+    console.log(randomAvatar);
+
     await Sql.conectar(async (sql: Sql) => {
       try {
         await sql.query(
           "INSERT INTO player (player_name, player_password, player_username, player_trophies, player_avatar, player_coins) VALUES( ?, ?, ?, ?, ?, ?)",
-          [name, hashedPassword, username, 0, 1, 0]
+          [name, hashedPassword, username, 0, randomAvatar, 0]
         );
 
         res = sql.lastInsertedId;

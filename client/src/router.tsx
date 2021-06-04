@@ -1,4 +1,3 @@
-import React from 'react';
 
 // Router
 import { Switch, Route } from 'react-router-dom';
@@ -21,7 +20,7 @@ const Router = () => {
       <Route path='/login' component={LoginPage} />
       <Route path='/register' component={RegisterPage} />
 
-      <ProtectedRoute path='/home' component={HomePage} />
+      <ProtectedRoute exact path='/' component={HomePage} />
 
       <ProtectedRoute path='/lobby/:matchId' component={LobbyPage} />
       <ProtectedRoute path='/game' component={GamePage} />

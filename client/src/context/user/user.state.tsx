@@ -1,7 +1,7 @@
 import * as React from "react";
 
 // Ant Design
-import { notification, message } from 'antd';
+import { notification } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import { SocketContext } from "../socket";
@@ -9,25 +9,26 @@ import { instance as axios } from "../api";
 
 // Utils
 import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
-import { getCookie, deleteCookie } from "../../utils/handleCookie";
+import { deleteCookie } from "../../utils/handleCookie";
 import history from "../../utils/history";
+
+// Constantss
+import SocketEvents from "../../constants/SocketEvents";
+
 
 import {
   CREATE_USER,
   LOGIN,
-  UPDATE_USER,
   LOGOUT,
-  DELETE_USER,
   USER_PROFILE,
   ONLINE_PLAYERS,
-  SET_LOADING,
   SET_ERROR,
   UPDATE_AVATAR
 } from "../types";
 
 import UserContext from "./user.context";
 import userReducer, { initialState as initialValues } from "./user.reducer";
-import { IUser, State } from "./user.type";
+import { State } from "./user.type";
 
 const UserState: React.FC = ({ children }) => {
   const initialState: State = {
@@ -63,7 +64,7 @@ const UserState: React.FC = ({ children }) => {
             payload: { username, name, id: user_id.key.toString() },
           });
 
-          history.push("/home");
+          history.push("/");
         })
         .catch((e) => {
           dispatch({
@@ -98,7 +99,7 @@ const UserState: React.FC = ({ children }) => {
             payload: { username, id: user_id.key.toString() },
           });
 
-          history.push("/home");
+          history.push("/");
         })
         .catch((e) => {
           dispatch({
@@ -106,7 +107,7 @@ const UserState: React.FC = ({ children }) => {
             payload: { message: e.response.data },
           });
 
-          // WTF - displaying the one in the match state 
+          // !Error:  WTF - displaying the one in the match state 
           notification.error({
             message : e.response.data,
             description : "Tente novamente !",
@@ -186,7 +187,7 @@ const UserState: React.FC = ({ children }) => {
   // Set user as online status
   const setUserOnline = () => {
     let user_id: IToken = getUserIdByToken();
-    socket.emit("online:player", { userId: user_id.key.toString() });
+    socket.emit(SocketEvents.CLIENT_UPDATE_STATUS, { userId: user_id.key.toString() });
   };
 
   const updateUserAvatar = async (avatarId: string) => {

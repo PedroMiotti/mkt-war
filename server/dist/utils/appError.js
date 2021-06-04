@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppError = void 0;
 // centralized error object that derives from Node’s Error
 class AppError extends Error {
     constructor(name, httpCode, description, isOperational) {

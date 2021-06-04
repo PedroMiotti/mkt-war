@@ -6,6 +6,8 @@ import { useUserContext } from "../../context/user/user.context";
 
 // Utils
 import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
+import SelectAvatarSrc from 'utils/chooseAvatar';
+
 
 // Components
 import InfoBox from "../../components/Containers/InfoBox";
@@ -15,9 +17,6 @@ import MatchInviteModal from "../../components/MatchInviteModal";
 import OnlinePlayersModal from "../../components/OnlinePlayersModal";
 import ChooseAvatarDrawer from "../../components/ChooseAvatarDrawer";
 
-//Utils
-import SelectAvatarSrc from 'utils/chooseAvatar';
-
 // Assets
 import CoinIcon from "../../assets/icons/dollar.svg";
 import TrophyIcon from "../../assets/icons/trophy.svg";
@@ -25,6 +24,7 @@ import AvatarIcon from "../../assets/avatar/1.svg";
 import LogoutIcon from "../../assets/icons/logout.svg";
 import ComunityIcon from '../../assets/icons/teamwork.svg';
 import PodiumIcon from '../../assets/icons/podium.svg';
+
 
 const Home = () => {
   const {

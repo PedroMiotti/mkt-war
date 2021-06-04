@@ -2,16 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import './antd.css';
+
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import { SocketContext, socket } from "./context/socket";
 
+// Context
+import { SocketContext, socket } from "./context/socket";
 import UserState from "./context/user/user.state";
 import MatchState from './context/match/match.state'
 
 import Routes from "./router";
-import { Router } from "react-router-dom";
 import history from "./utils/history";
+
+import { Router } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>

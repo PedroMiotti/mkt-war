@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Logout = exports.OnlinePlayers = exports.UpdateUserAvatar = exports.UserConnected = exports.GetUserSocketIdById = exports.UserProfile = exports.CreateUser = exports.LoginUser = void 0;
 const UserModel = require("../models/user.model");
 //JWT
 const jwt = require("jsonwebtoken");
@@ -13,7 +12,7 @@ const genToken = (key) => {
     });
     return token;
 };
-const LoginUser = async (username, password) => {
+exports.LoginUser = async (username, password) => {
     if (!username || !password)
         return {
             errorCode: 4,
@@ -36,8 +35,7 @@ const LoginUser = async (username, password) => {
     let token = genToken(parseInt(existingUser.player_id));
     return token;
 };
-exports.LoginUser = LoginUser;
-const CreateUser = async (username, name, password) => {
+exports.CreateUser = async (username, name, password) => {
     if (!username || !name || !password)
         return {
             errorCode: 4,
@@ -55,8 +53,7 @@ const CreateUser = async (username, name, password) => {
         token = genToken(newUser);
     return token;
 };
-exports.CreateUser = CreateUser;
-const UserProfile = async (id) => {
+exports.UserProfile = async (id) => {
     if (!id)
         return {
             errorCode: 4,
@@ -70,8 +67,7 @@ const UserProfile = async (id) => {
         };
     return userInfo;
 };
-exports.UserProfile = UserProfile;
-const GetUserSocketIdById = async (userId) => {
+exports.GetUserSocketIdById = async (userId) => {
     if (!userId)
         return {
             errorCode: 4,
@@ -85,22 +81,18 @@ const GetUserSocketIdById = async (userId) => {
         };
     return socketId;
 };
-exports.GetUserSocketIdById = GetUserSocketIdById;
-const UserConnected = async (userId, socketId) => {
+exports.UserConnected = async (userId, socketId) => {
     await UserModel.UserConnected(parseInt(userId), socketId);
 };
-exports.UserConnected = UserConnected;
-const UpdateUserAvatar = async (avatarId, userId) => {
+exports.UpdateUserAvatar = async (avatarId, userId) => {
     await UserModel.UpdateUserAvatar(avatarId, userId);
 };
-exports.UpdateUserAvatar = UpdateUserAvatar;
-const OnlinePlayers = async () => {
+exports.OnlinePlayers = async () => {
     let users;
     users = await UserModel.OnlinePlayers();
     return users;
 };
-exports.OnlinePlayers = OnlinePlayers;
-const Logout = async (userId) => {
+exports.Logout = async (userId) => {
     let result;
     if (!userId)
         return {
@@ -115,5 +107,4 @@ const Logout = async (userId) => {
         };
     return 'Usuario logout';
 };
-exports.Logout = Logout;
 //# sourceMappingURL=user.service.js.map

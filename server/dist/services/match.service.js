@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DisconnectUserFromMatch = exports.EndMatch = exports.SendInvite = exports.PlayNextRound = exports.StartMatch = exports.AnswerQuestion = exports.SetUserReady = exports.JoinRoom = exports.JoinMatch = exports.CreateMatch = void 0;
 const MatchModel = require("../models/match.model");
 const UserModel = require("../models/user.model");
 const UserService = require("./user.service");
@@ -8,7 +7,7 @@ const QuizQuestions = require("../assets/questions");
 const SocketEvents = require("../constants/SocketEvents");
 const MatchStatus = require("../constants/MatchStatus");
 const Time = require("../utils/Time");
-const CreateMatch = async (ownerId) => {
+exports.CreateMatch = async (ownerId) => {
     if (!ownerId)
         return {
             errorCode: 4,
@@ -22,12 +21,10 @@ const CreateMatch = async (ownerId) => {
         };
     return match_id;
 };
-exports.CreateMatch = CreateMatch;
-const JoinMatch = async (userId, matchId) => {
+exports.JoinMatch = async (userId, matchId) => {
     await MatchModel.JoinMatch(matchId, userId);
 };
-exports.JoinMatch = JoinMatch;
-const JoinRoom = async (matchId, userId, socket, io) => {
+exports.JoinRoom = async (matchId, userId, socket, io) => {
     let ownerId;
     let owner;
     let opponent;
@@ -60,8 +57,7 @@ const JoinRoom = async (matchId, userId, socket, io) => {
     }
     io.to(matchId).emit(SocketEvents.SERVER_PLAYER_JOINED, matchPlayers);
 };
-exports.JoinRoom = JoinRoom;
-const SetUserReady = async (matchId, userId, io, socket) => {
+exports.SetUserReady = async (matchId, userId, io, socket) => {
     let _match = await MatchModel.GetMatchById(matchId);
     let ownerId = _match.owner_id;
     if (userId.toString() === ownerId.toString()) {
@@ -75,8 +71,7 @@ const SetUserReady = async (matchId, userId, io, socket) => {
         exports.StartMatch(matchId, io, socket);
     }
 };
-exports.SetUserReady = SetUserReady;
-const AnswerQuestion = async (userId, matchId, questionId, answerId, correctAnswer) => {
+exports.AnswerQuestion = async (userId, matchId, questionId, answerId, correctAnswer) => {
     let _match = await MatchModel.GetMatchById(matchId);
     const isMatchOwner = _match.owner_id == userId;
     const playerOldScore = isMatchOwner
@@ -86,15 +81,13 @@ const AnswerQuestion = async (userId, matchId, questionId, answerId, correctAnsw
     const score = playerOldScore + rightAnswerScore;
     await MatchModel.PlayerAnswerQuestion(isMatchOwner, matchId, score, answerId);
 };
-exports.AnswerQuestion = AnswerQuestion;
-const StartMatch = async (matchId, io, socket) => {
+exports.StartMatch = async (matchId, io, socket) => {
     io.to(matchId).emit(SocketEvents.SERVER_MATCH_START);
     await MatchModel.UpdateMatchStatus(matchId, 3);
     await Time.waitMS(MatchModel.TIME_BEFORE_START_FIRST_ROUND);
     exports.PlayNextRound(matchId, io, socket);
 };
-exports.StartMatch = StartMatch;
-const PlayNextRound = async (matchId, io, socket) => {
+exports.PlayNextRound = async (matchId, io, socket) => {
     let _match = await MatchModel.GetMatchById(matchId);
     if (_match.round === MatchModel.TOTAL_ROUNDS) {
         exports.EndMatch(matchId, io, socket);
@@ -155,8 +148,7 @@ const PlayNextRound = async (matchId, io, socket) => {
     }
     exports.PlayNextRound(matchId, io, socket);
 };
-exports.PlayNextRound = PlayNextRound;
-const SendInvite = async (matchId, opponentId, ownerId, io) => {
+exports.SendInvite = async (matchId, opponentId, ownerId, io) => {
     let ownerInvite = { id: 0, username: "", trophies: 0, avatar: 0 };
     let opponent_socketId = await UserService.GetUserSocketIdById(opponentId);
     let ownerInfo = await UserModel.profile(ownerId);
@@ -169,8 +161,7 @@ const SendInvite = async (matchId, opponentId, ownerId, io) => {
         ownerInvite,
     });
 };
-exports.SendInvite = SendInvite;
-const EndMatch = async (matchId, io, socket) => {
+exports.EndMatch = async (matchId, io, socket) => {
     const match = await MatchModel.GetMatchById(matchId);
     const isTied = match.owner_score == match.opponent_score;
     const ownerHasWinned = match.owner_score > match.opponent_score;
@@ -266,8 +257,7 @@ const EndMatch = async (matchId, io, socket) => {
     });
     socket.leave(matchId);
 };
-exports.EndMatch = EndMatch;
-const DisconnectUserFromMatch = async (socketId, io, socket) => {
+exports.DisconnectUserFromMatch = async (socketId, io, socket) => {
     const user_id = await UserModel.GetUserIdBySocketId(socketId);
     if (user_id) {
         const match = await MatchModel.GetMatchByPlayerId(parseInt(user_id));
@@ -292,5 +282,4 @@ const DisconnectUserFromMatch = async (socketId, io, socket) => {
         }
     }
 };
-exports.DisconnectUserFromMatch = DisconnectUserFromMatch;
 //# sourceMappingURL=match.service.js.map

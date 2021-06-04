@@ -25,9 +25,10 @@ class UserModel {
     // --> Criar usuario
     static async createUser(username, name, hashedPassword) {
         let res = null;
+        let randomAvatar = Math.floor(Math.random() * (8 - 1 + 1) + 1);
         await Sql.conectar(async (sql) => {
             try {
-                await sql.query("INSERT INTO player (player_name, player_password, player_username, player_trophies, player_avatar, player_coins) VALUES( ?, ?, ?, ?, ?, ?)", [name, hashedPassword, username, 0, 1, 0]);
+                await sql.query("INSERT INTO player (player_name, player_password, player_username, player_trophies, player_avatar, player_coins) VALUES( ?, ?, ?, ?, ?, ?)", [name, hashedPassword, username, 0, randomAvatar, 0]);
                 res = sql.lastInsertedId;
                 await sql.query("INSERT INTO player_stats (stats_player_id, stats_total_games, stats_max_trophies, stats_total_wins, stats_total_losses, stats_total_ties) VALUES( ?, ?, ?, ?, ?, ?)", [res, 0, 0, 0, 0, 0]);
             }
