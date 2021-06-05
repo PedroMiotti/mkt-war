@@ -18,7 +18,7 @@ const Login = () => {
   };
 
   const goRegister= () => {
-    history.push('/login');
+    history.push('/register');
   }
 
   return (
@@ -48,19 +48,16 @@ const Login = () => {
           </Form.Item>
 
           <Form.Item >
-            {/* <Button size="large" type="primary" htmlType="submit" className="Login-form-button">
-              Login
-            </Button> */}
-            <div className="mktwar-default-button-container" >
-                <button className="mktwar-default-button">Login</button>
+            <div className="mktwar-default-button-container login-button" >
+                <button className="mktwar-default-button login-button">Login</button>
             </div>
           </Form.Item>
         </Form>
       </div>
 
       <div className="Login-Footer" >
-        <button onClick={goRegister}>
-          Não tem uma conta ? <a>Criar Conta</a>
+        <button className="login-register-option" onClick={goRegister}>
+          Não tem uma conta ? Criar Conta
         </button>
       </div>
     </div>

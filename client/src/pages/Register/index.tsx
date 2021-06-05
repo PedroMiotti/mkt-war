@@ -6,6 +6,8 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import { useUserContext } from "../../context/user/user.context";
 
+import history from '../../utils/history';
+
 const Register = () => {
 
   const { createUser, errorMsg } = useUserContext();
@@ -13,6 +15,10 @@ const Register = () => {
   const onFinish = (values: any) => {
     createUser(values);
   };
+
+  const goLogin= () => {
+    history.push('/login');
+  }
 
   return (
     <div className="Register-Container">
@@ -47,18 +53,15 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item >
-            <Button size="large" type="primary" htmlType="submit" className="Register-form-button">
-              Criar Conta
-            </Button>
+            <div className="mktwar-default-button-container" >
+                <button className="mktwar-default-button">Criar conta</button>
+            </div>
           </Form.Item>
         </Form>
       </div>
 
       <div className="Register-Footer">
-        <p>
-          {" "}
-          Já tem uma conta ? <a>Fazer Login</a>
-        </p>
+        <button onClick={goLogin} className="register-login-option">Já tem uma conta ? Fazer Login</button>
       </div>
     </div>
   );

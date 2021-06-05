@@ -34,10 +34,26 @@
 .Login-Footer{
   color: #fff;
   font-family: var(--primary-font);
-
 }
 
 .ant-input-affix-wrapper {
   border-radius: 6px;
   margin-bottom: 15px;
 }
+
+.login-button{
+  align-self: center;
+}
+
+.login-register-option{
+  border: 0;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-family: var(--primary-font);
+}
+
+.login-register-option:hover{
+  cursor: pointer;
+}
+
+

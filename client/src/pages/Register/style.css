@@ -36,3 +36,14 @@
   font-family: var(--primary-font);
 
 }
+
+.register-login-option{
+  border: 0;
+  background-color: var(--primary-color);
+  color: #fff;
+  font-family: var(--primary-font);
+}
+
+.register-login-option:hover{
+  cursor: pointer;
+}
