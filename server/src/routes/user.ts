@@ -10,9 +10,7 @@ interface IDefaultResponse {
 }
 
 // --> Register user
-router.post(
-  "/register",
-  async (req: express.Request, res: express.Response) => {
+router.post("/register", async (req: express.Request, res: express.Response) => {
     await UserController.CreateUser(req, res);
   }
 );
@@ -23,17 +21,13 @@ router.post("/login", async (req: express.Request, res: express.Response) => {
 });
 
 // User information
-router.get(
-  "/profile/:id",
-  async (req: express.Request, res: express.Response) => {
+router.get("/profile/:id", async (req: express.Request, res: express.Response) => {
     await UserController.UserProfile(req, res);
   }
 );
 
 // Logout
-router.delete(
-  "/logout/:id",
-  async (req: express.Request, res: express.Response) => {
+router.delete("/logout/:id", async (req: express.Request, res: express.Response) => {
     await UserController.Logout(req, res);
   }
 );
@@ -46,6 +40,11 @@ router.get("/online", async (req: express.Request, res: express.Response) => {
 // Online users
 router.put("/avatar/:id/:avatar", async (req: express.Request, res: express.Response) => {
   await UserController.UpdateUserAvatar(req, res);
+});
+
+// Leaderboard
+router.get("/leaderboard", async (req: express.Request, res: express.Response) => {
+  await UserController.Leaderboard(req, res);
 });
 
 // // Delete User
@@ -63,13 +62,6 @@ router.put("/avatar/:id/:avatar", async (req: express.Request, res: express.Resp
 //   await User.updateProfile(user_id, user_info, res);
 // });
 
-// // Leaderboard
-// router.get(
-//   "/leaderboard",
-//   async (req: express.Request, res: express.Response) => {
-//     let response = await User.getLeaderboard();
-//     res.send(response || null);
-//   }
-// );
+
 
 export = router;

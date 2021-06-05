@@ -268,7 +268,19 @@ class UserModel {
     return playerInfoOnEndMatch;
   }
 
-  
+  // --> Leaderboard
+  public static async Leaderboard(): Promise<UserModel[]> {
+    let list: UserModel[];
+
+    await Sql.conectar(async (sql: Sql) => {
+      list = await sql.query(
+        "SELECT * FROM player ORDER BY player_trophies DESC"
+      );
+
+    });
+
+    return list;
+  }
 
   // // --> Excluir conta
   // public static async deleteProfile(
@@ -318,21 +330,7 @@ class UserModel {
   //   });
   // }
 
-  // // --> Leaderboard
-  // public static async getLeaderboard(): Promise<UserModel[] | string> {
-  //   let list: UserModel[];
-  //   let res: string;
 
-  //   await Sql.conectar(async (sql: Sql) => {
-  //     list = await sql.query(
-  //       "SELECT * FROM player ORDER BY player_trophies ASC"
-  //     );
-
-  //     if (!list || !list.length) res = "Erro ao listar players";
-  //   });
-
-  //   return list || res;
-  // }
 }
 
 export = UserModel;

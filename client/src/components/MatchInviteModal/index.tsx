@@ -7,12 +7,10 @@ import { Modal, Avatar } from "antd";
 import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
 
 // Assets
-import AvatarIcon from "../../assets/icons/hacker.svg";
 import TrophyIcon from "../../assets/icons/trophy.svg";
 
 // Context
 import { useMatchContext } from "../../context/match/match.context";
-import { useUserContext } from "../../context/user/user.context";
 
 //Utils
 import SelectAvatarSrc from 'utils/chooseAvatar';

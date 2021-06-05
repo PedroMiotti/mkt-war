@@ -87,6 +87,16 @@ class UserController{
 
   }
 
+  
+  public static async Leaderboard(req: express.Request, res: express.Response){
+    let leaderboard_list: any[];
+
+    leaderboard_list = await UserService.Leaderboard();
+
+    return res.status(200).send(leaderboard_list);
+
+  }
+
 }
 
 

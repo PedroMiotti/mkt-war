@@ -164,5 +164,12 @@ export const Logout = async (userId: number): Promise<string | IErrorResponse> =
       };
 
     return 'Usuario logout';
+}
 
+export const Leaderboard = async (): Promise<any[]> => {
+  let leaderboard_list: any[];
+
+  leaderboard_list = await UserModel.Leaderboard();
+
+  return leaderboard_list;
 }

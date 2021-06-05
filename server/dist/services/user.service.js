@@ -107,4 +107,9 @@ exports.Logout = async (userId) => {
         };
     return 'Usuario logout';
 };
+exports.Leaderboard = async () => {
+    let leaderboard_list;
+    leaderboard_list = await UserModel.Leaderboard();
+    return leaderboard_list;
+};
 //# sourceMappingURL=user.service.js.map

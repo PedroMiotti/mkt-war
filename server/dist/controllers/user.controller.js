@@ -50,6 +50,11 @@ class UserController {
         await UserService.UpdateUserAvatar(avatar_id, user_id);
         return res.status(200).send("Avatar updated");
     }
+    static async Leaderboard(req, res) {
+        let leaderboard_list;
+        leaderboard_list = await UserService.Leaderboard();
+        return res.status(200).send(leaderboard_list);
+    }
 }
 module.exports = UserController;
 //# sourceMappingURL=user.controller.js.map

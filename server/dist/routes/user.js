@@ -26,5 +26,9 @@ router.get("/online", async (req, res) => {
 router.put("/avatar/:id/:avatar", async (req, res) => {
     await UserController.UpdateUserAvatar(req, res);
 });
+// Leaderboard
+router.get("/leaderboard", async (req, res) => {
+    await UserController.Leaderboard(req, res);
+});
 module.exports = router;
 //# sourceMappingURL=user.js.map

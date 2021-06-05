@@ -26,6 +26,7 @@ class UserModel {
     static async createUser(username, name, hashedPassword) {
         let res = null;
         let randomAvatar = Math.floor(Math.random() * (8 - 1 + 1) + 1);
+        console.log(randomAvatar);
         await Sql.conectar(async (sql) => {
             try {
                 await sql.query("INSERT INTO player (player_name, player_password, player_username, player_trophies, player_avatar, player_coins) VALUES( ?, ?, ?, ?, ?, ?)", [name, hashedPassword, username, 0, randomAvatar, 0]);
@@ -135,6 +136,14 @@ class UserModel {
             playerInfoOnEndMatch.coins = row.player_coins;
         }
         return playerInfoOnEndMatch;
+    }
+    // --> Leaderboard
+    static async Leaderboard() {
+        let list;
+        await Sql.conectar(async (sql) => {
+            list = await sql.query("SELECT * FROM player ORDER BY player_trophies DESC");
+        });
+        return list;
     }
 }
 UserModel.COINS_MATCH_WINNED = 50;
