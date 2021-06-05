@@ -60,8 +60,8 @@ const Home = () => {
   }, [avatar]);
 
   const playWithFriend = () => {
-    setOnlinePlayersModalVisible(true);
     getOnlinePlayers();
+    setOnlinePlayersModalVisible(true);
   };
 
 
@@ -71,9 +71,13 @@ const Home = () => {
       
       <MatchInviteModal />
 
-      <OnlinePlayersModal openModal={onlinePlayersModalVisible} closeModal={() => setOnlinePlayersModalVisible(false)}/>
+      {onlinePlayersModalVisible && 
+        <OnlinePlayersModal openModal={onlinePlayersModalVisible} closeModal={() => setOnlinePlayersModalVisible(false)}/>
+      }
       <ChooseAvatarDrawer openDrawer={chooseAvatarsDrawerVisible} closeDrawer={() => setChooseAvatarsDrawerVisible(false)}/>
-      <LeaderboardModal openModal={leaderboardModalVisible} closeModal={() => setLeaderboardModalVisible(false)}/>
+      {leaderboardModalVisible &&
+        <LeaderboardModal openModal={leaderboardModalVisible} closeModal={() => setLeaderboardModalVisible(false)}/>
+      }
 
       <div className="MainPage-header">
         <div className="MainPage-header-infobox">
@@ -87,7 +91,7 @@ const Home = () => {
           <img src={ComunityIcon} className="mainPage-ComunityButton-icon" alt="comunity button icon" />
         </div>
 
-        <div className="mainPage-podium-button-Container" onClick={() => setLeaderboardModalVisible(true)}>
+        <div className="mainPage-podium-button-Container" onClick={(e) => {e.stopPropagation(); setLeaderboardModalVisible(true)}}>
           <img src={PodiumIcon} className="mainPage-podiumButton-icon" alt="comunity button icon" />
         </div>
 

@@ -19,9 +19,7 @@ interface IChooseAvatarDrawer {
 
 
 const ChooseAvatarDrawer: React.FC<IChooseAvatarDrawer> = ({ openDrawer, closeDrawer }) => {
-    const {
-        updateUserAvatar
-      } = useUserContext();
+    const { updateUserAvatar } = useUserContext();
 
     const [visible, setVisible] = React.useState(openDrawer);
 

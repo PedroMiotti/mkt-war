@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-import { Modal, Avatar } from "antd";
+import { Modal, Avatar, Drawer } from "antd";
 
 import ListView from "./components/ListView";
 
@@ -20,28 +20,23 @@ import thirdBadge from 'assets/icons/3_badge.svg'
 
 interface ILeaderboardModalProps {
   openModal: boolean;
-  closeModal: () => void;
+  closeModal: (e: any) => void;
 }
 
-const OnlinePlayersModal: React.FC<ILeaderboardModalProps> = ({
-  openModal,
-  closeModal,
-}) => {
+const OnlinePlayersModal: React.FC<ILeaderboardModalProps> = ({ openModal, closeModal }) => {
   const { leaderboard, getLeaderboard } = useUserContext();
 
   const [isvisible, setIsVisible] = React.useState(openModal);
   const [podium, setPodium] = React.useState<IPlayer[]>([]);
-  const [leaderboardListRest, setLeaderboardListRest] = React.useState<
-    IPlayer[]
-  >([]);
+  const [leaderboardListRest, setLeaderboardListRest] = React.useState<IPlayer[]>([]);
 
-  let userId: IToken = getUserIdByToken();
-
-  console.log(podium);
+  let userId: IToken = getUserIdByToken(); // TODO -> Mark the user if its self
 
   React.useEffect(() => {
-    if (openModal) setIsVisible(true);
-    else setIsVisible(false);
+    if (openModal) 
+      setIsVisible(true);
+    else 
+      setIsVisible(false);
   }, [openModal]);
 
   React.useEffect(() => {
@@ -61,7 +56,7 @@ const OnlinePlayersModal: React.FC<ILeaderboardModalProps> = ({
         title="Leaderboard"
         footer={null}
         closable={false}
-        visible={isvisible}
+        visible={openModal ? true : false}
         onCancel={closeModal}
       >
         <div className="leaderboard-top3">
