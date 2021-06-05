@@ -2,7 +2,7 @@ import * as React from "react";
 
 // Ant Design
 import { notification } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined } from '@ant-design/icons';
 
 import { SocketContext } from "../socket";
 import { instance as axios } from "../api";
@@ -108,11 +108,10 @@ const UserState: React.FC = ({ children }) => {
             payload: { message: e.response.data },
           });
 
-          // !Error:  WTF - displaying the one in the match state 
           notification.error({
             message : e.response.data,
             description : "Tente novamente !",
-            icon : <LoadingOutlined style={{ color: "#161616" }} />,
+            icon : <CloseCircleOutlined style={{ color: "#d32626" }} />,
             className : "antd-notification-error",      
             placement : "bottomLeft",
             bottom : 50,
