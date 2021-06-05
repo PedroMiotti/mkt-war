@@ -55,14 +55,14 @@
 .listitem-trophies{
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
+  margin-left: 3px;
 }
 
 .listitem-trophy-icon{
   width: 12px;
   height: 12px;
-  margin: 0;
-  margin-left: 5px;
+  margin: 0 2px 0 5px;
 }
 
 .listitem-trophies p{

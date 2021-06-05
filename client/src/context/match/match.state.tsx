@@ -252,12 +252,13 @@ const MatchState: React.FC = ({ children }) => {
             ownerId,
           });
           
-          history.push(`/lobby/${matchId.data}`);
-          
+
           dispatch({
             type: CREATE_MATCH,
             payload: { _id: matchId.data, ownerId, opponentId: 0 },
           });
+
+          history.push(`/lobby/${matchId.data}`);
 
         });
     } catch (error) {

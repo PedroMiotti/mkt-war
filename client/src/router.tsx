@@ -22,9 +22,9 @@ const Router = () => {
 
       <ProtectedRoute exact path='/' component={HomePage} />
 
-      <ProtectedRoute path='/lobby/:matchId' component={LobbyPage} />
-      <ProtectedRoute path='/game' component={GamePage} />
-      <ProtectedRoute path='/result' component={ResultPage} />
+      <ProtectedRoute exact path='/lobby/:matchId' component={LobbyPage} />
+      <ProtectedRoute exact path='/game' component={GamePage} />
+      <ProtectedRoute exact path='/result' component={ResultPage} />
 
     </Switch>
 
