@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import './antd.css';
+import "./assets/style/index.css";
+import './assets/style/antd.css';
 
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
