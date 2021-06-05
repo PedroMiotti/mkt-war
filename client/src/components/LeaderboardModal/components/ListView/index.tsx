@@ -20,7 +20,7 @@ const ListView: React.FC<IListViewProps>= ({ players }) => {
           {players.map((players, i) => (
               <ListItem
                 key={players.player_id}
-                Pkey={i + 1}
+                Pkey={4 + i}
                 avatar={players.player_avatar}
                 username={players.player_username}
                 trophies={players.player_trophies}

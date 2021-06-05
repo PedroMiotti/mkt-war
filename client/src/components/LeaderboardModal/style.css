@@ -1,0 +1,93 @@
+.leaderboard-top3{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    margin-bottom: 25px;
+
+}
+
+.leaderboard-top3-card-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    
+    position: relative;
+    
+    background-color:rgb(24, 24, 24, 0.3);
+    
+    padding: 15px 15px 0 15px;
+
+    min-width: 80px;
+}
+
+.leaderboard-top3-card-container h4{
+    font-family: var(--secundary-font);
+    margin-top: 2px;
+    text-align: center;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 80px; 
+}
+
+.leaderboard-top3-card-trophies{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+.leaderboard-top3-card-trophies p {
+    margin-left: 2px;
+    font-family: var(--primary-font);
+    color: var(--secundary-color);
+    font-size: 25px;
+}
+  
+.leaderboard-top3-card-trophy-icon{
+    width: 25px;
+    height: 25px;
+    margin: 0 2px 0 5px;
+}
+
+.leaderboard-top3-card-badge{
+    width: 40px;
+    height: 40px;
+    margin: 0 2px 0 5px;
+
+    position: absolute;
+    top: 0;
+    right: -8px;
+
+    transform: rotate(340deg);
+}
+
+
+@media screen and (max-width: 400px) {
+    
+    .leaderboard-top3-card-container{
+        padding: 8px 8px 0 8px;
+        min-width: 75px;
+    }
+
+    .leaderboard-top3-card-container h4{
+        width: 75px; 
+    }
+
+    .leaderboard-top3-card-trophies p {
+        font-size: 20px;
+    }
+
+    .leaderboard-top3-card-trophy-icon{
+        width: 20px;
+        height: 20px;
+        margin: 0 2px 0 5px;
+    }
+}
+
+
+
+
