@@ -3,10 +3,12 @@ import "./style.css";
 
 import ListItem from "../ListItem";
 
+import { IPlayer } from '../../../../context/user/user.type';
+
 
 interface IListViewProps{
   setPlayer: any;
-  playersList: any[];
+  playersList: IPlayer[];
   inviteButton: () => void;
 }
 

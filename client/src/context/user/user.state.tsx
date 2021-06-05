@@ -23,7 +23,8 @@ import {
   USER_PROFILE,
   ONLINE_PLAYERS,
   SET_ERROR,
-  UPDATE_AVATAR
+  UPDATE_AVATAR,
+  LEADERBOARD
 } from "../types";
 
 import UserContext from "./user.context";
@@ -220,13 +221,12 @@ const UserState: React.FC = ({ children }) => {
   const getOnlinePlayers = async () => {
     try{
       await axios.get(baseUrl + '/online')
-      .then((users) => {
+      .then((players) => {
           dispatch({
             type: ONLINE_PLAYERS,
-            payload: { onlinePlayers: users.data }
+            payload: { onlinePlayers: players.data }
           });
       })
-
     }
     catch(e){
       dispatch({
@@ -234,9 +234,25 @@ const UserState: React.FC = ({ children }) => {
         payload: { message: e.response.data },
       });
     }
-
-
   };
+
+  const getLeaderboard = async() => {
+    try{
+      await axios.get(baseUrl + '/leaderboard')
+      .then((players) => {
+          dispatch({
+            type: LEADERBOARD,
+            payload: { leaderboard: players.data }
+          });
+      })
+    }
+    catch(e){
+      dispatch({
+        type: SET_ERROR,
+        payload: { message: e.response.data },
+      });
+    }
+  }
 
   return (
     <UserContext.Provider
@@ -252,6 +268,7 @@ const UserState: React.FC = ({ children }) => {
         onlinePlayers: state.onlinePlayers,
         loading: state.loading,
         errorMsg: state.errorMsg,
+        leaderboard: state.leaderboard,
         createUser,
         login,
         updateUser,
@@ -262,6 +279,7 @@ const UserState: React.FC = ({ children }) => {
         getOnlinePlayers,
         setUserOnline,
         updateUserAvatar,
+        getLeaderboard,
       }}
     >
       {children}

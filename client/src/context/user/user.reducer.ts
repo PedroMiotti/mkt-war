@@ -8,7 +8,8 @@ import {
   ONLINE_PLAYERS,
   SET_LOADING,
   SET_ERROR,
-  UPDATE_AVATAR
+  UPDATE_AVATAR,
+  LEADERBOARD
 } from "../types";
 import { Action, State } from "./user.type";
 
@@ -28,6 +29,7 @@ export const initialState: State = {
   onlinePlayers: [],
   errorMsg: "",
   loading: false,
+  leaderboard: [],
 
   createUser: () => null,
   login: () => null,
@@ -39,6 +41,8 @@ export const initialState: State = {
   getOnlinePlayers: () => null,
   setUserOnline: () => null,
   updateUserAvatar: () => null,
+  getLeaderboard: () => null,
+
 };
 
 //reducer
@@ -111,6 +115,12 @@ export default function roomReducer(
       return {
         ...state,
         onlinePlayers: payload.onlinePlayers,
+      };
+
+    case LEADERBOARD:
+      return {
+        ...state,
+        leaderboard: payload.leaderboard,
       };
 
     case SET_LOADING:

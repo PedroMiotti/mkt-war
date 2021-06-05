@@ -1,4 +1,5 @@
 "use strict";
+// IMPORTS
 //Dotenv
 require("dotenv").config();
 // SQL
@@ -141,7 +142,7 @@ class UserModel {
     static async Leaderboard() {
         let list;
         await Sql.conectar(async (sql) => {
-            list = await sql.query("SELECT * FROM player ORDER BY player_trophies DESC");
+            list = await sql.query("SELECT player_id, player_name, player_username, player_trophies, player_avatar, player_coins FROM player ORDER BY player_trophies DESC");
         });
         return list;
     }

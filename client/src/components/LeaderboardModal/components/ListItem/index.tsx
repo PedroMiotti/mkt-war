@@ -4,30 +4,25 @@ import "./style.css";
 import { Avatar } from "antd";
 
 // Assets
-import AvatarIcon from "assets/icons/hacker.svg";
 import TrophyIcon from "assets/icons/trophy.svg";
 
 //Utils
 import SelectAvatarSrc from 'utils/chooseAvatar';
 
 interface IListItemProps {
-  setPlayer: any;
   Pkey: number;
-  avatar: string;
+  avatar: number;
   username: string;
   trophies: number;
   id: number;
-  inviteButton: () => void;
 }
 
 const ListItem: React.FC<IListItemProps> = ({
   Pkey,
+  id,
   avatar,
   username,
   trophies,
-  id,
-  setPlayer,
-  inviteButton
 }) => {
   return (
       <div className="listitem-container">
@@ -37,7 +32,7 @@ const ListItem: React.FC<IListItemProps> = ({
           <div className="listitem-avatar-username">
             <Avatar
               style={{verticalAlign: "middle", border: "1px solid #fff" }}
-              src={SelectAvatarSrc(avatar)}
+              src={SelectAvatarSrc(avatar.toString())}
               size="large"
             />
             <div>
@@ -52,7 +47,6 @@ const ListItem: React.FC<IListItemProps> = ({
             </div>
             </div>
           </div>
-          <button onClick={() => { setPlayer(id); inviteButton()}} className="listitem-invitebutton">Desafiar</button>
         </div>
       </div>
   );

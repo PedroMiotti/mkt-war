@@ -7,6 +7,14 @@ export interface IUser {
     avatar: string;
 }
 
+export interface IPlayer {
+    player_id: number;
+    player_name: string;
+    player_username: string;
+    player_trophies: number;
+    player_avatar: number;
+}
+
 export interface State {
     id: string;
     isLoggedIn: boolean;
@@ -16,9 +24,11 @@ export interface State {
     trophies: string;
     coins: string;
     avatar: string;
-    onlinePlayers: any[];
+    onlinePlayers: IPlayer[];
     errorMsg: string;
     loading: boolean;
+    leaderboard: IPlayer[];
+
 
     createUser: (values: { username: string; name: string; password: string }) => void;
     login: (values: { username: string; password: string }) => void;
@@ -30,6 +40,8 @@ export interface State {
     getOnlinePlayers: () => void;
     setUserOnline: () => void;
     updateUserAvatar: (avatarId: string) => void;
+    getLeaderboard: () => void;
+
 }
 
 

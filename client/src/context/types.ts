@@ -28,6 +28,8 @@ export const DELETE_USER: string = 'DELETE_USER';
 export const UPDATE_AVATAR: string = 'UPDATE_AVATAR'; 
 
 export const ONLINE_PLAYERS: string = 'ONLINE_PLAYERS'; 
+export const LEADERBOARD: string = 'LEADERBOARD'; 
+
 
 // General
 export const SET_ERROR: string = 'SET_ERROR'; 

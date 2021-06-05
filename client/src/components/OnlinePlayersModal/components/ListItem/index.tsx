@@ -13,7 +13,7 @@ import SelectAvatarSrc from 'utils/chooseAvatar';
 interface IListItemProps {
   setPlayer: any;
   Pkey: number;
-  avatar: string;
+  avatar: number;
   username: string;
   trophies: number;
   id: number;
@@ -37,7 +37,7 @@ const ListItem: React.FC<IListItemProps> = ({
           <div className="listitem-avatar-username">
             <Avatar
               style={{verticalAlign: "middle", border: "1px solid #fff" }}
-              src={SelectAvatarSrc(avatar)}
+              src={SelectAvatarSrc(avatar.toString())}
               size="large"
             />
             <div>

@@ -5,7 +5,6 @@ import { Modal } from "antd";
 
 import ListView from "./components/ListView";
 
-import { useMatchContext } from "../../context/match/match.context";
 import { useUserContext } from "../../context/user/user.context";
 
 // Utils
@@ -17,10 +16,7 @@ interface ILeaderboardModalProps {
 }
 
 const OnlinePlayersModal: React.FC<ILeaderboardModalProps> = ({ openModal, closeModal }) => {
-  const { createMatch } = useMatchContext();
-  const { onlinePlayers } = useUserContext();
-
-  const [playerId, setPlayerId] = React.useState("");
+  const { leaderboard, getLeaderboard } = useUserContext();
 
   const [isvisible, setIsVisible] = React.useState(openModal);
 
@@ -35,17 +31,10 @@ const OnlinePlayersModal: React.FC<ILeaderboardModalProps> = ({ openModal, close
   }, [openModal])
 
   React.useEffect(() => {
-    if(playerId){
-      createMatch(userId.key.toString(), playerId);
-      closeModal();
-    }
 
-  }, [playerId])
+    getLeaderboard();
 
-  const challengePlayer = () => {
-    setPlayerId(playerId)
-  };
-  
+  }, [])
 
   return (
     <>
@@ -61,7 +50,7 @@ const OnlinePlayersModal: React.FC<ILeaderboardModalProps> = ({ openModal, close
         </div>
 
         <div className="leaderboard-listview">
-            <ListView setPlayer={setPlayerId} playersList={onlinePlayers.filter((player) => player.player_id != userId.key.toString())} inviteButton={challengePlayer} />
+            <ListView players={leaderboard} />
         </div>
       </Modal>
     </>

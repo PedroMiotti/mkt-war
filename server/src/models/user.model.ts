@@ -1,14 +1,10 @@
 "use strict";
 
 // IMPORTS
-// Express
-import express = require("express");
 //Dotenv
 require("dotenv").config();
 // SQL
 import Sql = require("../infra/sql");
-
-import AppError = require("../utils/appError");
 
 interface IDefaultResponse {
   statusCode: number;
@@ -274,7 +270,7 @@ class UserModel {
 
     await Sql.conectar(async (sql: Sql) => {
       list = await sql.query(
-        "SELECT * FROM player ORDER BY player_trophies DESC"
+        "SELECT player_id, player_name, player_username, player_trophies, player_avatar, player_coins FROM player ORDER BY player_trophies DESC"
       );
 
     });
