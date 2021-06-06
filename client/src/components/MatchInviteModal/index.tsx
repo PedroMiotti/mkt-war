@@ -15,19 +15,18 @@ import { useMatchContext } from "../../context/match/match.context";
 //Utils
 import SelectAvatarSrc from 'utils/chooseAvatar';
 
-const MatchInvite = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+interface IModalInviteProps{
+  closeModal: () => void;
+  openModal: boolean;
+}
 
-  const { acceptBattleInvite, receivedInvite, invite } = useMatchContext();
+const MatchInvite: React.FC<IModalInviteProps> = ({ openModal, closeModal }) => {
+  const { acceptBattleInvite, invite, denyBattleInvite } = useMatchContext();
 
   let userId: IToken = getUserIdByToken();
 
-  React.useEffect(() => {
-    if (receivedInvite) setIsModalVisible(true);
-  }, [receivedInvite]);
-
   const handleAccept = () => {
-    setIsModalVisible(false);
+    closeModal();
     acceptBattleInvite(
       userId.key.toString(),
       invite.matchId.toString(),
@@ -35,9 +34,14 @@ const MatchInvite = () => {
     );
   };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const handleDeny = () => {
+    closeModal();
+    denyBattleInvite(
+      invite.matchId.toString(),
+      invite.ownerInfo.id.toString()
+    );
   };
+
 
   return (
     <>
@@ -45,7 +49,7 @@ const MatchInvite = () => {
         footer={null}
         title="Convite de batalha"
         centered
-        visible={isModalVisible}
+        visible={openModal}
         closable={false}
       >
         <div className="matchInvite-challenger-info">
@@ -71,7 +75,7 @@ const MatchInvite = () => {
         </div>
 
         <div className="matchInvite-buttons">
-          <button className="matchInvite-deny">RECUSAR</button>
+          <button onClick={handleDeny} className="matchInvite-deny">RECUSAR</button>
           <button onClick={handleAccept} className="matchInvite-accept">
             ACEITAR
           </button>

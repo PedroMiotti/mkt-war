@@ -24,6 +24,8 @@ export = function createConnection(http: any) {
 
     socket.on(SocketEvents.CLIENT_INVITE_PLAYER, ({ matchId, opponentId, ownerId }) => MatchService.SendInvite(matchId, opponentId, ownerId, io));
 
+    socket.on(SocketEvents.CLIENT_DENY_INVITE, ({ matchId, ownerId }) => MatchService.DenyInvite(matchId, ownerId, io));
+
     socket.on(SocketEvents.CLIENT_JOIN_MATCH, ({ matchId, userId }) => MatchService.JoinRoom(matchId, userId, socket, io));
 
     socket.on(SocketEvents.CLIENT_USER_READY, ({ matchId, userId }) => MatchService.SetUserReady(matchId, userId, io, socket));

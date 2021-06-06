@@ -34,7 +34,7 @@ import { instance as axios } from "../api";
 
 // Ant Design
 import { notification } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 const MatchState: React.FC = ({ children }) => {
   const initialState: State = {
@@ -53,6 +53,21 @@ const MatchState: React.FC = ({ children }) => {
       
       notification.open({
         message : "Seu oponente saiu da partida !",
+        description : "Você está redirecionado para o lobby !",
+        onClose: (() => matchEnded()),
+        icon : <LoadingOutlined style={{ color: "#161616" }} />,
+        className : "antd-notification",      
+        placement : "bottomLeft",
+        bottom : 50,
+        duration : 4.5,
+      });
+      
+    });
+
+    // Player denied invite
+    socket.on(SocketEvents.SERVER_PLAYER_DENIED_INVITE, (data: any) => {
+      notification.open({
+        message : "Seu oponente recusou seu convite de batalha :(",
         description : "Você está redirecionado para o lobby !",
         onClose: (() => matchEnded()),
         icon : <LoadingOutlined style={{ color: "#161616" }} />,
@@ -224,6 +239,7 @@ const MatchState: React.FC = ({ children }) => {
       socket.off(SocketEvents.SERVER_SEND_INVITE);
       socket.off(SocketEvents.SERVER_PLAYER_JOINED);
       socket.off(SocketEvents.SERVER_PLAYER_READY);
+      socket.off(SocketEvents.SERVER_PLAYER_DENIED_INVITE);
 
       socket.off(SocketEvents.SERVER_MATCH_COUNTDOWN);
       socket.off(SocketEvents.SERVER_MATCH_START_QUESTION);
@@ -293,6 +309,18 @@ const MatchState: React.FC = ({ children }) => {
     }
   };
 
+  const denyBattleInvite = async (
+    matchId: string,
+    ownerId: string
+  ) => {
+
+    socket.emit(SocketEvents.CLIENT_DENY_INVITE, {
+      matchId: parseInt(matchId),
+      ownerId: ownerId,
+    });
+
+  };
+
   // set loading
   const setLoading = () => {
     dispatch({
@@ -353,6 +381,7 @@ const MatchState: React.FC = ({ children }) => {
         answerQuestion,
         setUserReady,
         matchEnded,
+        denyBattleInvite,
       }}
     >
       {children}

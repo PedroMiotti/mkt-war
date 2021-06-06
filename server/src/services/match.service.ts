@@ -60,8 +60,6 @@ export const JoinRoom = async (
   io: any
 ) => {
   let ownerId: number;
-  let owner: UserModel;
-  let opponent: UserModel;
 
   let matchPlayers: { owner: IPlayerInfo; opponent: IPlayerInfo } = {
     owner: {
@@ -164,9 +162,7 @@ export const PlayNextRound = async (matchId: number, io: any, socket: any) => {
     return;
   }
 
-  // TODO --> Create a better logic for the randomQuestion retrival
   const randomQuestion: QuestionUtil.IQuestion = QuestionUtil.GetRandomQuestion(_match.last_question);
-  console.log(randomQuestion);
 
   const round = _match.round + 1;
 
@@ -267,6 +263,19 @@ export const SendInvite = async (
     matchId,
     ownerInvite,
   });
+};
+
+export const DenyInvite = async (
+  matchId: number,
+  ownerId: number,
+  io: any
+) => {
+
+  let owner_socketId: string | IErrorResponse = await UserService.GetUserSocketIdById(ownerId);
+
+  MatchModel.DeleteMatch(matchId);
+
+  io.to(owner_socketId).emit(SocketEvents.SERVER_PLAYER_DENIED_INVITE, { matchId });
 };
 
 export const EndMatch = async (matchId: number, io: any, socket: any) => {

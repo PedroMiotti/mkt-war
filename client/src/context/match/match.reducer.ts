@@ -89,6 +89,7 @@ export const initialState: State = {
   answerQuestion: () => null,
   setLoading: () => null,
   matchEnded: () => null,
+  denyBattleInvite: () => null,
 };
 
 //reducer

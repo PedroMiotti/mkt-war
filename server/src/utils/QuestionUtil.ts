@@ -14,13 +14,9 @@ export const GetRandomQuestion = (last_questions: string): IQuestion => {
         lastQuestionArr = last_questions.split(' , ');
     }
 
-    console.log(lastQuestionArr)
-
     for(let i: number = 0; i < QuizQuestions.questions.length; i++ ){
 
         const randomQuestionId = Math.floor(Math.random() * QuizQuestions.questions.length);
-
-        console.log(randomQuestionId)
 
         if(!lastQuestionArr.includes(randomQuestionId.toString())){
             return QuizQuestions.questions[randomQuestionId];

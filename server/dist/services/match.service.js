@@ -26,8 +26,6 @@ exports.JoinMatch = async (userId, matchId) => {
 };
 exports.JoinRoom = async (matchId, userId, socket, io) => {
     let ownerId;
-    let owner;
-    let opponent;
     let matchPlayers = {
         owner: {
             id: 0,
@@ -93,9 +91,7 @@ exports.PlayNextRound = async (matchId, io, socket) => {
         exports.EndMatch(matchId, io, socket);
         return;
     }
-    // TODO --> Create a better logic for the randomQuestion retrival
     const randomQuestion = QuestionUtil.GetRandomQuestion(_match.last_question);
-    console.log(randomQuestion);
     const round = _match.round + 1;
     await MatchModel.UpdateMatchRound(matchId, 3, round, 0, 0, (!_match.last_question ? randomQuestion.id.toString() : `${_match.last_question},${randomQuestion.id.toString()}`));
     io.to(matchId).emit(SocketEvents.SERVER_MATCH_START_ROUND, {
@@ -160,6 +156,11 @@ exports.SendInvite = async (matchId, opponentId, ownerId, io) => {
         matchId,
         ownerInvite,
     });
+};
+exports.DenyInvite = async (matchId, ownerId, io) => {
+    let owner_socketId = await UserService.GetUserSocketIdById(ownerId);
+    MatchModel.DeleteMatch(matchId);
+    io.to(owner_socketId).emit(SocketEvents.SERVER_PLAYER_DENIED_INVITE, { matchId });
 };
 exports.EndMatch = async (matchId, io, socket) => {
     const match = await MatchModel.GetMatchById(matchId);

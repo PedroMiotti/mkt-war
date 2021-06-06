@@ -100,7 +100,7 @@ export interface State {
   ) => void;
   setLoading: (roomID: string) => void;
   matchEnded: () => void;
-
+  denyBattleInvite: (matchId: string, ownerId: string) => void;
 }
 
 export interface Action {

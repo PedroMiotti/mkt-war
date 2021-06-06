@@ -3,11 +3,11 @@ import "./style.css";
 
 // Context
 import { useUserContext } from "../../context/user/user.context";
+import { useMatchContext } from "../../context/match/match.context";
 
 // Utils
 import { getUserIdByToken, IToken } from "../../utils/getUserIdByToken";
 import SelectAvatarSrc from 'utils/chooseAvatar';
-
 
 // Components
 import InfoBox from "../../components/Containers/InfoBox";
@@ -38,25 +38,27 @@ const Home = () => {
     getOnlinePlayers,
   } = useUserContext();
 
+  const { receivedInvite } = useMatchContext();
+
+  const [ userAvatar, setUserAvatar] = React.useState(SelectAvatarSrc(avatar));
   const [onlinePlayersModalVisible, setOnlinePlayersModalVisible] = React.useState(false);
   const [chooseAvatarsDrawerVisible, setChooseAvatarsDrawerVisible] = React.useState(false);
   const [leaderboardModalVisible, setLeaderboardModalVisible] = React.useState(false);
-
-
-  const [ userAvatar, setUserAvatar] = React.useState(SelectAvatarSrc(avatar));
+  const [battleInviteModalVisible, setBattleInviteModalVisible] = React.useState(false);
 
   let userId: IToken = getUserIdByToken();
 
   React.useEffect(() => {
     userProfile(userId.key.toString());
     setUserOnline();
-
   }, []);
 
   React.useEffect(() => {
-    if(avatar)
-      setUserAvatar(SelectAvatarSrc(avatar))
+    if (receivedInvite) setBattleInviteModalVisible(true);
+  }, [receivedInvite]);
 
+  React.useEffect(() => {
+    if(avatar) setUserAvatar(SelectAvatarSrc(avatar))
   }, [avatar]);
 
   const playWithFriend = () => {
@@ -64,17 +66,19 @@ const Home = () => {
     setOnlinePlayersModalVisible(true);
   };
 
-
-
   return (
     <div className="MainPage-Containter">
       
-      <MatchInviteModal />
+      <ChooseAvatarDrawer openDrawer={chooseAvatarsDrawerVisible} closeDrawer={() => setChooseAvatarsDrawerVisible(false)}/>
+
+      {battleInviteModalVisible &&
+        <MatchInviteModal openModal={battleInviteModalVisible} closeModal={() => setBattleInviteModalVisible(false)} />
+      }
 
       {onlinePlayersModalVisible && 
         <OnlinePlayersModal openModal={onlinePlayersModalVisible} closeModal={() => setOnlinePlayersModalVisible(false)}/>
       }
-      <ChooseAvatarDrawer openDrawer={chooseAvatarsDrawerVisible} closeDrawer={() => setChooseAvatarsDrawerVisible(false)}/>
+      
       {leaderboardModalVisible &&
         <LeaderboardModal openModal={leaderboardModalVisible} closeModal={() => setLeaderboardModalVisible(false)}/>
       }

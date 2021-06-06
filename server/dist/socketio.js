@@ -14,6 +14,7 @@ module.exports = function createConnection(http) {
         console.log("connected " + socket.id);
         socket.on(SocketEvents.CLIENT_UPDATE_STATUS, ({ userId }) => UserService.UserConnected(userId, socket.id));
         socket.on(SocketEvents.CLIENT_INVITE_PLAYER, ({ matchId, opponentId, ownerId }) => MatchService.SendInvite(matchId, opponentId, ownerId, io));
+        socket.on(SocketEvents.CLIENT_DENY_INVITE, ({ matchId, ownerId }) => MatchService.DenyInvite(matchId, ownerId, io));
         socket.on(SocketEvents.CLIENT_JOIN_MATCH, ({ matchId, userId }) => MatchService.JoinRoom(matchId, userId, socket, io));
         socket.on(SocketEvents.CLIENT_USER_READY, ({ matchId, userId }) => MatchService.SetUserReady(matchId, userId, io, socket));
         socket.on(SocketEvents.CLIENT_ANSWER_QUESTION, ({ matchId, userId, questionId, answerId, correctAnswer }) => MatchService.AnswerQuestion(userId, matchId, questionId, answerId, correctAnswer));

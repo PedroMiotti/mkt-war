@@ -12,6 +12,7 @@
   
 
   SERVER_SEND_INVITE: 'send:invite',
+  SERVER_PLAYER_DENIED_INVITE: 'denied-invite:match',
 
   SERVER_PLAYER_JOINED: 'player-joined:match',
   SERVER_PLAYER_READY: 'player-ready:match',
@@ -25,5 +26,6 @@
   SERVER_MATCH_END: 'end:match',
   
 }
+
 
 export default SocketEvents;
