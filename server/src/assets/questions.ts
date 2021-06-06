@@ -114,4 +114,28 @@ export const questions = [
     ],
     correct: 2 ,
   },
+  {
+    id: 6,
+    text: `Em que fase a pesquisa de mercado focaliza as reações do consumidor, sobretudo no que se refere às queixas?`,
+    answers: [
+      {
+        id: 1,
+        text: "Pré-comercialização.",
+      },
+      {
+        id: 2,
+        text: "Introdução.",
+      },
+      {
+        id: 3,
+        text: "Desenvolvimento.",
+      },
+      {
+        id: 4,
+        text: "Maturidade.",
+      },
+    ],
+    correct: 2 ,
+  },
+  
 ];

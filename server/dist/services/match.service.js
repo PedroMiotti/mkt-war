@@ -3,10 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const MatchModel = require("../models/match.model");
 const UserModel = require("../models/user.model");
 const UserService = require("./user.service");
-const QuizQuestions = require("../assets/questions");
 const SocketEvents = require("../constants/SocketEvents");
 const MatchStatus = require("../constants/MatchStatus");
 const Time = require("../utils/Time");
+const QuestionUtil = require("../utils/QuestionUtil");
 exports.CreateMatch = async (ownerId) => {
     if (!ownerId)
         return {
@@ -93,24 +93,24 @@ exports.PlayNextRound = async (matchId, io, socket) => {
         exports.EndMatch(matchId, io, socket);
         return;
     }
-    // get question
-    // TODO --> Create a better logic for the question retrival
-    const question = QuizQuestions.questions[0];
+    // TODO --> Create a better logic for the randomQuestion retrival
+    const randomQuestion = QuestionUtil.GetRandomQuestion(_match.last_question);
+    console.log(randomQuestion);
     const round = _match.round + 1;
-    await MatchModel.UpdateMatchRound(matchId, 3, round, 0, 0, question.id.toString());
+    await MatchModel.UpdateMatchRound(matchId, 3, round, 0, 0, (!_match.last_question ? randomQuestion.id.toString() : `${_match.last_question},${randomQuestion.id.toString()}`));
     io.to(matchId).emit(SocketEvents.SERVER_MATCH_START_ROUND, {
         currentRound: round,
         totalRound: MatchModel.TOTAL_ROUNDS,
     });
     await Time.waitMS(MatchModel.TIME_BEFORE_SEND_QUESTION);
     io.to(matchId).emit(SocketEvents.SERVER_MATCH_START_QUESTION, {
-        id: question.id,
-        title: question.text,
-        answer1: question.answers[0],
-        answer2: question.answers[1],
-        answer3: question.answers[2],
-        answer4: question.answers[3],
-        correctAnswer: question.correct,
+        id: randomQuestion.id,
+        title: randomQuestion.text,
+        answer1: randomQuestion.answers[0],
+        answer2: randomQuestion.answers[1],
+        answer3: randomQuestion.answers[2],
+        answer4: randomQuestion.answers[3],
+        correctAnswer: randomQuestion.correct,
     });
     await Time.waitMS(MatchModel.TIME_BEFORE_COUNTDOWN);
     let userDisconnected = false;
@@ -139,7 +139,7 @@ exports.PlayNextRound = async (matchId, io, socket) => {
             answer: _match.opponent_last_answer,
             score: _match.opponent_score,
         },
-        correctAnswer: question.correct,
+        correctAnswer: randomQuestion.correct,
     });
     await Time.waitMS(MatchModel.TIME_BEFORE_NEW_ROUND);
     if (userDisconnected) {
