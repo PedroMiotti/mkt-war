@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/static/css/main.53cd94c0.chunk.css",
+    "main.js": "/static/js/main.25a5009b.chunk.js",
+    "main.js.map": "/static/js/main.25a5009b.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.b89d7a6f.js",
+    "runtime-main.js.map": "/static/js/runtime-main.b89d7a6f.js.map",
+    "static/js/2.862fb6c9.chunk.js": "/static/js/2.862fb6c9.chunk.js",
+    "static/js/2.862fb6c9.chunk.js.map": "/static/js/2.862fb6c9.chunk.js.map",
+    "static/js/3.87dbf5ba.chunk.js": "/static/js/3.87dbf5ba.chunk.js",
+    "static/js/3.87dbf5ba.chunk.js.map": "/static/js/3.87dbf5ba.chunk.js.map",
+    "index.html": "/index.html",
+    "service-worker.js": "/service-worker.js",
+    "service-worker.js.map": "/service-worker.js.map",
+    "static/css/main.53cd94c0.chunk.css.map": "/static/css/main.53cd94c0.chunk.css.map",
+    "static/js/2.862fb6c9.chunk.js.LICENSE.txt": "/static/js/2.862fb6c9.chunk.js.LICENSE.txt",
+    "static/media/1_badge.e4575def.svg": "/static/media/1_badge.e4575def.svg",
+    "static/media/2_badge.a115f5fc.svg": "/static/media/2_badge.a115f5fc.svg",
+    "static/media/3_badge.66799ff8.svg": "/static/media/3_badge.66799ff8.svg",
+    "static/media/back.2a97e7c8.svg": "/static/media/back.2a97e7c8.svg",
+    "static/media/check.4f0d5f3a.svg": "/static/media/check.4f0d5f3a.svg",
+    "static/media/dollar.64e7d751.svg": "/static/media/dollar.64e7d751.svg",
+    "static/media/edit.b44e4334.svg": "/static/media/edit.b44e4334.svg",
+    "static/media/empty-podium.47681261.svg": "/static/media/empty-podium.47681261.svg",
+    "static/media/gold-cup.bdf9af24.svg": "/static/media/gold-cup.bdf9af24.svg",
+    "static/media/logout.1642665f.svg": "/static/media/logout.1642665f.svg",
+    "static/media/podium.ab0d1827.svg": "/static/media/podium.ab0d1827.svg",
+    "static/media/silver-cup.faaec05a.svg": "/static/media/silver-cup.faaec05a.svg",
+    "static/media/teamwork.e032ff14.svg": "/static/media/teamwork.e032ff14.svg",
+    "static/media/trophy.b7eae62c.svg": "/static/media/trophy.b7eae62c.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b89d7a6f.js",
+    "static/js/2.862fb6c9.chunk.js",
+    "static/css/main.53cd94c0.chunk.css",
+    "static/js/main.25a5009b.chunk.js"
+  ]
+}
