@@ -9,10 +9,9 @@ import MatchService = require("./services/match.service");
 import UserService = require("./services/user.service");
 
 export = function createConnection(http: any) {
-  const options: { cors: boolean; origins: string[], path: string } = {
+  const options: { cors: boolean; origins: string[] } = {
     cors: true,
     origins: ["*"],
-    path: "/socket"
   };
 
   const io = ioServer(http, options);
