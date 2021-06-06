@@ -136,9 +136,6 @@ const Lobby = () => {
               Pronto
             </button>
           </div>
-
-          
-
         </div>
 
         <div className="lobby-divider">

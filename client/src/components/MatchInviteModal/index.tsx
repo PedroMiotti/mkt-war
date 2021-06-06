@@ -73,7 +73,7 @@ const MatchInvite: React.FC<IModalInviteProps> = ({ openModal, closeModal }) => 
             </div>
           </div>
         </div>
-
+    
         <div className="matchInvite-buttons">
           <button onClick={handleDeny} className="matchInvite-deny">RECUSAR</button>
           <button onClick={handleAccept} className="matchInvite-accept">
