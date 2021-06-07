@@ -13,4 +13,4 @@ export const socket = _socket;
 export const SocketContext = React.createContext(socket);
 
 
-// "proxy": "/api-v1",
+
