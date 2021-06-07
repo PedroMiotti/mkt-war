@@ -158,7 +158,7 @@ export const questions = [
         text: "Em que negócios estamos ?",
       },
     ],
-    correct: 4 ,
+    correct: 1 ,
   },
   {
     id: 8,

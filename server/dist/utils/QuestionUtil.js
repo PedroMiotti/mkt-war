@@ -11,7 +11,6 @@ exports.GetRandomQuestion = (last_questions) => {
         if (!lastQuestionArr.includes(randomQuestionId.toString())) {
             return QuizQuestions.questions[randomQuestionId];
         }
-        return QuizQuestions.questions[randomQuestionId];
     }
     ;
 };

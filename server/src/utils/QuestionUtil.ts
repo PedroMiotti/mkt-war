@@ -22,7 +22,6 @@ export const GetRandomQuestion = (last_questions: string): IQuestion => {
             return QuizQuestions.questions[randomQuestionId];
         }
 
-        return QuizQuestions.questions[randomQuestionId];
     };
 
 }
