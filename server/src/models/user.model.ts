@@ -92,7 +92,6 @@ class UserModel {
     let res: string | number = null;
 
     let randomAvatar: number = Math.floor(Math.random() * (8 - 1 + 1) + 1);
-    console.log(randomAvatar);
 
     await Sql.conectar(async (sql: Sql) => {
       try {
@@ -189,7 +188,7 @@ class UserModel {
     return user_id;
   }
 
-  public static async Logout(userId: number): Promise<string> {
+  public static async setUserOffline(userId: number): Promise<string> {
     let res: string;
 
     await Sql.conectar(async (sql: Sql) => {

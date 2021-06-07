@@ -18,7 +18,7 @@ module.exports = function createConnection(http) {
         socket.on(SocketEvents.CLIENT_JOIN_MATCH, ({ matchId, userId }) => MatchService.JoinRoom(matchId, userId, socket, io));
         socket.on(SocketEvents.CLIENT_USER_READY, ({ matchId, userId }) => MatchService.SetUserReady(matchId, userId, io, socket));
         socket.on(SocketEvents.CLIENT_ANSWER_QUESTION, ({ matchId, userId, questionId, answerId, correctAnswer }) => MatchService.AnswerQuestion(userId, matchId, questionId, answerId, correctAnswer));
-        socket.on(SocketEvents.CLIENT_DISCONNECT, () => MatchService.DisconnectUserFromMatch(socket.id, io, socket));
+        socket.on(SocketEvents.CLIENT_DISCONNECT, () => { UserService.setUserOfflineBySocketId(socket.id); MatchService.DisconnectUserFromMatch(socket.id, io, socket); });
     });
     return io;
 };

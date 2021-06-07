@@ -32,7 +32,7 @@ export = function createConnection(http: any) {
 
     socket.on(SocketEvents.CLIENT_ANSWER_QUESTION, ({ matchId, userId, questionId, answerId, correctAnswer }) => MatchService.AnswerQuestion(userId, matchId, questionId, answerId, correctAnswer));
 
-    socket.on(SocketEvents.CLIENT_DISCONNECT, () => MatchService.DisconnectUserFromMatch(socket.id, io, socket));
+    socket.on(SocketEvents.CLIENT_DISCONNECT, () => { UserService.setUserOfflineBySocketId(socket.id); MatchService.DisconnectUserFromMatch(socket.id, io, socket) });
 
   });
 

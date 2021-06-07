@@ -16,7 +16,7 @@ router.get("/profile/:id", async (req, res) => {
 });
 // Logout
 router.delete("/logout/:id", async (req, res) => {
-    await UserController.Logout(req, res);
+    await UserController.setUserOffline(req, res);
 });
 // Online users
 router.get("/online", async (req, res) => {

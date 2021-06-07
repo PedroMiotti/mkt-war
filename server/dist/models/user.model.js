@@ -27,7 +27,6 @@ class UserModel {
     static async createUser(username, name, hashedPassword) {
         let res = null;
         let randomAvatar = Math.floor(Math.random() * (8 - 1 + 1) + 1);
-        console.log(randomAvatar);
         await Sql.conectar(async (sql) => {
             try {
                 await sql.query("INSERT INTO player (player_name, player_password, player_username, player_trophies, player_avatar, player_coins) VALUES( ?, ?, ?, ?, ?, ?)", [name, hashedPassword, username, 0, randomAvatar, 0]);
@@ -89,7 +88,7 @@ class UserModel {
         });
         return user_id;
     }
-    static async Logout(userId) {
+    static async setUserOffline(userId) {
         let res;
         await Sql.conectar(async (sql) => {
             await sql.query("DELETE FROM online_players WHERE online_player_id = ?", [

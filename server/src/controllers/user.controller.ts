@@ -54,11 +54,11 @@ class UserController{
   }
 
 
-  public static async Logout(req: express.Request, res: express.Response){
+  public static async setUserOffline(req: express.Request, res: express.Response){
 
     let user_id: number = parseInt(req.params.id);
 
-    const result = await UserService.Logout(user_id);
+    const result = await UserService.setUserOffline(user_id);
     
     if(typeof result === 'string')
       return res.status(200).send(result);

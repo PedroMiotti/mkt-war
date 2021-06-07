@@ -145,7 +145,7 @@ export const OnlinePlayers = async (): Promise<any[]> => {
 }
 
 
-export const Logout = async (userId: number): Promise<string | IErrorResponse> => {
+export const setUserOffline = async (userId: number): Promise<string | IErrorResponse> => {
 
   let result: string;
 
@@ -155,7 +155,7 @@ export const Logout = async (userId: number): Promise<string | IErrorResponse> =
         data: "Usuário não encontrado !",
       };
 
-   result = await UserModel.Logout(userId);
+   result = await UserModel.setUserOffline(userId);
 
    if(!result)
       return {
@@ -166,6 +166,28 @@ export const Logout = async (userId: number): Promise<string | IErrorResponse> =
     return 'Usuario logout';
 }
 
+export const setUserOfflineBySocketId = async (socketId: string): Promise<string | IErrorResponse> => {
+
+  let result: string;
+  let userId: string = await UserModel.GetUserIdBySocketId(socketId);
+
+  if(!socketId || !userId)
+      return {
+        errorCode: 4,
+        data: "Usuário não encontrado !",
+      };
+
+  result = await UserModel.setUserOffline(parseInt(userId));
+
+  if(!result)
+    return {
+      errorCode: 4,
+      data: "Usuário não está online !",
+    };
+
+  return 'Usuario logout';
+}
+
 export const Leaderboard = async (): Promise<any[]> => {
   let leaderboard_list: any[];
 
@@ -173,3 +195,5 @@ export const Leaderboard = async (): Promise<any[]> => {
 
   return leaderboard_list;
 }
+
+

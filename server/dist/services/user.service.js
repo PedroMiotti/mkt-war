@@ -92,14 +92,30 @@ exports.OnlinePlayers = async () => {
     users = await UserModel.OnlinePlayers();
     return users;
 };
-exports.Logout = async (userId) => {
+exports.setUserOffline = async (userId) => {
     let result;
     if (!userId)
         return {
             errorCode: 4,
             data: "Usuário não encontrado !",
         };
-    result = await UserModel.Logout(userId);
+    result = await UserModel.setUserOffline(userId);
+    if (!result)
+        return {
+            errorCode: 4,
+            data: "Usuário não está online !",
+        };
+    return 'Usuario logout';
+};
+exports.setUserOfflineBySocketId = async (socketId) => {
+    let result;
+    let userId = await UserModel.GetUserIdBySocketId(socketId);
+    if (!socketId || !userId)
+        return {
+            errorCode: 4,
+            data: "Usuário não encontrado !",
+        };
+    result = await UserModel.setUserOffline(parseInt(userId));
     if (!result)
         return {
             errorCode: 4,
