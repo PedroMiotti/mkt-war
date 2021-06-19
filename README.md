@@ -23,7 +23,7 @@ Mkt War is a multiplayer trivia game for learning strategic marketing concepts.
 
 ## 📺 Prerequisites
 
-Before running app locally make sure that you install following things:
+Before running app locally make sure that you install the following things:
 
 -   [MySQL](https://dev.mysql.com/downloads/installer/)
 -   [Typescript](https://www.typescriptlang.org/id/download)
