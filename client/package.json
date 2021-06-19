@@ -61,7 +61,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "/api-v1",
   "devDependencies": {
     "@types/react-lottie": "^1.2.5",
     "@types/react-router-dom": "^5.1.7"
